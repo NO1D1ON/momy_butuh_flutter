@@ -1,0 +1,7 @@
+// File ini menyimpan nilai-nilai konstan yang digunakan di seluruh aplikasi.
+class AppConstants {
+  // URL dasar dari API Laravel Anda. Pastikan IP ini benar untuk emulator/device Anda.
+  // Gunakan 'http://10.0.2.2:8000' jika menjalankan di Android Emulator.
+  // Gunakan alamat IP lokal Anda jika menjalankan di device fisik.
+  static const String baseUrl = 'http://127.0.0.1:8000/api';
+}
