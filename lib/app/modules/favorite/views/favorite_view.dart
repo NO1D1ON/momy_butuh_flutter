@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:momy_butuh_flutter/app/routes/app_pages.dart';
 import '../controllers/favorite_controller.dart';
 import '../../../utils/theme.dart';
 
@@ -54,9 +55,8 @@ class FavoriteView extends GetView<FavoriteController> {
                   color: Colors.grey,
                 ),
                 onTap: () {
-                  // Navigasi ke halaman detail jika item di-klik
                   Get.toNamed(
-                    '/babysitter-detail/${babysitter.id}',
+                    Routes.BABYSITTER_DETAIL,
                     arguments: babysitter.id,
                   );
                 },

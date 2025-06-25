@@ -6,12 +6,12 @@ class FavoriteController extends GetxController {
   var isLoading = true.obs;
   var favoriteList = <Babysitter>[].obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    // Langsung panggil data saat halaman pertama kali dibuka
-    fetchFavorites();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   // Langsung panggil data saat halaman pertama kali dibuka
+  //   fetchFavorites();
+  // }
 
   void fetchFavorites() async {
     try {

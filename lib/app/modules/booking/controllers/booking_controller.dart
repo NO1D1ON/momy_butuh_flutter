@@ -55,17 +55,43 @@ class BookingController extends GetxController {
 
   // Fungsi untuk menghitung total harga
   void calculatePrice() {
+    // Pastikan semua nilai ada sebelum menghitung
     if (startTime.value != null && endTime.value != null) {
-      final start = startTime.value!;
-      final end = endTime.value!;
-      // Hitung durasi dalam jam
-      final duration =
-          (end.hour - start.hour) + (end.minute - start.minute) / 60.0;
-      if (duration > 0) {
-        totalPrice.value = (duration * babysitter.ratePerHour).ceil();
+      // Gabungkan tanggal dummy dengan waktu untuk mendapatkan objek DateTime lengkap
+      final now = DateTime.now();
+      final startDateTime = DateTime(
+        now.year,
+        now.month,
+        now.day,
+        startTime.value!.hour,
+        startTime.value!.minute,
+      );
+      final endDateTime = DateTime(
+        now.year,
+        now.month,
+        now.day,
+        endTime.value!.hour,
+        endTime.value!.minute,
+      );
+
+      // Hitung selisih waktu dalam menit
+      final differenceInMinutes = endDateTime
+          .difference(startDateTime)
+          .inMinutes;
+
+      if (differenceInMinutes > 0) {
+        // Ubah menit menjadi jam
+        final durationInHours = differenceInMinutes / 60.0;
+        // Kalikan dengan tarif per jam
+        totalPrice.value = (durationInHours * babysitter.ratePerHour).ceil();
       } else {
         totalPrice.value = 0;
       }
+
+      // Print untuk debugging, lihat hasilnya di Debug Console VS Code
+      print(
+        "Start: $startDateTime, End: $endDateTime, Duration: $differenceInMinutes mins, Total: ${totalPrice.value}",
+      );
     }
   }
 

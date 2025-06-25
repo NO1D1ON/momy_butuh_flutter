@@ -42,6 +42,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   laravel_echo: ^1.0.0-beta.1
   pusher_client: ^2.0.0
+  rive_common: ^0.4.15
 
 dev_dependencies:
   flutter_test:

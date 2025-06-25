@@ -20,7 +20,7 @@ abstract class _Paths {
   // static const HOME = '/home';
   static const DASHBOARD = '/dashboard';
   static const REGISTER = '/register';
-  static const BABYSITTER_DETAIL = '/babysitter-detail/:id';
+  static const BABYSITTER_DETAIL = '/babysitter-detail';
   static const BOOKING = '/booking';
   static const CHAT = '/chat';
 }

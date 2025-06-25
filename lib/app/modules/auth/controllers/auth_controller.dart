@@ -37,11 +37,12 @@ class AuthController extends GetxController {
         animType: AnimType.scale,
         title: 'Login Berhasil',
         desc: result['data']['message'],
-        btnOkOnPress: () {},
+        btnOkOnPress: () {
+          Get.offAllNamed(Routes.HOME);
+        },
       ).show();
 
-      await Future.delayed(const Duration(seconds: 2));
-      Get.offAllNamed(Routes.HOME);
+      // await Future.delayed(const Duration(seconds: 2));
     } else {
       // Notifikasi gagal dengan AwesomeDialog
       AwesomeDialog(

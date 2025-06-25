@@ -1,4 +1,3 @@
-// Model untuk data booking
 class Booking {
   final int id;
   final String babysitterName;
@@ -12,12 +11,11 @@ class Booking {
     required this.status,
   });
 
-  // Factory constructor untuk membuat instance Booking dari JSON
   factory Booking.fromJson(Map<String, dynamic> json) {
     return Booking(
       id: json['id'],
-      // Kita ambil nama babysitter dari data relasi yang kita sertakan di API
-      babysitterName: json['babysitter']['name'] ?? 'N/A',
+      // Pastikan membaca dari kunci 'babysitter_name'
+      babysitterName: json['babysitter_name'] ?? 'N/A',
       bookingDate: json['booking_date'],
       status: json['status'],
     );

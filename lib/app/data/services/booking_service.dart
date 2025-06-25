@@ -33,7 +33,6 @@ class BookingService {
       final responseData = json.decode(response.body);
 
       if (response.statusCode == 201) {
-        // 201 Created
         return {'success': true, 'message': responseData['message']};
       } else {
         return {
@@ -46,6 +45,7 @@ class BookingService {
     }
   }
 
+  // METHOD YANG DIPERBAIKI
   static Future<List<Booking>> getMyBookings() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('auth_token');
@@ -61,10 +61,8 @@ class BookingService {
       );
 
       if (response.statusCode == 200) {
-        // PERUBAHAN DI SINI
-        final Map<String, dynamic> responseData = json.decode(response.body);
-        final List<dynamic> data = responseData['data'];
-
+        // Langsung decode sebagai List karena API Laravel mengirimkan array langsung
+        final List<dynamic> data = json.decode(response.body);
         return data.map((json) => Booking.fromJson(json)).toList();
       } else {
         throw Exception('Gagal memuat riwayat booking');
