@@ -29,6 +29,12 @@ abstract class Routes {
   static const TOPUP = _Paths.TOPUP;
 
   static const MAP_VIEW = _Paths.MAP_VIEW;
+  static const JOB_OFFER_DETAIL = _Paths.JOB_OFFER_DETAIL;
+
+  static const CREATE_JOB_OFFER = _Paths.CREATE_JOB_OFFER;
+  static const SELECT_LOCATION = _Paths.SELECT_LOCATION;
+
+  static const TRANSACTION_HISTORY = _Paths.TRANSACTION_HISTORY;
 }
 
 // Kelas ini mendefinisikan path URL sebenarnya untuk setiap rute.
@@ -56,4 +62,9 @@ abstract class _Paths {
   static const TOPUP = '/topup';
 
   static const MAP_VIEW = '/map-view';
+  static const JOB_OFFER_DETAIL = '/job-offer-detail';
+  static const CREATE_JOB_OFFER = '/create-job-offer';
+
+  static const SELECT_LOCATION = '/select-location';
+  static const TRANSACTION_HISTORY = '/transaction-history';
 }

@@ -5,27 +5,50 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/constants.dart';
 
 class FavoriteService {
-  // Fungsi untuk menambah/menghapus favorit
-  static Future<Map<String, dynamic>> toggleFavorite(int babysitterId) async {
+  // Method untuk mengambil daftar babysitter yang sudah difavoritkan oleh user
+  static Future<List<Babysitter>> getFavorites() async {
+    // Mengambil token autentikasi dari penyimpanan lokal
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('auth_token');
-    final url = Uri.parse('${AppConstants.baseUrl}/favorites/$babysitterId');
+
+    // Jika token tidak ada, kembalikan list kosong karena user belum login
+    if (token == null) {
+      throw Exception('Token tidak ditemukan, silakan login kembali.');
+    }
+
+    // Tentukan URL endpoint untuk mengambil data favorit
+    final url = Uri.parse(
+      '${AppConstants.baseUrl}/favorites',
+    ); // Sesuaikan endpoint jika berbeda
 
     try {
-      final response = await http.post(
+      final response = await http.get(
         url,
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer $token', // Sertakan token untuk autentikasi
         },
       );
-      return json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        // Jika berhasil, decode JSON response
+        // Asumsi API mengembalikan list data di dalam key 'data'
+        final List<dynamic> responseData = json.decode(response.body)['data'];
+
+        // Ubah setiap item JSON menjadi objek Babysitter dan kembalikan sebagai list
+        return responseData.map((json) => Babysitter.fromJson(json)).toList();
+      } else {
+        // Jika server merespon dengan status error, lempar exception
+        throw Exception('Gagal memuat data favorit dari server.');
+      }
     } catch (e) {
-      return {'message': 'Terjadi kesalahan: $e'};
+      // Jika terjadi error koneksi atau lainnya, lempar exception
+      throw Exception('Terjadi kesalahan saat mengambil data favorit: $e');
     }
   }
 
-  static Future<List<Babysitter>> getFavorites() async {
+  // Fungsi untuk mendapatkan daftar ID favorit saat halaman dimuat
+  static Future<List<Babysitter>> getFavoriteIds() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('auth_token');
     final url = Uri.parse('${AppConstants.baseUrl}/favorites');
@@ -40,13 +63,8 @@ class FavoriteService {
       );
 
       if (response.statusCode == 200) {
-        // --- PERUBAHAN DI SINI ---
-        // 1. Decode response body menjadi sebuah Map (objek)
-        final Map<String, dynamic> responseData = json.decode(response.body);
-        // 2. Ambil list dari dalam kunci 'data'
-        final List<dynamic> data = responseData['data'];
-        // --- BATAS PERUBAHAN ---
-
+        // API kita mengembalikan list babysitter, kita parsing di sini
+        final List<dynamic> data = json.decode(response.body);
         return data.map((json) => Babysitter.fromJson(json)).toList();
       } else {
         throw Exception('Gagal memuat data favorit');

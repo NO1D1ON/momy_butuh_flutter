@@ -71,4 +71,38 @@ class BookingService {
       throw Exception('Terjadi kesalahan: $e');
     }
   }
+
+  static Future<Map<String, dynamic>> completeBooking(int bookingId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('auth_token');
+    // Pastikan rute ini sesuai dengan yang ada di routes/api.php Laravel
+    final url = Uri.parse(
+      '${AppConstants.baseUrl}/bookings/$bookingId/complete',
+    );
+
+    try {
+      final response = await http.patch(
+        url,
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      final responseData = json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        return {'success': true, 'message': responseData['message']};
+      } else {
+        // Jika gagal, kembalikan pesan error dari server
+        return {
+          'success': false,
+          'message': responseData['message'] ?? 'Gagal menyelesaikan booking',
+        };
+      }
+    } catch (e) {
+      // Jika terjadi error koneksi
+      return {'success': false, 'message': 'Terjadi kesalahan koneksi: $e'};
+    }
+  }
 }

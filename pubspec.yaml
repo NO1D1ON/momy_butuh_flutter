@@ -47,6 +47,7 @@ dependencies:
   web_socket_channel: ^3.0.3
   google_maps_flutter: ^2.12.3
   geolocator: ^14.0.1
+  flutter_polyline_points: ^2.1.0
 
 dev_dependencies:
   flutter_test:

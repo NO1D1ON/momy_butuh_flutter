@@ -11,13 +11,21 @@ import 'package:momy_butuh_flutter/app/modules/booking/bindings/booking_binding.
 import 'package:momy_butuh_flutter/app/modules/booking/views/booking_view.dart';
 import 'package:momy_butuh_flutter/app/modules/chat/bindings/chat_binding.dart';
 import 'package:momy_butuh_flutter/app/modules/chat/views/chat_view.dart';
+import 'package:momy_butuh_flutter/app/modules/create_job_offer/binding.dart';
+import 'package:momy_butuh_flutter/app/modules/create_job_offer/view.dart';
 import 'package:momy_butuh_flutter/app/modules/dashboard/bindings/dashboard_binding.dart';
 import 'package:momy_butuh_flutter/app/modules/dashboard/views/dashboard_view.dart';
+import 'package:momy_butuh_flutter/app/modules/job_offer_detail/binding.dart';
+import 'package:momy_butuh_flutter/app/modules/job_offer_detail/view.dart';
 import 'package:momy_butuh_flutter/app/modules/map_view/map_view_binding.dart';
 import 'package:momy_butuh_flutter/app/modules/map_view/map_view_view.dart';
 import 'package:momy_butuh_flutter/app/modules/role_selection/role_selection_view.dart';
+import 'package:momy_butuh_flutter/app/modules/select_location/binding.dart';
+import 'package:momy_butuh_flutter/app/modules/select_location/view.dart';
 import 'package:momy_butuh_flutter/app/modules/topup/topup_binding.dart';
 import 'package:momy_butuh_flutter/app/modules/topup/topup_view.dart';
+import 'package:momy_butuh_flutter/app/modules/transaction_history/binding.dart';
+import 'package:momy_butuh_flutter/app/modules/transaction_history/view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/login_view.dart';
 import '../modules/auth/views/register_view.dart';
@@ -96,6 +104,42 @@ class AppPages {
       name: _Paths.MAP_VIEW,
       page: () => const MapView(),
       binding: MapBinding(),
+    ),
+
+    GetPage(
+      name: _Paths.JOB_OFFER_DETAIL,
+      page: () => const JobOfferDetailView(),
+      binding: JobOfferDetailBinding(),
+      transition: Transition.rightToLeft, // Tambahkan efek transisi yang bagus
+    ),
+
+    GetPage(
+      name: _Paths.JOB_OFFER_DETAIL,
+      page: () => const JobOfferDetailView(),
+      binding: JobOfferDetailBinding(),
+      transition: Transition.rightToLeft, // Tambahkan efek transisi yang bagus
+    ),
+
+    GetPage(
+      name: _Paths.CREATE_JOB_OFFER,
+      page: () => const CreateJobOfferView(),
+      binding: CreateJobOfferBinding(),
+      transition: Transition.downToUp,
+    ),
+
+    GetPage(
+      name: _Paths.SELECT_LOCATION,
+      page: () => const SelectLocationView(),
+      binding: SelectLocationBinding(),
+      // Gunakan transisi fullscreen untuk halaman peta
+      fullscreenDialog: true,
+    ),
+
+    GetPage(
+      name: _Paths.TRANSACTION_HISTORY,
+      page: () => const TransactionHistoryView(),
+      binding: TransactionHistoryBinding(),
+      transition: Transition.rightToLeft, // Efek transisi dari kanan ke kiri
     ),
   ];
 }

@@ -86,11 +86,15 @@ class AuthService {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('auth_token');
 
-    // Jika tidak ada token, langsung kembalikan pesan gagal
     if (token == null) {
-      return {'success': false, 'message': 'Token tidak ditemukan.'};
+      return {
+        'success': false,
+        'message': 'Token tidak ditemukan. Silakan login kembali.',
+      };
     }
 
+    // Endpoint ini akan bekerja untuk Orang Tua dan Babysitter
+    // karena Sanctum tidak membedakan model pada rute ini.
     final url = Uri.parse('${AppConstants.baseUrl}/user');
     try {
       final response = await http.get(
@@ -106,14 +110,13 @@ class AuthService {
       if (response.statusCode == 200) {
         return {'success': true, 'data': responseData};
       } else {
-        // Termasuk jika token sudah tidak valid (status 401)
         return {
           'success': false,
           'message': responseData['message'] ?? 'Gagal memuat profil',
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Terjadi kesalahan: $e'};
+      return {'success': false, 'message': 'Terjadi kesalahan koneksi: $e'};
     }
   }
 
