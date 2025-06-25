@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/profile_controller.dart';
 import '../../../utils/theme.dart';
+import '../../../routes/app_pages.dart'; // Tambahkan jika belum ada
 
 class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
@@ -33,6 +34,33 @@ class ProfileView extends GetView<ProfileController> {
               ),
             ],
           ),
+
+          const SizedBox(height: 16),
+
+          // Widget Saldo
+          Card(
+            color: AppTheme.primaryColor.withOpacity(0.1),
+            elevation: 0,
+            child: ListTile(
+              title: const Text(
+                "Saldo Anda",
+                style: TextStyle(color: Colors.grey),
+              ),
+              subtitle: Text(
+                "Rp 50.000",
+                style: TextStyle(
+                  color: AppTheme.primaryColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              trailing: ElevatedButton(
+                onPressed: () => Get.toNamed(Routes.TOPUP),
+                child: const Text("Top Up"),
+              ),
+            ),
+          ),
+
           const Divider(height: 40),
 
           // Menu-menu
@@ -54,7 +82,7 @@ class ProfileView extends GetView<ProfileController> {
           _buildProfileMenu(
             icon: Icons.logout,
             title: "Logout",
-            onTap: () => controller.logout(), // Panggil fungsi logout
+            onTap: () => controller.logout(),
             textColor: AppTheme.primaryColor,
           ),
         ],

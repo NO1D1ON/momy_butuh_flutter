@@ -13,7 +13,9 @@ class ProfileController extends GetxController {
       btnCancelOnPress: () {},
       btnOkOnPress: () async {
         await AuthService.logout();
-        Get.offAllNamed(Routes.LOGIN); // Arahkan ke login setelah logout
+        Get.offAllNamed(
+          Routes.ROLE_SELECTION,
+        ); // Arahkan ke login setelah logout
       },
     ).show();
   }

@@ -56,23 +56,34 @@ class BookingController extends GetxController {
   // Fungsi untuk menghitung total harga
   void calculatePrice() {
     // Pastikan semua nilai ada sebelum menghitung
-    if (startTime.value != null && endTime.value != null) {
-      // Gabungkan tanggal dummy dengan waktu untuk mendapatkan objek DateTime lengkap
-      final now = DateTime.now();
+    if (startTime.value != null &&
+        endTime.value != null &&
+        selectedDate.value != null) {
+      // Ambil tanggal yang dipilih pengguna
+      final date = selectedDate.value!;
+
+      // Buat objek DateTime lengkap untuk waktu mulai dan selesai pada tanggal yang dipilih
       final startDateTime = DateTime(
-        now.year,
-        now.month,
-        now.day,
+        date.year,
+        date.month,
+        date.day,
         startTime.value!.hour,
         startTime.value!.minute,
       );
-      final endDateTime = DateTime(
-        now.year,
-        now.month,
-        now.day,
+      var endDateTime = DateTime(
+        date.year,
+        date.month,
+        date.day,
         endTime.value!.hour,
         endTime.value!.minute,
       );
+
+      // PENTING: Cek jika waktu selesai lebih awal dari waktu mulai (artinya sudah beda hari)
+      if (endDateTime.isBefore(startDateTime)) {
+        endDateTime = endDateTime.add(
+          const Duration(days: 1),
+        ); // Tambahkan 1 hari
+      }
 
       // Hitung selisih waktu dalam menit
       final differenceInMinutes = endDateTime
@@ -82,7 +93,7 @@ class BookingController extends GetxController {
       if (differenceInMinutes > 0) {
         // Ubah menit menjadi jam
         final durationInHours = differenceInMinutes / 60.0;
-        // Kalikan dengan tarif per jam
+        // Kalikan dengan tarif per jam, lalu bulatkan ke atas
         totalPrice.value = (durationInHours * babysitter.ratePerHour).ceil();
       } else {
         totalPrice.value = 0;
@@ -90,7 +101,7 @@ class BookingController extends GetxController {
 
       // Print untuk debugging, lihat hasilnya di Debug Console VS Code
       print(
-        "Start: $startDateTime, End: $endDateTime, Duration: $differenceInMinutes mins, Total: ${totalPrice.value}",
+        "Start: $startDateTime | End: $endDateTime | Duration: $differenceInMinutes mins | Total: Rp ${totalPrice.value}",
       );
     }
   }

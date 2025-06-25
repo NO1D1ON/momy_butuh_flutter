@@ -5,14 +5,33 @@ import '../../utils/constants.dart';
 
 // Kelas ini bertanggung jawab untuk semua panggilan API terkait otentikasi.
 class AuthService {
-  // Fungsi untuk mengirim permintaan login ke API
+  static final _client = http.Client(); // Gunakan satu instance client
+
+  // Fungsi untuk mengambil CSRF cookie
+  static Future<void> getCsrfCookie() async {
+    final url = Uri.parse(
+      '${AppConstants.baseUrl.replaceFirst('/api', '')}/sanctum/csrf-cookie',
+    );
+    try {
+      await _client.get(url);
+      print("CSRF Cookie has been set.");
+    } catch (e) {
+      print("Error fetching CSRF cookie: $e");
+    }
+  }
+
+  // METHOD LOGIN YANG DIPERBAIKI
   static Future<Map<String, dynamic>> login(
     String email,
     String password,
   ) async {
+    // 1. Panggil fungsi untuk mendapatkan cookie terlebih dahulu
+    await getCsrfCookie();
+
     final url = Uri.parse('${AppConstants.baseUrl}/login');
     try {
-      final response = await http.post(
+      final response = await _client.post(
+        // Gunakan _client
         url,
         headers: {'Accept': 'application/json'},
         body: {'email': email, 'password': password},
@@ -20,18 +39,15 @@ class AuthService {
 
       final responseData = json.decode(response.body);
 
-      if (response.statusCode == 200) {
-        // Jika login berhasil (status 200 OK)
+      if (response.statusCode == 200 || response.statusCode == 201) {
         return {'success': true, 'data': responseData};
       } else {
-        // Jika gagal, kembalikan pesan error dari server
         return {
           'success': false,
           'message': responseData['message'] ?? 'Login gagal',
         };
       }
     } catch (e) {
-      // Tangani error koneksi atau lainnya
       return {'success': false, 'message': 'Terjadi kesalahan: $e'};
     }
   }

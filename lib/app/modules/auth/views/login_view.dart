@@ -71,7 +71,7 @@ class LoginView extends GetView<AuthController> {
                     children: [
                       const Text("Belum punya akun?"),
                       TextButton(
-                        onPressed: () => Get.toNamed(Routes.REGISTER),
+                        onPressed: () => Get.toNamed(Routes.REGISTER_PARENT),
                         child: const Text(
                           'Daftar di sini',
                           style: TextStyle(color: Color(0xFFF43F5E)),

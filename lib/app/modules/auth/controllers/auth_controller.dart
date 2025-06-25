@@ -28,7 +28,10 @@ class AuthController extends GetxController {
 
     if (result['success']) {
       final prefs = await SharedPreferences.getInstance();
+      // await prefs.setString('auth_token', result['data']['access_token']);
+
       await prefs.setString('auth_token', result['data']['access_token']);
+      await prefs.setString('user_role', 'parent');
 
       // Notifikasi sukses dengan AwesomeDialog
       AwesomeDialog(
@@ -38,7 +41,7 @@ class AuthController extends GetxController {
         title: 'Login Berhasil',
         desc: result['data']['message'],
         btnOkOnPress: () {
-          Get.offAllNamed(Routes.HOME);
+          Get.offAllNamed(Routes.DASHBOARD_PARENT);
         },
       ).show();
 

@@ -14,18 +14,24 @@ class SplashController extends GetxController {
 
   // Fungsi untuk mengecek status otentikasi (apakah ada token tersimpan)
   void _checkAuth() async {
-    // Beri jeda 2 detik untuk menampilkan logo
     await Future.delayed(const Duration(seconds: 2));
 
     final prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('auth_token');
 
     if (token != null && token.isNotEmpty) {
-      // Jika ada token, arahkan ke halaman utama (home)
-      Get.offAllNamed(Routes.HOME);
+      final String? role = prefs.getString('user_role');
+      if (role == 'babysitter') {
+        Get.offAllNamed(
+          Routes.DASHBOARD_BABYSITTER,
+        ); // Arahkan ke dashboard babysitter
+      } else {
+        Get.offAllNamed(
+          Routes.DASHBOARD_PARENT,
+        ); // Arahkan ke dashboard orang tua
+      }
     } else {
-      // Jika tidak ada token, arahkan ke halaman login
-      Get.offAllNamed(Routes.LOGIN);
+      Get.offAllNamed(Routes.ROLE_SELECTION);
     }
   }
 }
