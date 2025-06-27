@@ -48,7 +48,7 @@ class FavoriteService {
   }
 
   // Fungsi untuk mendapatkan daftar ID favorit saat halaman dimuat
-  static Future<List<Babysitter>> getFavoriteIds() async {
+  static Future<List<int>> getFavoriteIds() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('auth_token');
     final url = Uri.parse('${AppConstants.baseUrl}/favorites');
@@ -61,16 +61,14 @@ class FavoriteService {
           'Authorization': 'Bearer $token',
         },
       );
-
       if (response.statusCode == 200) {
-        // API kita mengembalikan list babysitter, kita parsing di sini
+        // API Laravel kita mengembalikan list of integers
         final List<dynamic> data = json.decode(response.body);
-        return data.map((json) => Babysitter.fromJson(json)).toList();
-      } else {
-        throw Exception('Gagal memuat data favorit');
+        return data.map((id) => id as int).toList();
       }
+      return [];
     } catch (e) {
-      throw Exception('Terjadi kesalahan: $e');
+      return [];
     }
   }
 }

@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:http/http.dart';
+import 'package:momy_butuh_flutter/app/modules/map_view/map_view_controller.dart';
 import 'package:momy_butuh_flutter/app/modules/profil/controllers/profile_controller.dart';
 
 // Import semua controller yang akan digunakan di dalam dashboard
@@ -18,6 +20,7 @@ class DashboardBinding extends Bindings {
     Get.lazyPut<FavoriteController>(() => FavoriteController());
     Get.lazyPut<BookingHistoryController>(() => BookingHistoryController());
     Get.lazyPut<ConversationListController>(() => ConversationListController());
+    Get.lazyPut<MapViewController>(() => MapViewController());
 
     // DAFTARKAN PROFILE CONTROLLER DI SINI
     Get.lazyPut<ProfileController>(() => ProfileController());

@@ -43,6 +43,8 @@ class HomeView extends GetView<HomeController> {
 
               // --- WIDGET PENCARIAN ---
               TextField(
+                readOnly: true,
+                onTap: () => Get.toNamed(Routes.BABYSITTER_SEARCH),
                 decoration: InputDecoration(
                   hintText: 'Cari berdasarkan nama...',
                   prefixIcon: const Icon(Icons.search),
@@ -161,28 +163,11 @@ class HomeView extends GetView<HomeController> {
                                             ),
                                           ],
                                         ),
-                                        Obx(() {
-                                          // Cek apakah ID babysitter ada di dalam list favorit
-                                          final isFavorite = controller
-                                              .favoriteIds
-                                              .contains(babysitter.id);
-                                          return IconButton(
-                                            padding: EdgeInsets.zero,
-                                            constraints: const BoxConstraints(),
-                                            icon: Icon(
-                                              isFavorite
-                                                  ? Icons.favorite
-                                                  : Icons.favorite_border,
-                                              color: isFavorite
-                                                  ? AppTheme.primaryColor
-                                                  : Colors.grey.shade400,
-                                              size: 22,
-                                            ),
-                                            // Panggil fungsi toggle dari controller saat ditekan
-                                            onPressed: () => controller
-                                                .toggleFavorite(babysitter.id),
-                                          );
-                                        }),
+                                        Icon(
+                                          Icons.favorite_border,
+                                          color: Colors.grey.shade400,
+                                          size: 20,
+                                        ),
                                       ],
                                     ),
                                     const SizedBox(height: 8),

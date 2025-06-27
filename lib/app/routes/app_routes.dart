@@ -35,6 +35,7 @@ abstract class Routes {
   static const SELECT_LOCATION = _Paths.SELECT_LOCATION;
 
   static const TRANSACTION_HISTORY = _Paths.TRANSACTION_HISTORY;
+  static const BABYSITTER_SEARCH = _Paths.BABYSITTER_SEARCH;
 }
 
 // Kelas ini mendefinisikan path URL sebenarnya untuk setiap rute.
@@ -67,4 +68,5 @@ abstract class _Paths {
 
   static const SELECT_LOCATION = '/select-location';
   static const TRANSACTION_HISTORY = '/transaction-history';
+  static const BABYSITTER_SEARCH = '/babysitter-search';
 }

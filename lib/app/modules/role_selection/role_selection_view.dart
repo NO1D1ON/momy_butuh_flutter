@@ -18,12 +18,12 @@ class RoleSelectionView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // Logo dan Judul
-              const Icon(
-                Icons.child_care,
-                size: 80,
-                color: AppTheme.primaryColor,
+              Image.asset(
+                'assets/images/logo.png', // <-- GANTI DENGAN PATH LOGO ANDA
+                width: 100,
+                height: 100, // Sesuaikan ukuran logo jika perlu
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               const Text(
                 'Selamat Datang di\nMomyButuh',
                 textAlign: TextAlign.center,
@@ -35,31 +35,36 @@ class RoleSelectionView extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.grey, fontSize: 16),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 30),
 
               // Tombol untuk Orang Tua
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      12,
+                    ), // Ukuran rounded yang sama
+                  ),
                 ),
                 onPressed: () {
-                  // Arahkan ke halaman login Orang Tua yang sudah ada
                   Get.toNamed(Routes.LOGIN_PARENT);
                 },
                 child: const Text('Orang Tua', style: TextStyle(fontSize: 16)),
               ),
               const SizedBox(height: 16),
 
-              // Tombol untuk Babysitter
-              // ...
-              // Tombol untuk Babysitter
               OutlinedButton(
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   side: const BorderSide(color: AppTheme.primaryColor),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      12,
+                    ), // Sama seperti ElevatedButton
+                  ),
                 ),
                 onPressed: () {
-                  // PERBARUI INI: Arahkan ke halaman login Babysitter
                   Get.toNamed(Routes.LOGIN_BABYSITTER);
                 },
                 child: const Text(
@@ -67,6 +72,7 @@ class RoleSelectionView extends StatelessWidget {
                   style: TextStyle(fontSize: 16, color: AppTheme.primaryColor),
                 ),
               ),
+
               // ...
             ],
           ),

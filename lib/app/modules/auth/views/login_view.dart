@@ -18,10 +18,10 @@ class LoginView extends GetView<AuthController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Icon(
-                    Icons.child_care,
-                    size: 80,
-                    color: Color(0xFFF43F5E),
+                  Image.asset(
+                    'assets/images/logo.png', // <-- GANTI DENGAN PATH LOGO ANDA
+                    width: 100,
+                    height: 100, // Sesuaikan ukuran logo jika perlu
                   ),
                   const SizedBox(height: 16),
                   const Text(

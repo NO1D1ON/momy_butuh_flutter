@@ -13,28 +13,53 @@ class SplashView extends GetView<SplashController> {
     Get.put(SplashController());
 
     return Scaffold(
-      backgroundColor: AppTheme.primaryColor, // Gunakan warna pink
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Ganti dengan path logo Anda di folder assets
-            // Image.asset('assets/logo_white.png', width: 150),
-            const Icon(Icons.child_care, color: Colors.white, size: 100),
-            const SizedBox(height: 20),
-            const Text(
-              'MomyButuh',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+      backgroundColor: Colors.white,
+      body: Container(
+        // // Gunakan Container untuk menambahkan dekorasi gradient
+        // decoration: BoxDecoration(
+        //   gradient: RadialGradient(
+        //     // Tentukan pusat dan radius gradient
+        //     center: Alignment.center,
+        //     radius: 0.8, // Radius 0.8 membuat area pink dominan di tengah
+        //     // Tentukan warna gradient dari pink ke putih
+        //     colors: [
+        //       AppTheme.primaryColor, // Warna pink di tengah
+        //       Colors.white,         // Warna putih di pinggir
+        //     ],
+        //   ),
+        // ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Ganti Icon dengan Image.asset dari path logo Anda
+              // PASTIKAN path 'assets/images/logo.png' sudah benar dan
+              // sudah didaftarkan di file pubspec.yaml
+              Image.asset(
+                'assets/images/logo.png', // <-- GANTI DENGAN PATH LOGO ANDA
+                width: 150, // Sesuaikan ukuran logo jika perlu
               ),
-            ),
-          ],
+              const SizedBox(height: 20),
+              const Text(
+                'MomyButuh',
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black, // Teks tetap putih agar kontras
+                  shadows: [
+                    // Tambahkan bayangan agar teks lebih terbaca
+                    Shadow(
+                      blurRadius: 10.0,
+                      color: Colors.black26,
+                      offset: Offset(2.0, 2.0),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-// Catatan: Jangan lupa import AppTheme dari file theme.dart
-// import 'package:momybutuh_flutter/app/utils/theme.dart';

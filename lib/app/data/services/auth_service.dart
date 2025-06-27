@@ -1,14 +1,26 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../utils/constants.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:momy_butuh_flutter/app/data/models/user_type.dart';
+import '../../utils/constants.dart'; // Pastikan path ini benar
 
-// Kelas ini bertanggung jawab untuk semua panggilan API terkait otentikasi.
 class AuthService {
-  static final _client = http.Client(); // Gunakan satu instance client
+  final http.Client _client = http.Client();
+  final _storage = const FlutterSecureStorage();
 
-  // Fungsi untuk mengambil CSRF cookie
-  static Future<void> getCsrfCookie() async {
+  Future<String?> getToken() async {
+    return await _storage.read(key: 'auth_token');
+  }
+
+  Future<void> _saveToken(String token) async {
+    await _storage.write(key: 'auth_token', value: token);
+  }
+
+  Future<void> _deleteToken() async {
+    await _storage.delete(key: 'auth_token');
+  }
+
+  Future<void> _getCsrfCookie() async {
     final url = Uri.parse(
       '${AppConstants.baseUrl.replaceFirst('/api', '')}/sanctum/csrf-cookie',
     );
@@ -20,18 +32,25 @@ class AuthService {
     }
   }
 
-  // METHOD LOGIN YANG DIPERBAIKI
-  static Future<Map<String, dynamic>> login(
+  Future<Map<String, dynamic>> login(
     String email,
     String password,
+    UserType userType,
   ) async {
-    // 1. Panggil fungsi untuk mendapatkan cookie terlebih dahulu
-    await getCsrfCookie();
+    await _getCsrfCookie();
 
-    final url = Uri.parse('${AppConstants.baseUrl}/login');
+    // Tentukan endpoint berdasarkan tipe pengguna
+    String endpoint;
+    if (userType == UserType.babysitter) {
+      endpoint = '${AppConstants.baseUrl}/babysitter/login';
+    } else {
+      endpoint = '${AppConstants.baseUrl}/login';
+    }
+
+    final url = Uri.parse(endpoint);
+
     try {
       final response = await _client.post(
-        // Gunakan _client
         url,
         headers: {'Accept': 'application/json'},
         body: {'email': email, 'password': password},
@@ -39,8 +58,15 @@ class AuthService {
 
       final responseData = json.decode(response.body);
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        return {'success': true, 'data': responseData};
+      if (response.statusCode == 200) {
+        if (responseData.containsKey('access_token')) {
+          await _saveToken(responseData['access_token']);
+          // Simpan juga tipe pengguna agar kita tahu siapa yang login
+          await _storage.write(key: 'user_type', value: userType.toString());
+          return {'success': true, 'data': responseData};
+        } else {
+          return {'success': false, 'message': 'Token tidak ditemukan'};
+        }
       } else {
         return {
           'success': false,
@@ -52,39 +78,64 @@ class AuthService {
     }
   }
 
-  // Fungsi untuk mengirim permintaan registrasi ke API
-  static Future<Map<String, dynamic>> register(
+  Future<void> logout() async {
+    final token = await getToken();
+
+    if (token != null) {
+      final url = Uri.parse('${AppConstants.baseUrl}/logout');
+      try {
+        await _client.post(
+          url,
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        );
+      } catch (e) {
+        print(
+          "Error during server logout, proceeding to delete local token. Error: $e",
+        );
+      }
+    }
+
+    await _deleteToken();
+  }
+
+  Future<Map<String, dynamic>> register(
     String name,
     String email,
     String password,
   ) async {
+    await _getCsrfCookie();
+
     final url = Uri.parse('${AppConstants.baseUrl}/register');
     try {
-      final response = await http.post(
+      final response = await _client.post(
         url,
         headers: {'Accept': 'application/json'},
         body: {'name': name, 'email': email, 'password': password},
       );
 
+      final responseData = json.decode(response.body);
+
       if (response.statusCode == 201) {
-        // Jika registrasi berhasil (status 201 Created)
         return {
           'success': true,
           'message': 'Registrasi berhasil. Silakan login.',
         };
       } else {
-        // Tangani jika email sudah terdaftar atau error validasi lainnya
-        final responseData = json.decode(response.body);
-        return {'success': false, 'message': responseData.toString()};
+        return {
+          'success': false,
+          'message': responseData['message'] ?? responseData.toString(),
+        };
       }
     } catch (e) {
       return {'success': false, 'message': 'Terjadi kesalahan: $e'};
     }
   }
 
-  static Future<Map<String, dynamic>> getProfile() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('auth_token');
+  Future<Map<String, dynamic>> getProfile() async {
+    final token = await getToken();
 
     if (token == null) {
       return {
@@ -93,11 +144,9 @@ class AuthService {
       };
     }
 
-    // Endpoint ini akan bekerja untuk Orang Tua dan Babysitter
-    // karena Sanctum tidak membedakan model pada rute ini.
     final url = Uri.parse('${AppConstants.baseUrl}/user');
     try {
-      final response = await http.get(
+      final response = await _client.get(
         url,
         headers: {
           'Accept': 'application/json',
@@ -118,28 +167,5 @@ class AuthService {
     } catch (e) {
       return {'success': false, 'message': 'Terjadi kesalahan koneksi: $e'};
     }
-  }
-
-  static Future<void> logout() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('auth_token');
-
-    if (token != null) {
-      final url = Uri.parse('${AppConstants.baseUrl}/logout');
-      try {
-        await http.post(
-          url,
-          headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Bearer $token',
-          },
-        );
-      } catch (e) {
-        // Abaikan error saat logout di server, yang terpenting token lokal dihapus
-      }
-    }
-
-    // Selalu hapus token dari penyimpanan lokal
-    await prefs.remove('auth_token');
   }
 }

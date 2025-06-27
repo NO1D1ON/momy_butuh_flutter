@@ -19,15 +19,20 @@ class BabysitterService {
         final List<dynamic> data = responseData['data'];
         return data.map((json) => Babysitter.fromJson(json)).toList();
       } else {
-        throw Exception('Gagal memuat data babysitter');
+        // Jika gagal, kembalikan list kosong
+        print('Gagal memuat data babysitter: ${response.body}');
+        return [];
       }
     } catch (e) {
-      throw Exception('Terjadi kesalahan: $e');
+      // Jika terjadi kesalahan koneksi, kembalikan list kosong
+      print('Terjadi kesalahan saat fetchBabysitters: $e');
+      return [];
     }
   }
 
   // Fungsi untuk mengambil detail satu babysitter berdasarkan ID
-  static Future<Babysitter> fetchBabysitterDetail(int id) async {
+  // Mengembalikan Future<Babysitter?> (nullable) untuk menangani kasus data tidak ditemukan.
+  static Future<Babysitter?> fetchBabysitterDetail(int id) async {
     final url = Uri.parse('${AppConstants.baseUrl}/babysitters/$id');
     try {
       final response = await http.get(
@@ -38,13 +43,16 @@ class BabysitterService {
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
         final Map<String, dynamic> data = responseData['data'];
-
         return Babysitter.fromJson(data);
       } else {
-        throw Exception('Gagal memuat data babysitter');
+        // Jika gagal atau data tidak ditemukan, kembalikan null
+        print('Gagal memuat detail babysitter: ${response.body}');
+        return null;
       }
     } catch (e) {
-      throw Exception('Terjadi kesalahan: $e');
+      // Jika terjadi kesalahan koneksi, kembalikan null
+      print('Terjadi kesalahan saat fetchBabysitterDetail: $e');
+      return null;
     }
   }
 
@@ -55,7 +63,6 @@ class BabysitterService {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('auth_token');
 
-    // Pastikan URL dan query parameter sudah benar
     final url = Uri.parse(
       '${AppConstants.baseUrl}/babysitters/nearby?latitude=$lat&longitude=$lon',
     );
@@ -65,23 +72,43 @@ class BabysitterService {
         url,
         headers: {
           'Accept': 'application/json',
-          'Authorization':
-              'Bearer $token', // Sertakan token jika rute ini terproteksi
+          'Authorization': 'Bearer $token',
         },
       );
 
       if (response.statusCode == 200) {
-        // Karena API kita mengembalikan list langsung (tanpa kunci 'data' untuk endpoint ini)
         final List<dynamic> data = json.decode(response.body);
         return data.map((json) => Babysitter.fromJson(json)).toList();
       } else {
-        // Jika status bukan 200, lempar error agar bisa ditangkap oleh controller
-        throw Exception('Gagal memuat data babysitter terdekat');
+        print('Gagal memuat data babysitter terdekat: ${response.body}');
+        return [];
       }
     } catch (e) {
-      // Jika terjadi error koneksi atau parsing, lempar kembali error tersebut
-      // agar bisa ditangani oleh Get.snackbar di controller
-      throw Exception('Terjadi kesalahan: $e');
+      print('Terjadi kesalahan saat fetchNearbyBabysitters: $e');
+      return [];
+    }
+  }
+
+  static Future<List<Babysitter>> searchBabysitters(String name) async {
+    final url = Uri.parse(
+      '${AppConstants.baseUrl}/babysitters/search?name=$name',
+    );
+    try {
+      final response = await http.get(
+        url,
+        headers: {'Accept': 'application/json'},
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body)['data'];
+        return data.map((json) => Babysitter.fromJson(json)).toList();
+      } else {
+        print('Gagal mencari babysitter: ${response.body}');
+        return [];
+      }
+    } catch (e) {
+      print('Terjadi kesalahan saat searchBabysitters: $e');
+      return [];
     }
   }
 }

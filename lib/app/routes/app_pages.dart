@@ -7,6 +7,8 @@ import 'package:momy_butuh_flutter/app/modules/babysitter_dashboard/babysitter_d
 import 'package:momy_butuh_flutter/app/modules/babysitter_dashboard/babysitter_dashboard_view.dart';
 import 'package:momy_butuh_flutter/app/modules/babysitter_detail/bindings/babysitter_detail_binding.dart';
 import 'package:momy_butuh_flutter/app/modules/babysitter_detail/views/babysitter_detail_view.dart';
+import 'package:momy_butuh_flutter/app/modules/babysitter_search/binding.dart';
+import 'package:momy_butuh_flutter/app/modules/babysitter_search/view.dart';
 import 'package:momy_butuh_flutter/app/modules/booking/bindings/booking_binding.dart';
 import 'package:momy_butuh_flutter/app/modules/booking/views/booking_view.dart';
 import 'package:momy_butuh_flutter/app/modules/chat/bindings/chat_binding.dart';
@@ -140,6 +142,14 @@ class AppPages {
       page: () => const TransactionHistoryView(),
       binding: TransactionHistoryBinding(),
       transition: Transition.rightToLeft, // Efek transisi dari kanan ke kiri
+    ),
+
+    GetPage(
+      name: _Paths.BABYSITTER_SEARCH,
+      page: () => const BabysitterSearchView(),
+      binding: BabysitterSearchBinding(),
+      // Gunakan transisi dari bawah ke atas untuk halaman pencarian
+      transition: Transition.downToUp,
     ),
   ];
 }

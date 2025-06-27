@@ -6,13 +6,14 @@ import '../../../routes/app_pages.dart';
 
 class ProfileController extends GetxController {
   var isLoading = true.obs;
-  // Gunakan Rxn agar bisa menampung nilai null di awal
   var userProfile = Rxn<UserProfile>();
+
+  // Instance dari AuthService yang telah diperbarui
+  final _authService = AuthService();
 
   @override
   void onInit() {
     super.onInit();
-    // Panggil data profil saat halaman pertama kali dibuka
     fetchProfile();
   }
 
@@ -20,12 +21,11 @@ class ProfileController extends GetxController {
   void fetchProfile() async {
     try {
       isLoading(true);
-      var result = await AuthService.getProfile();
+      final result = await _authService.getProfile();
       if (result['success']) {
-        // Jika sukses, ubah JSON menjadi objek UserProfile dan simpan
         userProfile.value = UserProfile.fromJson(result['data']);
       } else {
-        Get.snackbar("Error", result['message']);
+        Get.snackbar("Error", result['message'] ?? 'Gagal memuat profil');
       }
     } catch (e) {
       Get.snackbar("Error", "Gagal mengambil data profil: $e");
@@ -43,8 +43,7 @@ class ProfileController extends GetxController {
       desc: 'Apakah Anda yakin ingin keluar dari akun ini?',
       btnCancelOnPress: () {},
       btnOkOnPress: () async {
-        await AuthService.logout();
-        // Arahkan ke halaman pilihan peran setelah logout
+        await _authService.logout();
         Get.offAllNamed(Routes.ROLE_SELECTION);
       },
     ).show();

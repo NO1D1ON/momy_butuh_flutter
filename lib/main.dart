@@ -22,3 +22,24 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// import 'package:flutter/material.dart';
+// import 'package:momy_butuh_flutter/app/modules/ujiCobaChatRealTime/splash_screen.dart';
+
+// void main() {
+//   runApp(const MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'MomyButuh',
+//       theme: ThemeData(primarySwatch: Colors.blue),
+//       // Atur SplashScreen sebagai halaman pertama
+//       home: const SplashScreen(),
+//     );
+//   }
+// }
