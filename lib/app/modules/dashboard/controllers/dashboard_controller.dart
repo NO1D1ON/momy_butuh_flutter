@@ -17,7 +17,7 @@ class DashboardController extends GetxController {
   final List<Widget> pages = [
     const HomeView(),
     // const FavoriteView(),
-    const MapView(),
+    // const MapView(),
     const BookingHistoryView(),
     const ConversationListView(),
     const ProfileView(), // Placeholder

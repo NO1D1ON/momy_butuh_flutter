@@ -20,39 +20,43 @@ class DashboardView extends GetView<DashboardController> {
 
       // Bottom Navigation Bar
       bottomNavigationBar: Obx(
-        () => BottomNavigationBar(
-          onTap: controller.changeTabIndex,
-          currentIndex: controller.tabIndex.value,
-          // Style untuk item yang aktif dan tidak aktif
-          selectedItemColor: AppTheme.primaryColor,
-          unselectedItemColor: Colors.grey,
-          showUnselectedLabels: true,
-          type: BottomNavigationBarType.fixed, // Agar semua label terlihat
-          backgroundColor: Colors.white,
-          elevation: 5,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_filled),
-              label: 'Home',
-            ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.favorite),
-            //   label: 'Favorit',
-            // ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.map_outlined),
-              label: 'Peta',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.receipt_long),
-              label: 'Booking',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble),
-              label: 'Pesan',
-            ),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
-          ],
+        () => ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
+          child: BottomNavigationBar(
+            onTap: controller.changeTabIndex,
+            currentIndex: controller.tabIndex.value,
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.white,
+            showUnselectedLabels: true,
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: AppTheme.primaryColor,
+            elevation: 5,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_filled),
+                label: 'Home',
+              ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.map_outlined),
+              //   label: 'Peta',
+              // ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.receipt_long),
+                label: 'Booking',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.chat_bubble),
+                label: 'Pesan',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profil',
+              ),
+            ],
+          ),
         ),
       ),
     );

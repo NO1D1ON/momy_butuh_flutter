@@ -1,15 +1,23 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:laravel_echo/laravel_echo.dart';
 import 'package:pusher_client/pusher_client.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/constants.dart';
 
 class EchoService {
   // PERUBAHAN 1: Ubah dari 'late Echo echo' menjadi 'Echo?' agar bisa null
   Echo? echo;
+  // --- TAMBAHKAN INI ---
+  final _storage = const FlutterSecureStorage();
 
   Future<void> init() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('auth_token');
+    // --- UBAH BAGIAN INI ---
+    final token = await _storage.read(key: 'auth_token');
+    // --- BATAS PERUBAHAN ---
+
+    if (token == null) {
+      print("EchoService: Auth token not found. Cannot initialize.");
+      return;
+    }
 
     PusherClient pusherClient = PusherClient(
       AppConstants.reverbAppKey,
@@ -19,7 +27,7 @@ class EchoService {
         wssPort: AppConstants.reverbPort,
         encrypted: false,
         auth: PusherAuth(
-          '${AppConstants.baseUrl}/broadcasting/auth',
+          '${AppConstants.baseUrl}/broadcasting/auth', // Gunakan serverUrl
           headers: {
             'Authorization': 'Bearer $token',
             'Accept': 'application/json',
@@ -29,8 +37,8 @@ class EchoService {
       enableLogging: true,
     );
 
-    // Inisialisasi seperti biasa
     echo = Echo(broadcaster: EchoBroadcasterType.Pusher, client: pusherClient);
+    print("Echo initialized successfully.");
   }
 
   void listenToConversation(

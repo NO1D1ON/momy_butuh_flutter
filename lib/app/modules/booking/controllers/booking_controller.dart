@@ -91,10 +91,12 @@ class BookingController extends GetxController {
           .inMinutes;
 
       if (differenceInMinutes > 0) {
-        // Ubah menit menjadi jam
+        // PERBAIKAN: Tangani jika ratePerHour null, anggap tarifnya 0.
+        final rate = babysitter.ratePerHour ?? 0;
         final durationInHours = differenceInMinutes / 60.0;
-        // Kalikan dengan tarif per jam, lalu bulatkan ke atas
-        totalPrice.value = (durationInHours * babysitter.ratePerHour).ceil();
+
+        // Kalikan dengan tarif yang sudah aman dari null
+        totalPrice.value = (durationInHours * rate).ceil();
       } else {
         totalPrice.value = 0;
       }

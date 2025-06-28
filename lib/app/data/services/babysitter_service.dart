@@ -42,17 +42,15 @@ class BabysitterService {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
+        // PASTIKAN MENGAMBIL DARI KUNCI 'data'
         final Map<String, dynamic> data = responseData['data'];
         return Babysitter.fromJson(data);
       } else {
-        // Jika gagal atau data tidak ditemukan, kembalikan null
-        print('Gagal memuat detail babysitter: ${response.body}');
-        return null;
+        final errorData = json.decode(response.body);
+        throw Exception('Gagal memuat detail: ${errorData['message']}');
       }
     } catch (e) {
-      // Jika terjadi kesalahan koneksi, kembalikan null
-      print('Terjadi kesalahan saat fetchBabysitterDetail: $e');
-      return null;
+      throw Exception('Terjadi kesalahan koneksi: $e');
     }
   }
 

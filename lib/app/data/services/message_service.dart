@@ -1,74 +1,32 @@
+// File: lib/app/data/services/message_service.dart
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:momy_butuh_flutter/app/data/models/conversation_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../utils/constants.dart';
+import 'package:momy_butuh_flutter/app/data/services/auth_service.dart';
+import 'package:momy_butuh_flutter/app/utils/constants.dart';
+// Impor model lain yang mungkin Anda perlukan, seperti Message
 // import '../models/message_model.dart';
 
 class MessageService {
-  // Fungsi untuk mendapatkan/membuat percakapan beserta isinya
-  static Future<Map<String, dynamic>> getConversation(int babysitterId) async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('auth_token');
+  // PERBAIKAN: Dependensi akan di-inject melalui konstruktor
+  final AuthService _authService;
+  final http.Client _httpClient;
 
-    final url = Uri.parse(
-      '${AppConstants.baseUrl}/conversation/with/$babysitterId',
-    );
-    try {
-      final response = await http.get(
-        url,
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-      );
+  MessageService({
+    required AuthService authService,
+    required http.Client httpClient,
+  }) : _authService = authService,
+       _httpClient = httpClient;
 
-      if (response.statusCode == 200) {
-        return {'success': true, 'data': json.decode(response.body)};
-      } else {
-        return {'success': false, 'message': 'Gagal memuat percakapan'};
-      }
-    } catch (e) {
-      return {'success': false, 'message': 'Terjadi kesalahan: $e'};
-    }
-  }
-
-  // Fungsi untuk mengirim pesan baru
-  static Future<Map<String, dynamic>> sendMessage({
-    required int babysitterId,
-    required String body,
-  }) async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('auth_token');
-
-    final url = Uri.parse('${AppConstants.baseUrl}/messages');
-    try {
-      final response = await http.post(
-        url,
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-        body: {'babysitter_id': babysitterId.toString(), 'body': body},
-      );
-
-      if (response.statusCode == 201) {
-        return {'success': true, 'data': json.decode(response.body)};
-      } else {
-        return {'success': false, 'message': 'Gagal mengirim pesan'};
-      }
-    } catch (e) {
-      return {'success': false, 'message': 'Terjadi kesalahan: $e'};
-    }
-  }
-
-  static Future<List<Conversation>> getConversations() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('auth_token');
+  /// Mengambil daftar semua percakapan untuk pengguna yang sedang login.
+  Future<List<Conversation>> getConversations() async {
+    final token = await _authService.getToken();
+    if (token == null) throw Exception('Token tidak ditemukan.');
 
     final url = Uri.parse('${AppConstants.baseUrl}/conversations');
     try {
-      final response = await http.get(
+      final response = await _httpClient.get(
         url,
         headers: {
           'Accept': 'application/json',
@@ -83,7 +41,72 @@ class MessageService {
         throw Exception('Gagal memuat daftar percakapan');
       }
     } catch (e) {
-      throw Exception('Terjadi kesalahan: $e');
+      throw Exception('Terjadi kesalahan koneksi: $e');
+    }
+  }
+
+  /// Memulai percakapan baru atau mendapatkan yang sudah ada.
+  /// Menggantikan metode getConversation yang lama.
+  Future<Map<String, dynamic>> initiateConversation(int otherPartyId) async {
+    final token = await _authService.getToken();
+    if (token == null) throw Exception('Token tidak ditemukan.');
+
+    final url = Uri.parse('${AppConstants.baseUrl}/conversations/initiate');
+    try {
+      final response = await _httpClient.post(
+        url,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode({
+          'babysitter_id': otherPartyId,
+        }), // Backend masih menunggu babysitter_id
+      );
+
+      if (response.statusCode == 200) {
+        return {'success': true, 'data': json.decode(response.body)};
+      } else {
+        final responseData = json.decode(response.body);
+        return {
+          'success': false,
+          'message': responseData['message'] ?? 'Gagal memulai percakapan.',
+        };
+      }
+    } catch (e) {
+      return {'success': false, 'message': 'Terjadi kesalahan: $e'};
+    }
+  }
+
+  /// Mengirim pesan baru ke sebuah percakapan.
+  Future<Map<String, dynamic>> sendMessage({
+    required int receiverId,
+    required String body,
+  }) async {
+    final token = await _authService.getToken();
+    if (token == null) throw Exception('Token tidak ditemukan.');
+
+    final url = Uri.parse('${AppConstants.baseUrl}/messages');
+    try {
+      final response = await _httpClient.post(
+        url,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        // PERBAIKAN: Gunakan 'receiver_id' agar konsisten dengan backend
+        body: jsonEncode({'receiver_id': receiverId, 'body': body}),
+      );
+
+      if (response.statusCode == 201) {
+        return {'success': true, 'data': json.decode(response.body)};
+      } else {
+        return {'success': false, 'message': 'Gagal mengirim pesan'};
+      }
+    } catch (e) {
+      return {'success': false, 'message': 'Terjadi kesalahan: $e'};
     }
   }
 }

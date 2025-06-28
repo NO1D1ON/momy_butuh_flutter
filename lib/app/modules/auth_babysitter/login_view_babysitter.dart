@@ -39,7 +39,7 @@ class LoginBabysitterView extends GetView<AuthBabysitterController> {
               () => ElevatedButton(
                 onPressed: controller.isLoading.value
                     ? null
-                    : () => controller.login(),
+                    : () => controller.loginAsBabysitter(),
                 child: controller.isLoading.value
                     ? const SizedBox(
                         height: 20,

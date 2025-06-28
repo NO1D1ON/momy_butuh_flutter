@@ -52,7 +52,7 @@ class LoginView extends GetView<AuthController> {
                     () => ElevatedButton(
                       onPressed: controller.isLoading.value
                           ? null
-                          : () => controller.login(),
+                          : () => controller.loginAsParent(),
                       child: controller.isLoading.value
                           ? const SizedBox(
                               height: 20,

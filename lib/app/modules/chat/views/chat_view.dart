@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:momy_butuh_flutter/app/modules/chat/controllers/message_controller.dart';
-import '../../../utils/theme.dart';
 
 class ChatView extends GetView<ChatController> {
   const ChatView({Key? key}) : super(key: key);
@@ -9,82 +8,90 @@ class ChatView extends GetView<ChatController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(controller.babysitter.name)),
-      body: Column(
-        children: [
-          Expanded(
-            child: Obx(() {
-              if (controller.isLoading.value) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              return ListView.builder(
-                reverse: true, // Agar list mulai dari bawah
-                itemCount: controller.messages.length,
-                padding: const EdgeInsets.all(16),
-                itemBuilder: (context, index) {
-                  final message = controller.messages[index];
-                  // Ganti '1' dengan ID user yang sedang login nantinya
-                  final isMe = message.senderType == 'App\\Models\\User';
-
-                  return _buildMessageBubble(isMe, message.body);
-                },
-              );
-            }),
+      appBar: AppBar(
+        // Gunakan Column untuk menampilkan title dan typing indicator (subtitle)
+        title: Obx(
+          () => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(controller.babysitter.name),
+              if (controller.isOpponentTyping.value)
+                const Text(
+                  'sedang mengetik...',
+                  style: TextStyle(fontSize: 12, color: Colors.white70),
+                ),
+            ],
           ),
-          _buildMessageInput(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMessageBubble(bool isMe, String text) {
-    return Align(
-      alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 4),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        decoration: BoxDecoration(
-          color: isMe ? AppTheme.primaryColor : Colors.grey[200],
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(color: isMe ? Colors.white : Colors.black),
         ),
       ),
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (controller.errorMessage.isNotEmpty) {
+          return Center(child: Text('Error: ${controller.errorMessage.value}'));
+        }
+        return Column(
+          children: [
+            Expanded(
+              child: Obx(
+                () => ListView.builder(
+                  controller: controller.scrollController,
+                  itemCount: controller.messages.length,
+                  itemBuilder: (context, index) {
+                    final message = controller.messages[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 4.0,
+                        horizontal: 8.0,
+                      ),
+                      child: Align(
+                        alignment: message.isMe
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft,
+                        child: Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: message.isMe
+                                ? Colors.blue[100]
+                                : Colors.grey[200],
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(message.text),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+            _buildMessageInput(),
+          ],
+        );
+      }),
     );
   }
 
   Widget _buildMessageInput() {
-    return Container(
+    return Padding(
       padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 5,
-          ),
-        ],
-      ),
       child: Row(
         children: [
           Expanded(
             child: TextField(
-              controller: controller.messageTextController,
-              decoration: InputDecoration(
-                hintText: "Ketik pesan...",
-                border: InputBorder.none,
-                filled: true,
-                fillColor: Colors.grey[100],
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+              controller: controller.textController,
+              decoration: const InputDecoration(
+                hintText: 'Ketik pesan...',
+                border: OutlineInputBorder(),
               ),
+              onSubmitted: (_) => controller.sendMessage(),
             ),
           ),
+          const SizedBox(width: 8),
           IconButton(
-            icon: const Icon(Icons.send, color: AppTheme.primaryColor),
-            onPressed: () => controller.sendMessage(),
+            icon: const Icon(Icons.send),
+            onPressed: controller.sendMessage,
+            color: Colors.blue,
           ),
         ],
       ),

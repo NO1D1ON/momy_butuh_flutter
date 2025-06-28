@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // File ini mendefinisikan tema utama aplikasi.
 class AppTheme {
   // Warna pink utama kita, diambil dari warna primary-500 Tailwind
-  static const Color primaryColor = Color(0xFFF43F5E);
+  static const Color primaryColor = Color(0xFFF564A9);
 
   static final ThemeData lightTheme = ThemeData(
     primaryColor: primaryColor,

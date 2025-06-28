@@ -46,7 +46,7 @@ class HomeView extends GetView<HomeController> {
                 readOnly: true,
                 onTap: () => Get.toNamed(Routes.BABYSITTER_SEARCH),
                 decoration: InputDecoration(
-                  hintText: 'Cari berdasarkan nama...',
+                  hintText: 'Cari Babysitter...',
                   prefixIcon: const Icon(Icons.search),
                   filled: true,
                   fillColor: Colors.white,
@@ -81,19 +81,12 @@ class HomeView extends GetView<HomeController> {
                   );
                 }
                 // Gunakan GridView untuk tampilan 2 kolom yang modern
-                return GridView.builder(
+                return ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: controller.babysitterList.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // 2 kartu per baris
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                    childAspectRatio: 0.8, // Atur rasio kartu
-                  ),
                   itemBuilder: (context, index) {
                     final babysitter = controller.babysitterList[index];
-                    // Widget kartu kustom untuk setiap babysitter
                     return InkWell(
                       onTap: () => Get.toNamed(
                         Routes.BABYSITTER_DETAIL,
@@ -102,80 +95,60 @@ class HomeView extends GetView<HomeController> {
                       child: Card(
                         elevation: 2,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Expanded(
-                              flex: 5,
-                              child: Center(
-                                child: CircleAvatar(
-                                  radius: 40,
-                                  backgroundColor: AppTheme.primaryColor,
-                                  child: Icon(
-                                    Icons.person,
-                                    color: Colors.white,
-                                    size: 40,
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
+                        child: ListTile(
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
+                          leading: const CircleAvatar(
+                            radius: 30,
+                            backgroundColor: AppTheme.primaryColor,
+                            child: Icon(
+                              Icons.person,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                          ),
+                          title: Text(
+                            babysitter.name,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${babysitter.age} Tahun",
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Row(
+                                children: const [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 16,
                                   ),
-                                ),
+                                  SizedBox(width: 4),
+                                  Text("5.0", style: TextStyle(fontSize: 12)),
+                                ],
                               ),
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12.0,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      babysitter.name,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Text(
-                                      "${babysitter.age} Tahun",
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Row(
-                                          children: [
-                                            Icon(
-                                              Icons.star,
-                                              color: Colors.amber,
-                                              size: 16,
-                                            ),
-                                            Text(
-                                              " 5.0",
-                                              style: TextStyle(fontSize: 12),
-                                            ),
-                                          ],
-                                        ),
-                                        Icon(
-                                          Icons.favorite_border,
-                                          color: Colors.grey.shade400,
-                                          size: 20,
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 8),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
+                          trailing: Icon(
+                            Icons.favorite_border,
+                            color: Colors.grey.shade400,
+                          ),
                         ),
                       ),
                     );

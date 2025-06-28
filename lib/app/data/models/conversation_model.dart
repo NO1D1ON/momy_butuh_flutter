@@ -1,27 +1,26 @@
-// Model untuk data satu baris percakapan
 class Conversation {
-  final int id;
-  final int userId;
-  final int babysitterId;
-  final String babysitterName;
-  // Kita bisa tambahkan lastMessage di sini nanti
+  final int conversationId;
+  final int otherPartyId;
+  final String otherPartyName;
+  final String lastMessage;
+  final String lastMessageTime;
 
   Conversation({
-    required this.id,
-    required this.userId,
-    required this.babysitterId,
-    required this.babysitterName,
+    required this.conversationId,
+    required this.otherPartyId,
+    required this.otherPartyName,
+    required this.lastMessage,
+    required this.lastMessageTime,
   });
 
+  // Factory constructor untuk membuat instance dari JSON
   factory Conversation.fromJson(Map<String, dynamic> json) {
     return Conversation(
-      id: json['id'],
-      userId: json['user_id'],
-      babysitterId: json['babysitter_id'],
-      // Ambil nama dari data relasi 'babysitter'
-      babysitterName: json['babysitter'] != null
-          ? json['babysitter']['name']
-          : 'N/A',
+      conversationId: json['conversation_id'] ?? 0,
+      otherPartyId: json['other_party_id'] ?? 0,
+      otherPartyName: json['other_party_name'] ?? 'Unknown User',
+      lastMessage: json['last_message'] ?? '',
+      lastMessageTime: json['last_message_time'] ?? '',
     );
   }
 }

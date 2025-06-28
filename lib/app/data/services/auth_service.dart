@@ -5,8 +5,15 @@ import 'package:momy_butuh_flutter/app/data/models/user_type.dart';
 import '../../utils/constants.dart'; // Pastikan path ini benar
 
 class AuthService {
-  final http.Client _client = http.Client();
+  late http.Client _client;
   final _storage = const FlutterSecureStorage();
+
+  AuthService() {
+    _client = http.Client();
+    // Untuk web, kita perlu memastikan client dapat menangani cookies.
+    // Library http secara default sudah melakukannya di browser modern,
+    // namun kita akan membuat perubahan di konfigurasi backend untuk memastikan.
+  }
 
   Future<String?> getToken() async {
     return await _storage.read(key: 'auth_token');
@@ -39,13 +46,9 @@ class AuthService {
   ) async {
     await _getCsrfCookie();
 
-    // Tentukan endpoint berdasarkan tipe pengguna
-    String endpoint;
-    if (userType == UserType.babysitter) {
-      endpoint = '${AppConstants.baseUrl}/babysitter/login';
-    } else {
-      endpoint = '${AppConstants.baseUrl}/login';
-    }
+    String endpoint = (userType == UserType.babysitter)
+        ? '${AppConstants.baseUrl}/babysitter/login'
+        : '${AppConstants.baseUrl}/login';
 
     final url = Uri.parse(endpoint);
 
@@ -59,13 +62,29 @@ class AuthService {
       final responseData = json.decode(response.body);
 
       if (response.statusCode == 200) {
-        if (responseData.containsKey('access_token')) {
-          await _saveToken(responseData['access_token']);
-          // Simpan juga tipe pengguna agar kita tahu siapa yang login
-          await _storage.write(key: 'user_type', value: userType.toString());
+        if (responseData.containsKey('access_token') &&
+            responseData.containsKey('user')) {
+          // 1. Simpan Token
+          await _storage.write(
+            key: 'auth_token',
+            value: responseData['access_token'],
+          );
+          // 2. Simpan Tipe Pengguna
+          await _storage.write(
+            key: 'user_type',
+            value: userType.name,
+          ); // Gunakan .name untuk enum
+
+          // 3. (PENTING) Simpan ID Pengguna
+          final userId = responseData['user']['id'].toString();
+          await _storage.write(key: 'user_id', value: userId);
+
           return {'success': true, 'data': responseData};
         } else {
-          return {'success': false, 'message': 'Token tidak ditemukan'};
+          return {
+            'success': false,
+            'message': 'Respons tidak valid dari server',
+          };
         }
       } else {
         return {
@@ -78,9 +97,9 @@ class AuthService {
     }
   }
 
+  // --- METHOD LOGOUT YANG DIPERBAIKI ---
   Future<void> logout() async {
     final token = await getToken();
-
     if (token != null) {
       final url = Uri.parse('${AppConstants.baseUrl}/logout');
       try {
@@ -92,13 +111,15 @@ class AuthService {
           },
         );
       } catch (e) {
-        print(
-          "Error during server logout, proceeding to delete local token. Error: $e",
-        );
+        // Abaikan error dari server, yang penting data lokal bersih
+        print("Error saat logout di server (diabaikan): $e");
       }
     }
 
-    await _deleteToken();
+    // Hapus SEMUA data terkait sesi dari penyimpanan lokal
+    await _storage.delete(key: 'auth_token');
+    await _storage.delete(key: 'user_type');
+    await _storage.delete(key: 'user_id');
   }
 
   Future<Map<String, dynamic>> register(
@@ -108,7 +129,8 @@ class AuthService {
   ) async {
     await _getCsrfCookie();
 
-    final url = Uri.parse('${AppConstants.baseUrl}/register');
+    // final url = Uri.parse('${AppConstants.baseUrl}/register');
+    final url = Uri.parse('${AppConstants.baseUrl}/sanctum/csrf-cookie');
     try {
       final response = await _client.post(
         url,
@@ -163,6 +185,63 @@ class AuthService {
           'success': false,
           'message': responseData['message'] ?? 'Gagal memuat profil',
         };
+      }
+    } catch (e) {
+      return {'success': false, 'message': 'Terjadi kesalahan koneksi: $e'};
+    }
+  }
+
+  Future<String?> getUserType() async {
+    return await _storage.read(key: 'user_type');
+  }
+
+  Future<Map<String, dynamic>> registerAsBabysitter({
+    required String name,
+    required String email,
+    required String password,
+    required String passwordConfirmation,
+    required String phoneNumber,
+    required String birthDate,
+    required String address,
+  }) async {
+    // Endpoint registrasi babysitter di backend Anda
+    final url = Uri.parse('${AppConstants.baseUrl}/babysitter/register');
+
+    try {
+      final response = await _client.post(
+        url,
+        headers: {'Accept': 'application/json'},
+        body: {
+          'name': name,
+          'email': email,
+          'password': password,
+          'password_confirmation': passwordConfirmation,
+          'phone_number': phoneNumber,
+          'birth_date': birthDate,
+          'address': address,
+          // Tambahkan field lain jika diperlukan oleh backend Anda
+        },
+      );
+
+      final responseData = json.decode(response.body);
+
+      if (response.statusCode == 201) {
+        // 201 Created
+        return {
+          'success': true,
+          'message':
+              responseData['message'] ?? 'Registrasi berhasil. Silakan login.',
+        };
+      } else {
+        // Tangani error validasi dari Laravel
+        String errorMessage = 'Terjadi kesalahan.';
+        if (responseData.containsKey('errors')) {
+          // Ambil pesan error pertama dari daftar error validasi
+          errorMessage = responseData['errors'].values.first[0];
+        } else if (responseData.containsKey('message')) {
+          errorMessage = responseData['message'];
+        }
+        return {'success': false, 'message': errorMessage};
       }
     } catch (e) {
       return {'success': false, 'message': 'Terjadi kesalahan koneksi: $e'};

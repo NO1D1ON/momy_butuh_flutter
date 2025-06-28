@@ -24,6 +24,7 @@ import 'package:momy_butuh_flutter/app/modules/map_view/map_view_view.dart';
 import 'package:momy_butuh_flutter/app/modules/role_selection/role_selection_view.dart';
 import 'package:momy_butuh_flutter/app/modules/select_location/binding.dart';
 import 'package:momy_butuh_flutter/app/modules/select_location/view.dart';
+import 'package:momy_butuh_flutter/app/modules/splash/binding.dart';
 import 'package:momy_butuh_flutter/app/modules/topup/topup_binding.dart';
 import 'package:momy_butuh_flutter/app/modules/topup/topup_view.dart';
 import 'package:momy_butuh_flutter/app/modules/transaction_history/binding.dart';
@@ -41,7 +42,11 @@ class AppPages {
   static const INITIAL = Routes.SPLASH;
 
   static final routes = [
-    GetPage(name: _Paths.SPLASH, page: () => const SplashView()),
+    GetPage(
+      name: _Paths.SPLASH,
+      page: () => const SplashView(),
+      binding: SplashBinding(),
+    ),
     GetPage(name: _Paths.ROLE_SELECTION, page: () => const RoleSelectionView()),
 
     // Rute Otentikasi Orang Tua

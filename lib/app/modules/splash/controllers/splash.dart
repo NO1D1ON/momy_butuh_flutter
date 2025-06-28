@@ -1,43 +1,38 @@
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:momy_butuh_flutter/app/data/services/auth_service.dart'; // Impor service
 import 'package:momy_butuh_flutter/app/routes/app_pages.dart';
+// Impor enum UserType jika Anda membuatnya
+// import 'package:momy_butuh_flutter/app/data/models/user_type.dart';
 
-// Controller untuk halaman splash screen, hanya berisi logika.
 class SplashController extends GetxController {
-  // onReady adalah bagian dari lifecycle GetxController yang akan
-  // dieksekusi setelah widget selesai di-render.
-  // Ini adalah tempat yang tepat untuk menjalankan pengecekan otentikasi.
+  // PERBAIKAN: Gunakan Get.find() untuk mendapatkan instance AuthService
+  // Ini adalah praktik yang baik dengan GetX, dengan asumsi service sudah di-inject.
+  final AuthService _authService = Get.find<AuthService>();
+
   @override
   void onReady() {
     super.onReady();
-    _checkAuth();
+    _checkAuthStatus();
   }
 
-  // Fungsi untuk mengecek status otentikasi pengguna.
-  // Logikanya sama persis dengan Kode 2 asli Anda.
-  void _checkAuth() async {
-    // Memberi jeda 2 detik untuk menampilkan splash screen.
+  void _checkAuthStatus() async {
+    // Beri jeda agar splash screen terlihat
     await Future.delayed(const Duration(seconds: 2));
 
-    // Mengambil instance dari SharedPreferences.
-    final prefs = await SharedPreferences.getInstance();
-    // Mengecek apakah ada 'auth_token' yang tersimpan.
-    final String? token = prefs.getString('auth_token');
+    // PERBAIKAN: Panggil metode dari AuthService, bukan _storage langsung.
+    final String? token = await _authService.getToken();
+    final String? userTypeString = await _authService.getUserType();
 
     if (token != null && token.isNotEmpty) {
-      // Jika token ada, cek peran (role) pengguna.
-      final String? role = prefs.getString('user_role');
-      if (role == 'babysitter') {
-        // Arahkan ke dashboard babysitter dan hapus semua riwayat navigasi sebelumnya.
-        Get.offAllNamed(Routes.DASHBOARD_BABYSITTER);
+      // Logika pengalihan Anda sudah benar, tidak ada perubahan di sini.
+      if (userTypeString == 'UserType.babysitter') {
+        Get.offAllNamed(Routes.DASHBOARD_BABYSITTER); // Pastikan rute ini ada
       } else {
-        // Arahkan ke dashboard orang tua dan hapus semua riwayat navigasi sebelumnya.
-        Get.offAllNamed(Routes.DASHBOARD_PARENT);
+        Get.offAllNamed(Routes.DASHBOARD_PARENT); // Pastikan rute ini ada
       }
     } else {
-      // Jika tidak ada token, arahkan pengguna ke halaman pemilihan peran.
-      Get.offAllNamed(Routes.ROLE_SELECTION);
+      // Arahkan ke halaman pemilihan peran atau login jika tidak ada token.
+      Get.offAllNamed(Routes.ROLE_SELECTION); // Pastikan rute ini ada
     }
   }
 }

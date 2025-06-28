@@ -248,7 +248,7 @@ class _ChatScreenState extends State<ChatScreen> {
         },
         body: jsonEncode({
           'body': messageText,
-          'babysitter_id': widget.otherPartyId,
+          'receiver_id': widget.otherPartyId,
         }),
       );
     } catch (e) {

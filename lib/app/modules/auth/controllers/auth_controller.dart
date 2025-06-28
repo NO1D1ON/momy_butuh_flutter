@@ -16,34 +16,20 @@ class AuthController extends GetxController {
   final isLoading = false.obs;
   final _authService = AuthService();
 
-  // PERBAIKAN 1: Tambahkan state untuk menyimpan tipe pengguna yang dipilih.
-  // Kita buat sebagai Rx (reaktif) agar UI bisa otomatis update jika perlu.
-  final selectedUserType = UserType.parent.obs;
-
-  // PERBAIKAN 2: Buat metode untuk mengubah tipe pengguna dari UI.
-  void changeUserType(UserType userType) {
-    selectedUserType.value = userType;
-  }
-
-  // Fungsi login yang sudah diperbaiki
-  Future<void> login() async {
+  // Fungsi login khusus untuk Orang Tua
+  Future<void> loginAsParent() async {
     isLoading.value = true;
 
-    // PERBAIKAN 3: Gunakan state 'selectedUserType.value' saat memanggil login.
+    // Panggil service login dengan peran yang sudah ditentukan
     final result = await _authService.login(
       emailController.text.trim(),
       passwordController.text.trim(),
-      selectedUserType.value, // Kirim tipe pengguna yang dipilih
+      UserType.parent, // Eksplisit tentukan peran sebagai Orang Tua
     );
 
     isLoading.value = false;
 
     if (result['success']) {
-      // PERBAIKAN 4: Arahkan ke dashboard yang benar berdasarkan tipe pengguna.
-      final destination = selectedUserType.value == UserType.parent
-          ? Routes.DASHBOARD_PARENT
-          : Routes.DASHBOARD_BABYSITTER; // Pastikan Anda punya rute ini
-
       AwesomeDialog(
         context: Get.context!,
         dialogType: DialogType.success,
@@ -51,7 +37,8 @@ class AuthController extends GetxController {
         title: 'Login Berhasil',
         desc: result['data']['message'] ?? 'Selamat datang!',
         btnOkOnPress: () {
-          Get.offAllNamed(destination);
+          // Arahkan ke dashboard Orang Tua
+          Get.offAllNamed(Routes.DASHBOARD_PARENT);
         },
       ).show();
     } else {
@@ -60,18 +47,31 @@ class AuthController extends GetxController {
         dialogType: DialogType.error,
         animType: AnimType.scale,
         title: 'Login Gagal',
-        desc: result['message'] ?? 'Terjadi kesalahan saat login.',
+        desc: result['message'] ?? 'Email atau password salah.',
         btnOkOnPress: () {},
         btnOkColor: AppTheme.primaryColor,
       ).show();
     }
   }
 
-  // Fungsi registrasi (tidak perlu diubah jika hanya untuk Orang Tua)
+  // Fungsi registrasi untuk Orang Tua
   Future<void> register() async {
     isLoading.value = true;
-    // ... (logika registrasi Anda tetap sama)
-    // ...
+
+    final result = await _authService.register(
+      // Asumsi ada method register di AuthService
+      nameController.text.trim(),
+      emailController.text.trim(),
+      passwordController.text.trim(),
+    );
+
     isLoading.value = false;
+
+    // Tampilkan dialog berdasarkan hasil registrasi...
+    if (result['success']) {
+      // Dialog sukses
+    } else {
+      // Dialog error
+    }
   }
 }
