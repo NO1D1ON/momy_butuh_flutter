@@ -30,13 +30,13 @@ class BookingHistoryController extends GetxController {
       bookingList.assignAll(bookings);
     } catch (e) {
       // Tampilkan pesan error jika gagal memuat data
-      Get.snackbar(
-        "Error",
-        "Gagal memuat riwayat booking: ${e.toString()}",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
+      // Get.snackbar(
+      //   "Error",
+      //   "Gagal memuat riwayat booking",
+      //   snackPosition: SnackPosition.TOP,
+      //   backgroundColor: Colors.red,
+      //   colorText: Colors.white,
+      // );
     } finally {
       // Hentikan status loading setelah selesai
       isLoading(false);
@@ -112,8 +112,8 @@ class BookingHistoryController extends GetxController {
       // Tampilkan pesan error
       Get.snackbar(
         "Error",
-        "Gagal mengirim ulasan: ${e.toString()}",
-        snackPosition: SnackPosition.BOTTOM,
+        "Gagal mengirim ulasan",
+        snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );

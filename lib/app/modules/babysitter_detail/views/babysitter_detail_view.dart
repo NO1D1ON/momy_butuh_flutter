@@ -91,6 +91,16 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
                   ),
                 ),
                 const SizedBox(height: 4),
+                Text(
+                  "Rp ${babysitter.ratePerHour}/jam",
+                  style: const TextStyle(
+                    color: AppTheme.primaryColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 4),
+
                 Row(
                   children: [
                     const Icon(Icons.star, color: Colors.amber, size: 16),
@@ -107,15 +117,6 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
                   style: TextStyle(color: Colors.grey[600], fontSize: 12),
                 ),
               ],
-            ),
-          ),
-          // Menggunakan 'ratePerHour' dari model baru
-          Text(
-            "Rp ${babysitter.ratePerHour}/jam",
-            style: const TextStyle(
-              color: AppTheme.primaryColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
             ),
           ),
         ],

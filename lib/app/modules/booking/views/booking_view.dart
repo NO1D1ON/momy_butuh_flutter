@@ -9,7 +9,23 @@ class BookingView extends GetView<BookingController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Booking ${controller.babysitter.name}')),
+      appBar: AppBar(
+        // --- TAMBAHKAN BAGIAN INI ---
+        // `leading` adalah widget yang ditempatkan di sisi paling kiri AppBar
+        leading: IconButton(
+          // Menggunakan ikon panah kembali standar dari Flutter
+          icon: const Icon(Icons.arrow_back),
+
+          // Fungsi yang akan dijalankan saat ikon ditekan
+          onPressed: () {
+            // Perintah GetX untuk kembali ke halaman sebelumnya
+            Get.back();
+          },
+        ),
+
+        // --- BATAS PENAMBAHAN ---
+        title: Text('Booking ${controller.babysitter.name}'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

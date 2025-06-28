@@ -42,11 +42,11 @@ class BabysitterDetailController extends GetxController {
       Get.snackbar(
         'Terjadi Kesalahan',
         errorMsg,
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red[600],
         colorText: Colors.white,
       );
-      print('Error fetchDetail: $e');
+      // print('Error fetchDetail: $e');
     } finally {
       isLoading(false);
     }

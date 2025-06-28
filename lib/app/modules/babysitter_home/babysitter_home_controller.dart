@@ -23,7 +23,7 @@ class BabysitterHomeController extends GetxController {
       var offers = await JobOfferService.fetchJobOffers();
       jobOfferList.assignAll(offers);
     } catch (e) {
-      Get.snackbar('Error', 'Gagal memuat data penawaran: $e');
+      Get.snackbar('Error', 'Gagal memuat data penawaran');
     } finally {
       isLoading(false);
     }

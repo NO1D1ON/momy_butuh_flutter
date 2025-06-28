@@ -25,10 +25,10 @@ class ProfileController extends GetxController {
       if (result['success']) {
         userProfile.value = UserProfile.fromJson(result['data']);
       } else {
-        Get.snackbar("Error", result['message'] ?? 'Gagal memuat profil');
+        // Get.snackbar("Error", result['message'] ?? 'Gagal memuat profil');
       }
     } catch (e) {
-      Get.snackbar("Error", "Gagal mengambil data profil: $e");
+      // Get.snackbar("Error", "Gagal mengambil data profil: $e");
     } finally {
       isLoading(false);
     }

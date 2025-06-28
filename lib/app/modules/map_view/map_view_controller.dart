@@ -73,7 +73,7 @@ class MapViewController extends GetxController {
       }
       markers.value = tempMarkers;
     } catch (e) {
-      Get.snackbar("Error Lokasi", e.toString());
+      // Get.snackbar("Error Lokasi", e.toString());
     } finally {
       isLoading(false);
     }

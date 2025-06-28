@@ -14,6 +14,7 @@ class JobOffer {
   final String? startTime;
   final String? endTime;
   final int? offeredPrice;
+  final String status;
 
   JobOffer({
     required this.id,
@@ -27,6 +28,7 @@ class JobOffer {
     this.startTime,
     this.endTime,
     this.offeredPrice,
+    required this.status,
   });
 
   /**
@@ -51,6 +53,7 @@ class JobOffer {
       startTime: json['start_time'],
       endTime: json['end_time'],
       offeredPrice: json['offered_price'],
+      status: json['status'] ?? 'open',
     );
   }
 

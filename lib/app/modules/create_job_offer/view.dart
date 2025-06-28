@@ -54,6 +54,54 @@ class CreateJobOfferView extends GetView<CreateJobOfferController> {
               ),
               keyboardType: TextInputType.number,
             ),
+
+            const SizedBox(height: 16),
+            // --- TAMBAHAN INPUT TANGGAL & WAKTU ---
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: controller.dateC,
+                    readOnly: true, // Agar tidak bisa diketik manual
+                    decoration: const InputDecoration(
+                      labelText: "Tanggal Pekerjaan",
+                      suffixIcon: Icon(Icons.calendar_today),
+                    ),
+                    onTap: () => controller.pickDate(), // Panggil date picker
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: controller.startTimeC,
+                    readOnly: true,
+                    decoration: const InputDecoration(
+                      labelText: "Jam Mulai",
+                      suffixIcon: Icon(Icons.access_time),
+                    ),
+                    onTap: () =>
+                        controller.pickTime(true), // Panggil time picker
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: TextField(
+                    controller: controller.endTimeC,
+                    readOnly: true,
+                    decoration: const InputDecoration(
+                      labelText: "Jam Selesai",
+                      suffixIcon: Icon(Icons.access_time),
+                    ),
+                    onTap: () =>
+                        controller.pickTime(false), // Panggil time picker
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 16),
             // Input untuk Tanggal & Waktu
             // ...

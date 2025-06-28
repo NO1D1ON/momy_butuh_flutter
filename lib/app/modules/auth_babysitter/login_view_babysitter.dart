@@ -17,6 +17,11 @@ class LoginBabysitterView extends GetView<AuthBabysitterController> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Image.asset(
+              'assets/images/logo.png', // <-- GANTI DENGAN PATH LOGO ANDA
+              width: 100,
+              height: 100, // Sesuaikan ukuran logo jika perlu
+            ),
             const Text(
               "Login Babysitter",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),

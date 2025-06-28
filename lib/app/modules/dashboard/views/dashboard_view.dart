@@ -28,7 +28,7 @@ class DashboardView extends GetView<DashboardController> {
           child: BottomNavigationBar(
             onTap: controller.changeTabIndex,
             currentIndex: controller.tabIndex.value,
-            selectedItemColor: Colors.white,
+            selectedItemColor: Color(0xFFFFDA76),
             unselectedItemColor: Colors.white,
             showUnselectedLabels: true,
             type: BottomNavigationBarType.fixed,

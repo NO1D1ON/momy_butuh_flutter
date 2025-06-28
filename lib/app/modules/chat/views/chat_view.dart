@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:momy_butuh_flutter/app/modules/chat/controllers/message_controller.dart';
+import 'package:momy_butuh_flutter/app/utils/theme.dart';
 
 class ChatView extends GetView<ChatController> {
   const ChatView({Key? key}) : super(key: key);
@@ -53,8 +54,8 @@ class ChatView extends GetView<ChatController> {
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             color: message.isMe
-                                ? Colors.blue[100]
-                                : Colors.grey[200],
+                                ? AppTheme.primaryColor
+                                : Colors.blue[100],
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(message.text),
@@ -91,7 +92,7 @@ class ChatView extends GetView<ChatController> {
           IconButton(
             icon: const Icon(Icons.send),
             onPressed: controller.sendMessage,
-            color: Colors.blue,
+            color: AppTheme.primaryColor,
           ),
         ],
       ),

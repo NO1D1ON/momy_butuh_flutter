@@ -47,35 +47,28 @@ class MessageService {
 
   /// Memulai percakapan baru atau mendapatkan yang sudah ada.
   /// Menggantikan metode getConversation yang lama.
-  Future<Map<String, dynamic>> initiateConversation(int otherPartyId) async {
+  Future<Map<String, dynamic>> initiateConversation(int babysitterId) async {
     final token = await _authService.getToken();
     if (token == null) throw Exception('Token tidak ditemukan.');
 
     final url = Uri.parse('${AppConstants.baseUrl}/conversations/initiate');
-    try {
-      final response = await _httpClient.post(
-        url,
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-        body: jsonEncode({
-          'babysitter_id': otherPartyId,
-        }), // Backend masih menunggu babysitter_id
-      );
+    final response = await _httpClient.post(
+      // Pastikan menggunakan POST
+      url,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({'babysitter_id': babysitterId}), // Kirim body
+    );
 
-      if (response.statusCode == 200) {
-        return {'success': true, 'data': json.decode(response.body)};
-      } else {
-        final responseData = json.decode(response.body);
-        return {
-          'success': false,
-          'message': responseData['message'] ?? 'Gagal memulai percakapan.',
-        };
-      }
-    } catch (e) {
-      return {'success': false, 'message': 'Terjadi kesalahan: $e'};
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return json.decode(response.body);
+    } else {
+      throw Exception(
+        'Gagal memulai sesi percakapan. Status: ${response.statusCode}',
+      );
     }
   }
 

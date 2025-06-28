@@ -1,13 +1,19 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart'; // <-- 1. Import paket yang benar
 import '../../utils/constants.dart';
 import '../models/transaction_model.dart';
 
 class TransactionService {
+  // Buat instance dari secure storage untuk digunakan
+  static const _storage = FlutterSecureStorage();
+
   static Future<List<Transaction>> getTransactionHistory() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('auth_token');
+    // --- PERBAIKAN DI SINI ---
+    // Baca token dari secure storage, bukan dari SharedPreferences
+    final token = await _storage.read(key: 'auth_token');
+    // --- BATAS PERBAIKAN ---
+
     final url = Uri.parse('${AppConstants.baseUrl}/transactions');
 
     try {
@@ -15,7 +21,7 @@ class TransactionService {
         url,
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer $token', // Sertakan token
         },
       );
 

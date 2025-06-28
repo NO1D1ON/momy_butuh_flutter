@@ -6,23 +6,43 @@ class FavoriteController extends GetxController {
   var isLoading = true.obs;
   var favoriteList = <Babysitter>[].obs;
 
+  // onInit dipanggil setiap kali halaman ini dibuka
   @override
   void onInit() {
     super.onInit();
-    // Panggil data saat halaman pertama kali dibuka
+    // Selalu ambil data terbaru saat halaman favorit diakses
     fetchFavorites();
   }
 
-  void fetchFavorites() async {
+  /// Mengambil daftar lengkap babysitter favorit dari server
+  Future<void> fetchFavorites() async {
     try {
       isLoading(true);
-      // Panggil method 'getFavorites' yang sudah kita buat
-      var favorites = await FavoriteService.getFavorites();
-      favoriteList.assignAll(favorites);
+      var result = await FavoriteService.getFavorites();
+      favoriteList.assignAll(result);
     } catch (e) {
-      Get.snackbar("Error", e.toString());
+      Get.snackbar('Error', 'Gagal memuat daftar favorit: ${e.toString()}');
+      // Pastikan list kosong jika terjadi error
+      favoriteList.clear();
     } finally {
       isLoading(false);
+    }
+  }
+
+  /// Fungsi untuk menghapus favorit langsung dari halaman ini
+  void removeFromFavorites(int babysitterId) async {
+    // Optimistic UI: Langsung hapus dari list agar UI responsif
+    favoriteList.removeWhere((babysitter) => babysitter.id == babysitterId);
+
+    // Kirim request ke server di background
+    var result = await FavoriteService.toggleFavorite(babysitterId);
+
+    // Jika gagal, tampilkan pesan dan muat ulang data agar konsisten
+    if (!result['success']) {
+      Get.snackbar('Gagal', 'Gagal menghapus favorit. Memuat ulang...');
+      fetchFavorites();
+    } else {
+      Get.snackbar('Info', 'Babysitter dihapus dari favorit.');
     }
   }
 }

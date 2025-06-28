@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
-import '../controllers/favorite_controller.dart';
+import 'package:momy_butuh_flutter/app/modules/favorite/controllers/favorite_controller.dart';
 
-class FavoriteBinding extends Bindings {
+class BabysitterFavoriteBinding extends Bindings {
   @override
   void dependencies() {
+    // Daftarkan BabysitterFavoriteController saat rute dipanggil
     Get.lazyPut<FavoriteController>(() => FavoriteController());
   }
 }

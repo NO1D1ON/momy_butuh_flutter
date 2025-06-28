@@ -141,7 +141,7 @@ class BookingHistoryView extends GetView<BookingHistoryController> {
                 Get.snackbar(
                   "Error",
                   "Rating tidak boleh kosong.",
-                  snackPosition: SnackPosition.BOTTOM,
+                  snackPosition: SnackPosition.TOP,
                 );
               }
             },

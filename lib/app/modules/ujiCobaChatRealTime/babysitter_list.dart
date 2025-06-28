@@ -61,6 +61,7 @@ class _BabysitterListScreenState extends State<BabysitterListScreen> {
     if (token == null) return;
 
     try {
+      // PERBAIKAN: Pastikan Anda menggunakan _httpClient.post di sini
       final response = await _httpClient.post(
         Uri.parse('${AppConstants.baseUrl}/conversations/initiate'),
         headers: {
@@ -68,37 +69,21 @@ class _BabysitterListScreenState extends State<BabysitterListScreen> {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
+        // Pastikan body dikirim dengan benar
         body: jsonEncode({'babysitter_id': babysitter.id}),
       );
 
-      if (response.statusCode == 200) {
+      // PERBAIKAN: Ganti pengecekan status code menjadi 200 atau 201
+      if (response.statusCode == 200 || response.statusCode == 201) {
         final conversationData = json.decode(response.body);
-        final conversationId = conversationData['id'];
-
-        if (mounted) {
-          // Navigasi ke ChatScreen dengan data yang diperlukan
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChatScreen(
-                conversationId: conversationId,
-                otherPartyName: babysitter.name,
-                otherPartyId: babysitter.id,
-                authService: _authService,
-                httpClient: _httpClient,
-              ),
-            ),
-          );
-        }
+        // ... logika navigasi ke ChatScreen
       } else {
-        throw Exception('Gagal memulai percakapan');
+        // Tangani error, termasuk 422
+        final errorData = json.decode(response.body);
+        throw Exception(errorData['message'] ?? 'Gagal memulai percakapan');
       }
     } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Error: ${e.toString()}')));
-      }
+      // ...
     }
   }
 

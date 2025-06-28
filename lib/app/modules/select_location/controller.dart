@@ -37,7 +37,7 @@ class SelectLocationController extends GetxController {
       }
       currentPosition.value = await Geolocator.getCurrentPosition();
     } catch (e) {
-      Get.snackbar("Error", e.toString());
+      // Get.snackbar("Error", e.toString());
     } finally {
       isLoading(false);
     }

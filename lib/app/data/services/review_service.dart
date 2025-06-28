@@ -1,17 +1,23 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart'; // <-- 1. Import paket yang benar
 import '../../utils/constants.dart';
 
 class ReviewService {
+  // Buat instance dari secure storage untuk digunakan
+  static const _storage = FlutterSecureStorage();
+
   // Fungsi untuk mengirim ulasan baru
   static Future<Map<String, dynamic>> postReview({
     required int bookingId,
     required int rating,
     required String comment,
   }) async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('auth_token');
+    // --- PERBAIKAN DI SINI ---
+    // Baca token dari secure storage
+    final token = await _storage.read(key: 'auth_token');
+    // --- BATAS PERBAIKAN ---
+
     final url = Uri.parse('${AppConstants.baseUrl}/reviews');
 
     try {
@@ -19,7 +25,7 @@ class ReviewService {
         url,
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer $token', // Sertakan token
         },
         body: {
           'booking_id': bookingId.toString(),
@@ -27,9 +33,23 @@ class ReviewService {
           'comment': comment,
         },
       );
-      return json.decode(response.body);
+
+      final responseData = json.decode(response.body);
+
+      if (response.statusCode == 201) {
+        // 201 Created
+        return {
+          'success': true,
+          'message': responseData['message'] ?? 'Ulasan berhasil dikirim.',
+        };
+      } else {
+        return {
+          'success': false,
+          'message': responseData['message'] ?? 'Gagal mengirim ulasan.',
+        };
+      }
     } catch (e) {
-      return {'message': 'Terjadi kesalahan: $e'};
+      return {'success': false, 'message': 'Terjadi kesalahan: $e'};
     }
   }
 }

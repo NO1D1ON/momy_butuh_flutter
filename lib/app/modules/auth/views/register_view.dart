@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:momy_butuh_flutter/app/utils/theme.dart';
 import '../controllers/auth_controller.dart';
 
 class RegisterView extends GetView<AuthController> {
@@ -8,6 +9,25 @@ class RegisterView extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        // --- PERBAIKAN DI SINI ---
+        // Menambahkan tombol kembali secara eksplisit
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () =>
+              Get.back(), // Fungsi untuk kembali ke halaman sebelumnya
+        ),
+
+        // --- BATAS PERBAIKAN ---
+        title: const Text(
+          'Pendaftaran Orang Tua',
+          style: TextStyle(
+            color: Colors.white,
+          ), // Tambahkan warna teks agar kontras
+        ),
+        backgroundColor: AppTheme.primaryColor,
+        centerTitle: true, // Agar judul berada di tengah
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24.0),

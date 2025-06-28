@@ -17,6 +17,8 @@ import 'package:momy_butuh_flutter/app/modules/create_job_offer/binding.dart';
 import 'package:momy_butuh_flutter/app/modules/create_job_offer/view.dart';
 import 'package:momy_butuh_flutter/app/modules/dashboard/bindings/dashboard_binding.dart';
 import 'package:momy_butuh_flutter/app/modules/dashboard/views/dashboard_view.dart';
+import 'package:momy_butuh_flutter/app/modules/favorite/bindings/favorite_binding.dart';
+import 'package:momy_butuh_flutter/app/modules/favorite/views/favorite_view.dart';
 import 'package:momy_butuh_flutter/app/modules/job_offer_detail/binding.dart';
 import 'package:momy_butuh_flutter/app/modules/job_offer_detail/view.dart';
 import 'package:momy_butuh_flutter/app/modules/map_view/map_view_binding.dart';
@@ -111,6 +113,12 @@ class AppPages {
       name: _Paths.MAP_VIEW,
       page: () => const MapView(),
       binding: MapBinding(),
+    ),
+
+    GetPage(
+      name: _Paths.BABYSITTER_FAVORITE,
+      page: () => const FavoriteView(),
+      binding: BabysitterFavoriteBinding(),
     ),
 
     GetPage(

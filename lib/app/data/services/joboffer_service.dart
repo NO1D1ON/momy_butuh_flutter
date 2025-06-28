@@ -1,11 +1,14 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart'; // <-- 1. Import paket yang benar
 import 'package:momy_butuh_flutter/app/data/models/joboffer_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/constants.dart';
 
 class JobOfferService {
-  // Method fetchJobOffers() biarkan seperti sebelumnya
+  // Buat instance dari secure storage untuk digunakan di semua method
+  static const _storage = FlutterSecureStorage();
+
+  // Method fetchJobOffers() dengan perbaikan
   static Future<List<JobOffer>> fetchJobOffers() async {
     final url = Uri.parse('${AppConstants.baseUrl}/job-offers');
     try {
@@ -16,10 +19,8 @@ class JobOfferService {
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
-        // Ubah setiap item JSON menjadi objek JobOffer
         return data.map((json) => JobOffer.fromJson(json)).toList();
       } else {
-        // Jika gagal, lempar error
         throw Exception('Gagal memuat data penawaran pekerjaan');
       }
     } catch (e) {
@@ -27,12 +28,15 @@ class JobOfferService {
     }
   }
 
-  // --- METHOD BARU UNTUK MENGIRIM PENAWARAN ---
+  // Method createOffer dengan perbaikan
   static Future<Map<String, dynamic>> createOffer(
     Map<String, String> offerData,
   ) async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('auth_token');
+    // --- PERBAIKAN DI SINI ---
+    // Baca token dari secure storage
+    final token = await _storage.read(key: 'auth_token');
+    // --- BATAS PERBAIKAN ---
+
     final url = Uri.parse('${AppConstants.baseUrl}/job-offers');
 
     try {
@@ -40,18 +44,16 @@ class JobOfferService {
         url,
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer $token', // Sertakan token
         },
-        body: offerData, // Kirim data penawaran sebagai body
+        body: offerData,
       );
 
       final responseData = json.decode(response.body);
 
-      // Status 201 berarti 'Created' (berhasil dibuat)
       if (response.statusCode == 201) {
         return {'success': true, 'message': responseData['message']};
       } else {
-        // Jika ada error validasi dari Laravel, tampilkan pesannya
         String errorMessage =
             responseData['message'] ?? 'Gagal mempublikasikan penawaran.';
         if (responseData.containsKey('errors')) {
@@ -61,6 +63,33 @@ class JobOfferService {
       }
     } catch (e) {
       return {'success': false, 'message': 'Terjadi kesalahan koneksi: $e'};
+    }
+  }
+
+  static Future<List<JobOffer>> fetchMyJobOffers() async {
+    final token = await _storage.read(key: 'auth_token');
+    if (token == null) {
+      throw Exception('Token tidak ditemukan.');
+    }
+
+    final url = Uri.parse('${AppConstants.baseUrl}/my-job-offers');
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        return data.map((json) => JobOffer.fromJson(json)).toList();
+      } else {
+        throw Exception('Gagal memuat penawaran saya');
+      }
+    } catch (e) {
+      throw Exception('Terjadi kesalahan: $e');
     }
   }
 }
