@@ -45,14 +45,16 @@ class JobOffer {
           ? json['user']['name']
           : 'Nama Pemesan Disembunyikan',
 
-      // Ambil data detail jika ada
+      // --- PERBAIKAN UTAMA ADA DI SINI ---
+      // Parsing data numerik dengan aman menggunakan .tryParse
+      // Ini akan berhasil meskipun data dari server berupa String, int, atau double.
       description: json['description'],
-      latitude: (json['latitude'] as num?)?.toDouble(),
-      longitude: (json['longitude'] as num?)?.toDouble(),
+      latitude: double.tryParse(json['latitude'].toString()),
+      longitude: double.tryParse(json['longitude'].toString()),
       jobDate: json['job_date'],
       startTime: json['start_time'],
       endTime: json['end_time'],
-      offeredPrice: json['offered_price'],
+      offeredPrice: int.tryParse(json['offered_price'].toString()),
       status: json['status'] ?? 'open',
     );
   }

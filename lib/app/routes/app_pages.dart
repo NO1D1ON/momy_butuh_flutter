@@ -129,13 +129,6 @@ class AppPages {
     ),
 
     GetPage(
-      name: _Paths.JOB_OFFER_DETAIL,
-      page: () => const JobOfferDetailView(),
-      binding: JobOfferDetailBinding(),
-      transition: Transition.rightToLeft, // Tambahkan efek transisi yang bagus
-    ),
-
-    GetPage(
       name: _Paths.CREATE_JOB_OFFER,
       page: () => const CreateJobOfferView(),
       binding: CreateJobOfferBinding(),

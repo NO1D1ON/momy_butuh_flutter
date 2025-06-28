@@ -10,21 +10,36 @@ class JobOfferService {
 
   // Method fetchJobOffers() dengan perbaikan
   static Future<List<JobOffer>> fetchJobOffers() async {
+    // --- TAMBAHKAN BAGIAN INI UNTUK MENGAMBIL TOKEN ---
+    final token = await _storage.read(key: 'auth_token');
+    if (token == null) {
+      throw Exception('Token tidak ditemukan. Silakan login kembali.');
+    }
+    // --- BATAS PENAMBAHAN ---
+
     final url = Uri.parse('${AppConstants.baseUrl}/job-offers');
     try {
       final response = await http.get(
         url,
-        headers: {'Accept': 'application/json'},
+        headers: {
+          'Accept': 'application/json',
+          // --- TAMBAHKAN HEADER AUTENTIKASI ---
+          'Authorization': 'Bearer $token',
+        },
       );
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         return data.map((json) => JobOffer.fromJson(json)).toList();
       } else {
-        throw Exception('Gagal memuat data penawaran pekerjaan');
+        // Berikan pesan error yang lebih spesifik berdasarkan status code
+        throw Exception(
+          'Gagal memuat data. Status: ${response.statusCode}, Body: ${response.body}',
+        );
       }
     } catch (e) {
-      throw Exception('Terjadi kesalahan: $e');
+      // Teruskan error agar bisa ditangkap oleh controller
+      rethrow;
     }
   }
 
