@@ -21,19 +21,20 @@ class ChatUIMessage {
 
 class ChatController extends GetxController {
   // --- DEKLARASI DEPENDENSI & PROPERTI ---
-  // Dependensi ini akan di-inject oleh ChatBinding
   final AuthService authService;
   final http.Client httpClient;
 
-  // Properti yang didapat dari halaman sebelumnya
-  late final Babysitter babysitter;
-  late final int conversationId;
+  // Properti ini akan diisi saat onInit, bisa null di awal
+  Babysitter? babysitter;
+  late final String otherPartyName;
+  late final int otherPartyId;
+  late int conversationId;
 
   // --- UI STATE MANAGEMENT (REAKTIF DENGAN .obs) ---
   final isLoading = true.obs;
   final errorMessage = ''.obs;
   final isOpponentTyping = false.obs;
-  final messages = <ChatUIMessage>[].obs; // Daftar pesan yang reaktif
+  final messages = <ChatUIMessage>[].obs;
 
   // --- CONTROLLER & KONEKSI NON-REAKTIF ---
   final textController = TextEditingController();
@@ -45,19 +46,17 @@ class ChatController extends GetxController {
   // Konstruktor untuk menerima dependensi
   ChatController({required this.authService, required this.httpClient});
 
-  // --- SIKLUS HIDUP CONTROLLER (LIFECYCLE HOOKS) ---
+  // --- SIKLUS HIDUP CONTROLLER ---
 
   @override
   void onInit() {
     super.onInit();
-    // Ambil data babysitter yang dikirim sebagai argumen
-    _initializeBabysitter();
-    _initializeChat();
+    // Panggil metode inisialisasi utama
+    _initialize();
   }
 
   @override
   void onClose() {
-    // Selalu bersihkan sumber daya untuk mencegah memory leak
     _webSocketChannel?.sink.close();
     textController.dispose();
     scrollController.dispose();
@@ -65,58 +64,53 @@ class ChatController extends GetxController {
     super.onClose();
   }
 
-  // --- METODE UNTUK MENGINISIALISASI BABYSITTER ---
-
-  void _initializeBabysitter() {
-    try {
-      final arguments = Get.arguments;
-
-      if (arguments is Babysitter) {
-        // Jika sudah berupa object Babysitter
-        babysitter = arguments;
-      } else if (arguments is Map<String, dynamic>) {
-        // Jika berupa Map, parse menjadi Babysitter
-        babysitter = Babysitter.fromJson(arguments);
-      } else if (arguments is Map) {
-        // Jika berupa Map dengan tipe generic, konversi dulu
-        final Map<String, dynamic> babysitterMap = Map<String, dynamic>.from(
-          arguments,
-        );
-        babysitter = Babysitter.fromJson(babysitterMap);
-      } else {
-        throw Exception('Format data babysitter tidak valid');
-      }
-    } catch (e) {
-      errorMessage.value = 'Gagal memproses data babysitter: ${e.toString()}';
-      // Set babysitter default atau handle error sesuai kebutuhan
-      rethrow;
-    }
-  }
-
   // --- METODE LOGIKA UTAMA ---
 
-  Future<void> _initializeChat() async {
+  Future<void> _initialize() async {
     try {
       isLoading(true);
       errorMessage('');
 
-      // 1. Dapatkan profil pengguna saat ini
+      final arguments = Get.arguments;
+
+      // Langkah 1: Dapatkan profil pengguna saat ini
       final profileResponse = await authService.getProfile();
       if (profileResponse['success'] != true)
         throw Exception('Gagal memuat profil.');
       _currentUserId = profileResponse['data']['id'];
 
-      // 2. Inisiasi percakapan untuk mendapatkan ID
-      final convoResponse = await _initiateConversation();
-      conversationId = convoResponse['id'];
+      // Langkah 2: Tentukan alur berdasarkan tipe argumen
+      if (arguments is Babysitter) {
+        // --- SKENARIO 1: Memulai chat BARU dari halaman profil/daftar Babysitter ---
+        babysitter = arguments; // Tetap assign ke property kelas
+        // PERBAIKAN: Gunakan variabel 'arguments' yang sudah pasti non-null
+        // untuk menghindari error null safety.
+        otherPartyId = arguments.id;
+        otherPartyName = arguments.name;
 
-      // 3. Ambil riwayat pesan
-      await _fetchMessageHistory();
+        // Panggil API untuk mendapatkan atau membuat ID percakapan
+        final convoData = await _initiateConversation();
+        conversationId = convoData['id'];
 
-      // 4. Hubungkan ke WebSocket
+        // Muat riwayat pesan (kemungkinan akan kosong untuk chat baru)
+        await _fetchMessageHistory();
+      } else if (arguments is Map<String, dynamic>) {
+        // --- SKENARIO 2: Membuka chat yang SUDAH ADA dari ConversationList ---
+        conversationId = arguments['conversation_id'];
+        otherPartyId = arguments['other_party_id'];
+        otherPartyName = arguments['other_party_name'];
+
+        // Langsung muat riwayat pesan, JANGAN panggil _initiateConversation
+        await _fetchMessageHistory();
+      } else {
+        throw Exception('Argumen untuk halaman chat tidak valid.');
+      }
+
+      // Langkah 3: Hubungkan ke WebSocket setelah semua data siap
       _connectToWebSocket();
     } catch (e) {
       errorMessage.value = e.toString().replaceAll('Exception: ', '');
+      print("Error di ChatController: $e");
     } finally {
       isLoading(false);
     }
@@ -131,18 +125,11 @@ class ChatController extends GetxController {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
-      body: jsonEncode({'babysitter_id': babysitter.id}),
+      body: jsonEncode({'babysitter_id': otherPartyId}),
     );
 
-    if (response.statusCode == 200) {
-      final responseData = json.decode(response.body);
-      // Tambahkan validasi untuk memastikan struktur response benar
-      if (responseData is Map<String, dynamic> &&
-          responseData.containsKey('id')) {
-        return responseData;
-      } else {
-        throw Exception('Response format tidak valid');
-      }
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return json.decode(response.body);
     }
     throw Exception(
       'Gagal memulai sesi percakapan. Status: ${response.statusCode}',
@@ -161,7 +148,6 @@ class ChatController extends GetxController {
     if (response.statusCode == 200) {
       final responseBody = json.decode(response.body);
 
-      // Validasi struktur response
       if (responseBody is Map<String, dynamic> &&
           responseBody.containsKey('data')) {
         final data = responseBody['data'];
@@ -169,7 +155,6 @@ class ChatController extends GetxController {
         if (data is List) {
           final history = data
               .map((msgJson) {
-                // Tambahkan null safety
                 if (msgJson is Map<String, dynamic>) {
                   return ChatUIMessage(
                     text: msgJson['body']?.toString() ?? '',
@@ -199,8 +184,6 @@ class ChatController extends GetxController {
 
   void _connectToWebSocket() {
     // Implementasi koneksi WebSocket, otorisasi, dan listener
-    // ... (Logika ini akan sama seperti di ChatScreen sebelumnya,
-    //      namun sekarang memanipulasi state controller, bukan setState)
   }
 
   void sendMessage() async {
@@ -209,13 +192,12 @@ class ChatController extends GetxController {
     final text = textController.text.trim();
     textController.clear();
 
-    // UI Optimis: Langsung tambahkan pesan ke daftar
     messages.add(ChatUIMessage(text: text, isMe: true));
     _scrollToBottom();
 
-    // Kirim ke backend
     try {
       final token = await authService.getToken();
+      // PERBAIKAN: Gunakan 'otherPartyId' yang sudah pasti ada, bukan 'babysitter.id'
       final response = await httpClient.post(
         Uri.parse('${AppConstants.baseUrl}/messages'),
         headers: {
@@ -223,17 +205,14 @@ class ChatController extends GetxController {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
-        body: jsonEncode({'body': text, 'receiver_id': babysitter.id}),
+        body: jsonEncode({'body': text, 'receiver_id': otherPartyId}),
       );
 
-      // Validasi response
       if (response.statusCode != 200 && response.statusCode != 201) {
         throw Exception('Gagal mengirim pesan. Status: ${response.statusCode}');
       }
     } catch (e) {
-      // Handle gagal kirim - bisa remove pesan dari UI atau show error
       print("Gagal mengirim pesan: $e");
-      // Optional: Remove last message if failed
       if (messages.isNotEmpty &&
           messages.last.isMe &&
           messages.last.text == text) {

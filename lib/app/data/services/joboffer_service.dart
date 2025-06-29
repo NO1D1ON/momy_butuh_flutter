@@ -107,4 +107,62 @@ class JobOfferService {
       throw Exception('Terjadi kesalahan: $e');
     }
   }
+
+  static Future<JobOffer> fetchJobOfferById(int id) async {
+    final token = await _storage.read(key: 'auth_token');
+    if (token == null) {
+      throw Exception('Token tidak ditemukan. Silakan login kembali.');
+    }
+
+    final url = Uri.parse('${AppConstants.baseUrl}/job-offers/$id');
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        // Langsung parse body jika API mengembalikan objek tunggal
+        final Map<String, dynamic> data = json.decode(response.body);
+        return JobOffer.fromJson(data);
+      } else {
+        throw Exception(
+          'Gagal memuat detail. Status: ${response.statusCode}, Body: ${response.body}',
+        );
+      }
+    } catch (e) {
+      // Teruskan error agar bisa ditangani di controller
+      rethrow;
+    }
+  }
+
+  /// Menerima (accept) sebuah tawaran pekerjaan.
+  static Future<Map<String, dynamic>> acceptJobOffer(int id) async {
+    final token = await _storage.read(key: 'auth_token');
+    if (token == null) {
+      throw Exception('Token tidak ditemukan. Silakan login kembali.');
+    }
+
+    final url = Uri.parse('${AppConstants.baseUrl}/job-offers/$id/accept');
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      return {
+        'success': response.statusCode == 200,
+        'message':
+            json.decode(response.body)['message'] ?? 'Status tidak diketahui',
+      };
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

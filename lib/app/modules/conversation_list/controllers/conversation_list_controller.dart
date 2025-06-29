@@ -46,22 +46,15 @@ class ConversationListController extends GetxController {
 
   // Metode untuk menavigasi ke halaman chat
   void navigateToChat(Conversation conversation) {
-    final babysitterArgument = Babysitter(
-      id: conversation.otherPartyId,
-      name: conversation.otherPartyName,
-      // Beri nilai default untuk field lain yang mungkin required
-      photoUrl: null,
-      bio: '',
-      ratePerHour: 0,
-      rating: 0,
-      age: 0,
-      address: '',
-    );
-
-    // Gunakan Get.toNamed dan kirim argumen yang benar
+    // Gunakan Get.toNamed dan kirim Map sederhana sebagai argumen.
+    // Ini menghilangkan kebutuhan untuk membuat objek 'Babysitter' palsu.
     Get.toNamed(
-      Routes.CHAT, // Gunakan rute bernama
-      arguments: babysitterArgument, // Kirim objek Babysitter
+      Routes.CHAT,
+      arguments: {
+        'conversation_id': conversation.conversationId,
+        'other_party_id': conversation.otherPartyId,
+        'other_party_name': conversation.otherPartyName,
+      },
     );
   }
 

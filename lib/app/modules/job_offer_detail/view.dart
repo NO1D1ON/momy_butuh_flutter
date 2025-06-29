@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:momy_butuh_flutter/app/modules/job_offer_detail/controller.dart';
 import 'package:momy_butuh_flutter/app/utils/theme.dart';
+import 'controller.dart';
 
 class JobOfferDetailView extends GetView<JobOfferDetailController> {
   const JobOfferDetailView({Key? key}) : super(key: key);
@@ -9,126 +9,185 @@ class JobOfferDetailView extends GetView<JobOfferDetailController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Detail Penawaran Pekerjaan")),
+      appBar: AppBar(
+        title: const Text('Detail Penawaran'),
+        backgroundColor: AppTheme.primaryColor,
+        elevation: 0,
+      ),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(color: AppTheme.primaryColor),
+          );
         }
-        // Data di bawah ini masih statis, nanti akan diganti dari controller.jobOffer.value
+        if (controller.jobOffer.value == null) {
+          return const Center(child: Text('Gagal memuat detail penawaran.'));
+        }
+
+        final offer = controller.jobOffer.value!;
+
         return SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Detail Pemesan
-              _buildSectionHeader("Detail Pemesan"),
-              _buildInfoCard(
-                icon: Icons.person_outline,
-                title: "Keluarga Aprilia",
-                subtitle: "Medan Johor",
-              ),
-              const SizedBox(height: 16),
-
-              // Lokasi
-              _buildSectionHeader("Lokasi Penjagaan"),
-              GestureDetector(
-                onTap: () => controller.navigateToClientLocation(),
-                child: _buildInfoCard(
-                  icon: Icons.location_on_outlined,
-                  title: "Jl. Eka Rasmi No. 12A",
-                  subtitle: "Ketuk untuk melihat di peta",
-                  trailing: const Icon(Icons.map, color: AppTheme.primaryColor),
-                ),
-              ),
-              const SizedBox(height: 16),
-
-              // Detail Pekerjaan
-              _buildSectionHeader("Detail Pekerjaan"),
-              _buildInfoCard(
-                icon: Icons.access_time,
-                title: "Durasi Penjagaan",
-                subtitle: "09:00 - 17:00 (8 jam)",
-              ),
-              const SizedBox(height: 8),
-              _buildInfoCard(
-                icon: Icons.wallet_outlined,
-                title: "Harga Ditawarkan",
-                subtitle: "Rp 400.000",
-                isPrice: true,
-              ),
-              const SizedBox(height: 16),
-
-              // Pesan dari Pemesan
-              _buildSectionHeader("Catatan dari Pemesan"),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Text(
-                  "Tolong jaga anak saya, usianya 2 tahun. Dia sangat aktif dan suka bermain bola. Makanan dan mainan sudah disiapkan.",
-                  style: TextStyle(height: 1.5),
-                ),
-              ),
+              _buildParentInfo(offer),
+              const Divider(height: 24, thickness: 1),
+              _buildJobDetails(offer),
             ],
           ),
         );
       }),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-          ),
-          child: const Text("Ambil Penawaran Ini"),
-        ),
-      ),
+      // Tombol aksi di bagian bawah
+      bottomNavigationBar: _buildBottomActionButtons(),
     );
   }
 
-  // Widget helper untuk header
-  Widget _buildSectionHeader(String title) {
+  Widget _buildParentInfo(dynamic offer) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Text(
-        title,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      padding: const EdgeInsets.all(16.0),
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 30,
+            backgroundColor: AppTheme.primaryColor.withOpacity(0.2),
+            child: Text(
+              offer.parentName.isNotEmpty
+                  ? offer.parentName.substring(0, 1).toUpperCase()
+                  : 'P',
+              style: const TextStyle(
+                fontSize: 24,
+                color: AppTheme.primaryColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const SizedBox(width: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Keluarga ${offer.parentName}",
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                "Pembuat Penawaran",
+                style: TextStyle(color: Colors.grey[600]),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
 
-  // Widget helper untuk kartu info
-  Widget _buildInfoCard({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    Widget? trailing,
-    bool isPrice = false,
-  }) {
-    return Card(
-      elevation: 0,
-      color: Colors.grey[50],
-      shape: RoundedRectangleBorder(
-        side: BorderSide(color: Colors.grey.shade200),
-        borderRadius: BorderRadius.circular(12),
+  Widget _buildJobDetails(dynamic offer) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            offer.title,
+            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          _buildDetailRow(
+            Icons.location_on_outlined,
+            "Lokasi",
+            offer.locationAddress,
+          ),
+          _buildDetailRow(
+            Icons.calendar_today_outlined,
+            "Tanggal",
+            offer.jobDate,
+          ),
+          _buildDetailRow(
+            Icons.access_time_outlined,
+            "Waktu",
+            "${offer.startTime} - ${offer.endTime}",
+          ),
+          _buildDetailRow(
+            Icons.wallet_giftcard,
+            "Upah Ditawarkan",
+            "Rp ${offer.offeredPrice}",
+          ),
+          const SizedBox(height: 16),
+          const Text(
+            "Deskripsi Pekerjaan",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            offer.description,
+            style: TextStyle(color: Colors.grey[700], height: 1.5),
+          ),
+        ],
       ),
-      child: ListTile(
-        leading: Icon(icon, color: AppTheme.primaryColor),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
-        subtitle: Text(
-          subtitle,
-          style: isPrice
-              ? const TextStyle(
+    );
+  }
+
+  Widget _buildDetailRow(IconData icon, String title, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0),
+      child: Row(
+        children: [
+          Icon(icon, color: AppTheme.primaryColor, size: 20),
+          const SizedBox(width: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: TextStyle(color: Colors.grey[600])),
+              const SizedBox(height: 2),
+              Text(
+                value,
+                style: const TextStyle(
                   fontSize: 16,
-                  color: Colors.green,
-                  fontWeight: FontWeight.bold,
-                )
-              : null,
-        ),
-        trailing: trailing,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBottomActionButtons() {
+    return Container(
+      padding: const EdgeInsets.all(16).copyWith(top: 8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 5,
+          ),
+        ],
+      ),
+      child: Obx(
+        () => controller.isAccepting.value
+            ? const Center(
+                child: CircularProgressIndicator(color: AppTheme.primaryColor),
+              )
+            : ElevatedButton(
+                onPressed: controller.acceptOffer,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppTheme.primaryColor,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: const Text(
+                  "Terima Tawaran",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
       ),
     );
   }

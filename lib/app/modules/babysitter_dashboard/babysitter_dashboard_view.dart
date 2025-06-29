@@ -33,9 +33,7 @@ class BabysitterDashboardView extends GetView<BabysitterDashboardController> {
             selectedItemColor: const Color(
               0xFFFFDA76,
             ), // Warna highlight seperti parent
-            unselectedItemColor: Colors.white.withOpacity(
-              0.7,
-            ), // Warna non-aktif
+            unselectedItemColor: Colors.white, // Warna non-aktif
             showUnselectedLabels: true,
             type: BottomNavigationBarType.fixed,
             elevation: 5, // Tambahkan elevasi
