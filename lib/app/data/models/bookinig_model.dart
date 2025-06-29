@@ -7,6 +7,8 @@ class Booking {
   final DateTime jobDate;
   final String? parentAddress;
   final int parentId;
+  final String? startTime;
+  final String? endTime;
 
   Booking({
     required this.id,
@@ -17,6 +19,8 @@ class Booking {
     this.parentName,
     this.parentAddress,
     required this.parentId,
+    this.startTime,
+    this.endTime,
   });
 
   factory Booking.fromJson(Map<String, dynamic> json) {
@@ -32,6 +36,8 @@ class Booking {
       parentAddress: json['user'] != null
           ? json['user']['address']
           : 'Alamat tidak ada',
+      startTime: json['start_time'],
+      endTime: json['end_time'],
     );
   }
 }

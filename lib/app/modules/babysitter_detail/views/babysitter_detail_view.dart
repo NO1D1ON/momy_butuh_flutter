@@ -100,11 +100,9 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
                   ),
                 ),
                 const SizedBox(height: 4),
-
                 Row(
                   children: [
                     const Icon(Icons.star, color: Colors.amber, size: 16),
-                    // Menggunakan 'rating' dari model baru
                     Text(
                       " ${babysitter.rating.toStringAsFixed(1)} (${babysitter.reviews.length} ulasan)",
                       style: const TextStyle(color: Colors.grey),
@@ -163,7 +161,6 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
-          // Menggunakan 'bio' dari model baru
           Text(
             babysitter.bio,
             style: const TextStyle(color: Colors.black54, height: 1.5),
@@ -196,8 +193,13 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
             itemCount: reviews.length,
             itemBuilder: (context, index) {
               final review = reviews[index];
-              final initial =
-                  review.user?.name.substring(0, 1).toUpperCase() ?? 'U';
+              // --- PERBAIKAN NULL SAFETY DI SINI ---
+              final userName = review.user?.name;
+              final initial = (userName != null && userName.isNotEmpty)
+                  ? userName.substring(0, 1).toUpperCase()
+                  : 'U'; // 'U' untuk User
+              // --- BATAS PERBAIKAN ---
+
               return ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: CircleAvatar(child: Text(initial)),
