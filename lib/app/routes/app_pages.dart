@@ -23,6 +23,8 @@ import 'package:momy_butuh_flutter/app/modules/job_offer_detail/binding.dart';
 import 'package:momy_butuh_flutter/app/modules/job_offer_detail/view.dart';
 import 'package:momy_butuh_flutter/app/modules/map_view/map_view_binding.dart';
 import 'package:momy_butuh_flutter/app/modules/map_view/map_view_view.dart';
+import 'package:momy_butuh_flutter/app/modules/parent_detail/parent_detail_binding.dart';
+import 'package:momy_butuh_flutter/app/modules/parent_detail/parent_detail_view.dart';
 import 'package:momy_butuh_flutter/app/modules/role_selection/role_selection_view.dart';
 import 'package:momy_butuh_flutter/app/modules/select_location/binding.dart';
 import 'package:momy_butuh_flutter/app/modules/select_location/view.dart';
@@ -154,6 +156,14 @@ class AppPages {
       name: _Paths.BABYSITTER_SEARCH,
       page: () => const BabysitterSearchView(),
       binding: BabysitterSearchBinding(),
+      // Gunakan transisi dari bawah ke atas untuk halaman pencarian
+      transition: Transition.downToUp,
+    ),
+
+    GetPage(
+      name: _Paths.PARENT_DETAIL,
+      page: () => const ParentDetailView(),
+      binding: ParentDetailBinding(),
       // Gunakan transisi dari bawah ke atas untuk halaman pencarian
       transition: Transition.downToUp,
     ),

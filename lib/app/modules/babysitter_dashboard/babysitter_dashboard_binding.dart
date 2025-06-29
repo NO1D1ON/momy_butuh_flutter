@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:momy_butuh_flutter/app/data/services/auth_service.dart';
 import 'package:momy_butuh_flutter/app/data/services/message_service.dart';
+import 'package:momy_butuh_flutter/app/modules/babysitter_booking/babysitter_booking_controller.dart';
 import 'package:momy_butuh_flutter/app/modules/babysitter_dashboard/babysitter_dashboard_controller.dart';
 import 'package:momy_butuh_flutter/app/modules/babysitter_home/babysitter_home_controller.dart';
 import 'package:momy_butuh_flutter/app/modules/conversation_list/controllers/conversation_list_controller.dart';
@@ -37,5 +38,8 @@ class BabysitterDashboardBinding extends Bindings {
       ),
     );
     Get.lazyPut<ProfileController>(() => ProfileController());
+    Get.lazyPut<BabysitterBookingsController>(
+      () => BabysitterBookingsController(),
+    );
   }
 }

@@ -38,6 +38,8 @@ abstract class Routes {
   static const BABYSITTER_SEARCH = _Paths.BABYSITTER_SEARCH;
 
   static const BABYSITTER_FAVORITE = _Paths.BABYSITTER_FAVORITE;
+
+  static const PARENT_DETAIL = _Paths.PARENT_DETAIL;
 }
 
 // Kelas ini mendefinisikan path URL sebenarnya untuk setiap rute.
@@ -73,4 +75,6 @@ abstract class _Paths {
   static const BABYSITTER_SEARCH = '/babysitter-search';
 
   static const BABYSITTER_FAVORITE = '/babysitter-favorite';
+
+  static const PARENT_DETAIL = '/parent-detail';
 }
