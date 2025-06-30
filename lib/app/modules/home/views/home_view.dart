@@ -19,7 +19,7 @@ class HomeView extends GetView<HomeController> {
       // ),
       body: SafeArea(
         child: RefreshIndicator(
-          onRefresh: () async => controller.fetchBabysitters(),
+          onRefresh: () async => controller.fetchAvailabilities(),
           color: AppTheme.primaryColor,
           child: CustomScrollView(
             // Ganti ListView dengan CustomScrollView
@@ -176,16 +176,16 @@ class HomeView extends GetView<HomeController> {
                       ),
                     );
                   }
-                  if (controller.babysitterList.isEmpty) {
+                  if (controller.availabilityList.isEmpty) {
                     return const Center(
                       child: Text("Belum ada babysitter yang tersedia."),
                     );
                   }
                   return Column(
-                    children: List.generate(controller.babysitterList.length, (
+                    children: List.generate(controller.availabilityList.length, (
                       index,
                     ) {
-                      final babysitter = controller.babysitterList[index];
+                      final babysitter = controller.availabilityList[index];
                       return Padding(
                         padding: const EdgeInsets.only(
                           bottom: 12.0,
@@ -263,7 +263,7 @@ class HomeView extends GetView<HomeController> {
                                         const SizedBox(height: 4),
                                         Text(
                                           // Asumsi ada properti 'location' atau 'experience'
-                                          "${babysitter.age} Tahun, ${babysitter.address ?? 'Lokasi Tidak Diketahui'}",
+                                          "${babysitter.age} Tahun, ${babysitter.locationPreference ?? 'Lokasi Tidak Diketahui'}",
                                           style: const TextStyle(
                                             color: Colors.grey,
                                             fontSize: 14,

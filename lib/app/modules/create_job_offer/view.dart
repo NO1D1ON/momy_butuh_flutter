@@ -106,17 +106,31 @@ class CreateJobOfferView extends GetView<CreateJobOfferController> {
             // Input untuk Tanggal & Waktu
             // ...
             // Tombol untuk memilih lokasi di peta
+            TextField(
+              controller: controller.addressC,
+              decoration: const InputDecoration(
+                labelText: "Alamat Lokasi Pekerjaan",
+                hintText: "Pilih lokasi dari peta",
+              ),
+              // Buat readOnly agar pengguna disarankan menggunakan tombol peta
+              readOnly: true,
+              maxLines: 2,
+            ),
+            const SizedBox(height: 8),
+            // Tombol untuk memilih lokasi di peta
             OutlinedButton.icon(
               onPressed: () async {
                 // Navigasi ke halaman peta dan tunggu hasilnya
                 var result = await Get.toNamed(Routes.SELECT_LOCATION);
-                if (result is LatLng) {
-                  // Jika pengguna memilih lokasi, tampilkan di controller
+
+                // Cek jika hasil adalah Map, bukan lagi LatLng
+                if (result is Map<String, dynamic>) {
+                  // Panggil method updateLocation yang baru dengan hasil Map
                   controller.updateLocation(result);
                 }
               },
               icon: const Icon(Icons.location_on_outlined),
-              label: const Text("Pilih Lokasi di Peta"),
+              label: const Text("Pilih atau Ubah Lokasi di Peta"),
             ),
             const SizedBox(height: 32),
             ElevatedButton(

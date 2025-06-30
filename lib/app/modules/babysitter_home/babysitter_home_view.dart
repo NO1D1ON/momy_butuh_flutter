@@ -11,6 +11,17 @@ class BabysitterHomeView extends GetView<BabysitterHomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          // Navigasi ke halaman baru untuk membuat penawaran
+          // Get.toNamed(Routes.CREATE_AVAILABILITY);
+          Get.toNamed(Routes.CREATE_AVAILABILITY);
+        },
+        label: const Text("Tawarkan Jasa"),
+        icon: const Icon(Icons.add),
+        backgroundColor: AppTheme.primaryColor,
+      ),
+
       body: SafeArea(
         // RefreshIndicator untuk fitur pull-to-refresh
         child: RefreshIndicator(
@@ -79,7 +90,11 @@ class BabysitterHomeView extends GetView<BabysitterHomeController> {
               ],
             ),
           ),
-          const Icon(Icons.waving_hand, size: 75, color: AppTheme.primaryColor),
+          Image.asset(
+            'assets/images/flat-mother-s-day-illustration.png',
+            width: 105,
+            height: 105,
+          ),
         ],
       ),
     );

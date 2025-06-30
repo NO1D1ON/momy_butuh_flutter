@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:awesome_dialog/awesome_dialog.dart'; // Import untuk notifikasi
+import 'package:momy_butuh_flutter/app/data/models/babysitter_availibility_model.dart';
+import 'package:momy_butuh_flutter/app/data/services/babysitter_available_service.dart';
 import '../../../data/models/babysitter_model.dart';
 import '../../../data/services/babysitter_service.dart';
 import '../../../data/services/favorite_service.dart'; // <-- 1. Import service baru untuk favorit
@@ -11,7 +13,7 @@ class HomeController extends GetxController {
 
   // State untuk loading dan daftar babysitter
   var isLoading = true.obs;
-  var babysitterList = <Babysitter>[].obs;
+  var availabilityList = <BabysitterAvailability>[].obs;
 
   // --- 2. STATE BARU UNTUK MENYIMPAN DAFTAR ID FAVORIT ---
   // Kita gunakan Set agar tidak ada ID duplikat dan pengecekan lebih cepat
@@ -25,7 +27,7 @@ class HomeController extends GetxController {
     super.onInit();
     // Panggil semua data yang dibutuhkan saat halaman dibuka
     fetchInitialData();
-    fetchBabysitters();
+    fetchAvailabilities();
     fetchFavoriteIds();
   }
 
@@ -33,7 +35,7 @@ class HomeController extends GetxController {
   void fetchInitialData() async {
     isLoading(true);
     await fetchParentProfile();
-    await fetchBabysitters();
+    fetchAvailabilities();
     await fetchFavoriteIds(); // Panggil data favorit setelah daftar babysitter ada
     isLoading(false);
   }
@@ -52,12 +54,16 @@ class HomeController extends GetxController {
   }
 
   // Fungsi fetchBabysitters Anda sudah benar
-  Future<void> fetchBabysitters() async {
+  void fetchAvailabilities() async {
     try {
-      var babysitters = await BabysitterService.fetchBabysitters();
-      babysitterList.assignAll(babysitters);
+      isLoading(true);
+      var availabilities =
+          await BabysitterAvailabilityService.fetchAvailabilities();
+      availabilityList.assignAll(availabilities);
     } catch (e) {
-      Get.snackbar('Error', 'Gagal memuat data babysitter.');
+      Get.snackbar('Error', 'Gagal memuat data penawaran dari babysitter.');
+    } finally {
+      isLoading(false);
     }
   }
 

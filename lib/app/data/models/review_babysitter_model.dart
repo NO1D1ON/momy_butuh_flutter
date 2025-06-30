@@ -1,7 +1,5 @@
 // File: lib/app/data/models/review_model.dart
 
-// Model ini merepresentasikan data User sederhana yang terkait dengan sebuah review.
-// Kita hanya butuh nama dari pemberi ulasan.
 import 'package:momy_butuh_flutter/app/data/models/user_model.dart';
 
 class Review {
@@ -24,5 +22,15 @@ class Review {
       comment: json['comment'] ?? '',
       user: json['user'] != null ? UserModel.fromJson(json['user']) : null,
     );
+  }
+
+  // ✅ Tambahkan toJson untuk menghindari error
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'rating': rating,
+      'comment': comment,
+      'user': user?.toJson(), // Pastikan UserModel punya toJson juga
+    };
   }
 }

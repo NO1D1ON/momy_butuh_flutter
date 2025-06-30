@@ -122,20 +122,26 @@ class AuthService {
     await _storage.delete(key: 'user_id');
   }
 
-  Future<Map<String, dynamic>> register(
-    String name,
-    String email,
-    String password,
-  ) async {
+  Future<Map<String, dynamic>> register({
+    required String name,
+    required String email,
+    required String password,
+    required String passwordConfirmation, // Tambahkan parameter ini
+  }) async {
     await _getCsrfCookie();
 
-    // final url = Uri.parse('${AppConstants.baseUrl}/register');
-    final url = Uri.parse('${AppConstants.baseUrl}/sanctum/csrf-cookie');
+    final url = Uri.parse('${AppConstants.baseUrl}/register');
     try {
       final response = await _client.post(
         url,
         headers: {'Accept': 'application/json'},
-        body: {'name': name, 'email': email, 'password': password},
+        body: {
+          'name': name,
+          'email': email,
+          'password': password,
+          'password_confirmation':
+              passwordConfirmation, // Kirim field ini ke API
+        },
       );
 
       final responseData = json.decode(response.body);
@@ -146,13 +152,15 @@ class AuthService {
           'message': 'Registrasi berhasil. Silakan login.',
         };
       } else {
-        return {
-          'success': false,
-          'message': responseData['message'] ?? responseData.toString(),
-        };
+        String errorMessage = responseData['message'] ?? 'Registrasi gagal.';
+        if (responseData.containsKey('errors')) {
+          errorMessage =
+              (responseData['errors'] as Map<String, dynamic>).values.first[0];
+        }
+        return {'success': false, 'message': errorMessage};
       }
     } catch (e) {
-      return {'success': false, 'message': 'Terjadi kesalahan: $e'};
+      return {'success': false, 'message': 'Terjadi kesalahan koneksi: $e'};
     }
   }
 

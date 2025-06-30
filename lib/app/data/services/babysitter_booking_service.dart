@@ -7,9 +7,11 @@ import '../../utils/constants.dart';
 class BabysitterBookingService {
   static const _storage = FlutterSecureStorage();
 
-  /// Mengambil semua booking milik babysitter yang sedang login
+  /// Mengambil semua booking yang terkait dengan babysitter yang login
   static Future<List<Booking>> getMyBookings() async {
     final token = await _storage.read(key: 'auth_token');
+    if (token == null) throw Exception("Token tidak ditemukan.");
+
     final url = Uri.parse('${AppConstants.baseUrl}/babysitter/my-bookings');
 
     try {
@@ -32,11 +34,14 @@ class BabysitterBookingService {
     }
   }
 
-  /// Mengirim konfirmasi bahwa babysitter telah menyelesaikan booking
+  /// Mengirim konfirmasi penyelesaian dari sisi Babysitter
   static Future<Map<String, dynamic>> babysitterConfirmBooking(
     int bookingId,
   ) async {
     final token = await _storage.read(key: 'auth_token');
+    if (token == null)
+      return {'success': false, 'message': 'Otentikasi gagal.'};
+
     final url = Uri.parse(
       '${AppConstants.baseUrl}/bookings/$bookingId/babysitter-confirm',
     );
@@ -53,14 +58,17 @@ class BabysitterBookingService {
       final responseData = json.decode(response.body);
 
       if (response.statusCode == 200) {
-        return {'success': true, 'message': responseData['message']};
+        // KEMBALIKAN SELURUH DATA, BUKAN HANYA MESSAGE
+        return {'success': true, 'data': responseData};
       } else {
+        // Jika gagal, kembalikan pesan error dari server
         return {
           'success': false,
           'message': responseData['message'] ?? 'Gagal mengkonfirmasi',
         };
       }
     } catch (e) {
+      // Jika terjadi error koneksi
       return {'success': false, 'message': 'Terjadi kesalahan: $e'};
     }
   }

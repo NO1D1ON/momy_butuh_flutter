@@ -141,4 +141,36 @@ class BookingService {
       rethrow;
     }
   }
+
+  static Future<Map<String, dynamic>> parentConfirmBooking(
+    int bookingId,
+  ) async {
+    final token = await _storage.read(key: 'auth_token');
+    final url = Uri.parse(
+      '${AppConstants.baseUrl}/bookings/$bookingId/parent-confirm',
+    );
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      final responseData = json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        return {'success': true, 'message': responseData['message']};
+      } else {
+        return {
+          'success': false,
+          'message': responseData['message'] ?? 'Gagal mengkonfirmasi pesanan',
+        };
+      }
+    } catch (e) {
+      return {'success': false, 'message': 'Terjadi kesalahan koneksi: $e'};
+    }
+  }
 }

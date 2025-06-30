@@ -119,4 +119,32 @@ class BookingHistoryController extends GetxController {
       );
     }
   }
+
+  void confirmAsParent(int bookingId) {
+    AwesomeDialog(
+      context: Get.context!,
+      dialogType: DialogType.info,
+      title: 'Konfirmasi Penyelesaian',
+      desc:
+          'Apakah Anda yakin pekerjaan ini sudah selesai? Ini akan memproses pembayaran ke babysitter.',
+      btnCancelOnPress: () {},
+      btnOkOnPress: () async {
+        // Panggil service setelah user menekan OK
+        var result = await BookingService.parentConfirmBooking(bookingId);
+
+        AwesomeDialog(
+          context: Get.context!,
+          dialogType: result['success'] ? DialogType.success : DialogType.error,
+          title: result['success'] ? 'Berhasil' : 'Gagal',
+          desc: result['message'],
+          btnOkOnPress: () {
+            if (result['success']) {
+              // Jika berhasil, muat ulang data untuk memperbarui status
+              fetchBookingHistory();
+            }
+          },
+        ).show();
+      },
+    ).show();
+  }
 }

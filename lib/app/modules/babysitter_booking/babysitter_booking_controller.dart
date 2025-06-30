@@ -1,3 +1,5 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:momy_butuh_flutter/app/data/models/bookinig_model.dart';
 import 'package:momy_butuh_flutter/app/data/models/joboffer_model.dart';
@@ -53,5 +55,61 @@ class BabysitterBookingsController extends GetxController {
     } finally {
       isLoadingOffers(false);
     }
+  }
+
+  void confirmAsBabysitter(int bookingId) {
+    AwesomeDialog(
+      context: Get.context!,
+      dialogType: DialogType.info,
+      animType: AnimType.scale,
+      title: 'Konfirmasi Penyelesaian',
+      desc: 'Apakah Anda yakin pekerjaan ini sudah selesai?',
+      btnCancelOnPress: () {},
+      btnOkOnPress: () async {
+        // Tampilkan loading indicator
+        Get.dialog(
+          const Center(child: CircularProgressIndicator()),
+          barrierDismissible: false,
+        );
+
+        var result = await BabysitterBookingService.babysitterConfirmBooking(
+          bookingId,
+        );
+
+        Get.back(); // Tutup loading indicator
+
+        // --- PERBAIKAN UTAMA DI SINI ---
+        // Cek jika 'success' adalah true DAN 'data' tidak null
+        if (result['success'] == true && result['data'] != null) {
+          final responseData = result['data'] as Map<String, dynamic>;
+          final status = responseData['status'];
+          final message = responseData['message'];
+
+          AwesomeDialog(
+            context: Get.context!,
+            dialogType: status == 'completed'
+                ? DialogType.success
+                : DialogType.info,
+            title: status == 'completed'
+                ? 'Pesanan Selesai!'
+                : 'Menunggu Konfirmasi',
+            desc: message,
+            btnOkOnPress: () {
+              fetchMyBookings(); // Muat ulang data untuk memperbarui tampilan
+            },
+          ).show();
+        } else {
+          // Jika gagal, tampilkan pesan error dari kunci 'message'
+          AwesomeDialog(
+            context: Get.context!,
+            dialogType: DialogType.error,
+            title: 'Gagal',
+            desc:
+                result['message'] ?? 'Terjadi kesalahan yang tidak diketahui.',
+            btnOkOnPress: () {},
+          ).show();
+        }
+      },
+    ).show();
   }
 }

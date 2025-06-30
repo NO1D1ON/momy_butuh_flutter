@@ -66,10 +66,18 @@ class CreateJobOfferController extends GetxController {
   }
   // --- BATAS FUNGSI BARU ---
 
-  void updateLocation(LatLng location) {
-    selectedLocation.value = location;
-    addressC.text =
-        'Lokasi dipilih: ${location.latitude.toStringAsFixed(5)}, ${location.longitude.toStringAsFixed(5)}';
+  void updateLocation(Map<String, dynamic> locationData) {
+    // Pastikan data yang diterima adalah Map dan berisi kunci yang kita butuhkan
+    if (locationData.containsKey('latlng') &&
+        locationData.containsKey('address')) {
+      final latlng = locationData['latlng'] as LatLng;
+      final address = locationData['address'] as String;
+
+      // Simpan koordinat ke dalam state
+      selectedLocation.value = latlng;
+      // Isi TextField alamat dengan alamat yang dipilih dari peta
+      addressC.text = address;
+    }
   }
 
   void submitOffer() async {

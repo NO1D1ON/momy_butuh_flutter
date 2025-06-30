@@ -15,6 +15,7 @@ class BabysitterBookingsView extends GetView<BabysitterBookingsController> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Pesanan Saya'),
+          // Menggunakan PreferredSize untuk menempatkan TabBar di bawah AppBar
           bottom: const PreferredSize(
             preferredSize: Size.fromHeight(kToolbarHeight),
             child: Align(
@@ -33,12 +34,18 @@ class BabysitterBookingsView extends GetView<BabysitterBookingsController> {
           ),
         ),
         body: TabBarView(
-          children: [_buildMyBookingsList(), _buildJobOffersList()],
+          children: [
+            // Konten untuk Tab 1
+            _buildMyBookingsList(),
+            // Konten untuk Tab 2
+            _buildJobOffersList(),
+          ],
         ),
       ),
     );
   }
 
+  // Widget untuk menampilkan daftar Riwayat Booking
   Widget _buildMyBookingsList() {
     return Obx(() {
       if (controller.isLoadingBookings.value) {
@@ -52,6 +59,7 @@ class BabysitterBookingsView extends GetView<BabysitterBookingsController> {
           child: Text("Anda belum memiliki riwayat booking."),
         );
       }
+      // Gunakan ListView agar seluruh konten bisa di-scroll
       return ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -61,16 +69,23 @@ class BabysitterBookingsView extends GetView<BabysitterBookingsController> {
           ),
           const SizedBox(height: 12),
           controller.upcomingBookings.isEmpty
-              ? const Text(
-                  'Tidak ada pesanan akan datang.',
-                  style: TextStyle(color: Colors.grey),
+              ? const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20.0),
+                  child: Text(
+                    'Tidak ada pesanan akan datang.',
+                    style: TextStyle(color: Colors.grey),
+                  ),
                 )
               : Column(
                   children: controller.upcomingBookings.map((booking) {
                     return Card(
-                      color: AppTheme.primaryColor.withOpacity(0.1),
+                      color: Color(0xFFFFF085),
                       margin: const EdgeInsets.only(bottom: 12),
                       child: ListTile(
+                        onTap: () => Get.toNamed(
+                          Routes.PARENT_DETAIL,
+                          arguments: booking,
+                        ),
                         leading: const Icon(
                           Icons.calendar_month,
                           color: AppTheme.primaryColor,
@@ -80,18 +95,28 @@ class BabysitterBookingsView extends GetView<BabysitterBookingsController> {
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         subtitle: Text(
-                          "${booking.parentAddress ?? 'Alamat tidak tersedia'}\n${booking.jobDate != null ? DateFormat('d MMM y, HH:mm').format(booking.jobDate!) : 'Tanggal tidak ada'}",
+                          "${booking.parentAddress ?? 'Alamat tidak tersedia'}\n${DateFormat('d MMM y, HH:mm').format(booking.jobDate)}",
+                          style: const TextStyle(height: 1.4),
                         ),
                         isThreeLine: true,
-                        onTap: () {
-                          // --- PERBAIKAN 1 DI SINI ---
-                          // Kirim seluruh objek booking, bukan hanya ID
-                          Get.toNamed(Routes.PARENT_DETAIL, arguments: booking);
-                        },
+                        // --- PERBAIKAN LOGIKA TOMBOL ---
+                        // Tombol konfirmasi sekarang ada di sini
+                        trailing: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.orange.shade700,
+                          ),
+                          onPressed: () =>
+                              controller.confirmAsBabysitter(booking.id),
+                          child: const Text(
+                            'Selesaikan',
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ),
                       ),
                     );
                   }).toList(),
                 ),
+
           const SizedBox(height: 24),
           const Text(
             "Selesai",
@@ -99,9 +124,12 @@ class BabysitterBookingsView extends GetView<BabysitterBookingsController> {
           ),
           const SizedBox(height: 12),
           controller.completedBookings.isEmpty
-              ? const Text(
-                  'Tidak ada pesanan yang selesai.',
-                  style: TextStyle(color: Colors.grey),
+              ? const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20.0),
+                  child: Text(
+                    'Tidak ada pesanan yang selesai.',
+                    style: TextStyle(color: Colors.grey),
+                  ),
                 )
               : Column(
                   children: controller.completedBookings.map((booking) {
@@ -109,6 +137,10 @@ class BabysitterBookingsView extends GetView<BabysitterBookingsController> {
                       color: Colors.green.withOpacity(0.1),
                       margin: const EdgeInsets.only(bottom: 12),
                       child: ListTile(
+                        onTap: () => Get.toNamed(
+                          Routes.PARENT_DETAIL,
+                          arguments: booking,
+                        ),
                         leading: const Icon(
                           Icons.check_circle,
                           color: Colors.green,
@@ -118,15 +150,8 @@ class BabysitterBookingsView extends GetView<BabysitterBookingsController> {
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         subtitle: Text(
-                          booking.jobDate != null
-                              ? DateFormat('d MMM y').format(booking.jobDate!)
-                              : 'Tanggal tidak ada',
+                          DateFormat('d MMM y').format(booking.jobDate),
                         ),
-                        onTap: () {
-                          // --- PERBAIKAN 2 DI SINI ---
-                          // Kirim seluruh objek booking, bukan hanya ID
-                          Get.toNamed(Routes.PARENT_DETAIL, arguments: booking);
-                        },
                       ),
                     );
                   }).toList(),
@@ -136,6 +161,7 @@ class BabysitterBookingsView extends GetView<BabysitterBookingsController> {
     });
   }
 
+  // Widget untuk menampilkan daftar Penawaran Terbuka
   Widget _buildJobOffersList() {
     return Obx(() {
       if (controller.isLoadingOffers.value) {
@@ -151,7 +177,6 @@ class BabysitterBookingsView extends GetView<BabysitterBookingsController> {
         itemCount: controller.jobOffers.length,
         itemBuilder: (context, index) {
           final offer = controller.jobOffers[index];
-          // Perbaikan null safety untuk initial
           final initial = (offer.parentName.isNotEmpty)
               ? offer.parentName.substring(0, 1)
               : 'P';

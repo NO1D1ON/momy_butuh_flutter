@@ -13,6 +13,8 @@ import 'package:momy_butuh_flutter/app/modules/booking/bindings/booking_binding.
 import 'package:momy_butuh_flutter/app/modules/booking/views/booking_view.dart';
 import 'package:momy_butuh_flutter/app/modules/chat/bindings/chat_binding.dart';
 import 'package:momy_butuh_flutter/app/modules/chat/views/chat_view.dart';
+import 'package:momy_butuh_flutter/app/modules/create_availibility/create_availibility_binding.dart';
+import 'package:momy_butuh_flutter/app/modules/create_availibility/create_availibility_view.dart';
 import 'package:momy_butuh_flutter/app/modules/create_job_offer/binding.dart';
 import 'package:momy_butuh_flutter/app/modules/create_job_offer/view.dart';
 import 'package:momy_butuh_flutter/app/modules/dashboard/bindings/dashboard_binding.dart';
@@ -166,6 +168,13 @@ class AppPages {
       binding: ParentDetailBinding(),
       // Gunakan transisi dari bawah ke atas untuk halaman pencarian
       transition: Transition.downToUp,
+    ),
+
+    GetPage(
+      name: _Paths.CREATE_AVAILABILITY,
+      page: () => const CreateAvailabilityView(),
+      binding: CreateAvailabilityBinding(),
+      transition: Transition.fadeIn,
     ),
   ];
 }

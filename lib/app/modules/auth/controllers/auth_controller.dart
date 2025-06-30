@@ -12,6 +12,7 @@ class AuthController extends GetxController {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final passwordConfirmationController = TextEditingController();
 
   final isLoading = false.obs;
   final _authService = AuthService();
@@ -56,22 +57,55 @@ class AuthController extends GetxController {
 
   // Fungsi registrasi untuk Orang Tua
   Future<void> register() async {
+    // Validasi di sisi klien
+    if (nameController.text.isEmpty ||
+        emailController.text.isEmpty ||
+        passwordController.text.isEmpty ||
+        passwordConfirmationController.text.isEmpty) {
+      AwesomeDialog(
+        context: Get.context!,
+        dialogType: DialogType.warning,
+        title: "Data Kurang",
+        desc: "Semua field wajib diisi.",
+      ).show();
+      return;
+    }
+    if (passwordConfirmationController.text !=
+        passwordConfirmationController.text) {
+      AwesomeDialog(
+        context: Get.context!,
+        dialogType: DialogType.warning,
+        title: "Gagal",
+        desc: "Password dan Konfirmasi Password tidak cocok.",
+      ).show();
+      return;
+    }
+
     isLoading.value = true;
 
+    // Panggil service
     final result = await _authService.register(
-      // Asumsi ada method register di AuthService
-      nameController.text.trim(),
-      emailController.text.trim(),
-      passwordController.text.trim(),
+      name: nameController.text,
+      email: emailController.text,
+      password: passwordController.text,
+      passwordConfirmation: passwordConfirmationController.text,
     );
 
     isLoading.value = false;
 
-    // Tampilkan dialog berdasarkan hasil registrasi...
-    if (result['success']) {
-      // Dialog sukses
-    } else {
-      // Dialog error
-    }
+    // Tampilkan notifikasi berdasarkan hasil
+    AwesomeDialog(
+      context: Get.context!,
+      dialogType: result['success'] ? DialogType.success : DialogType.error,
+      title: result['success'] ? 'Registrasi Berhasil' : 'Registrasi Gagal',
+      desc: result['message'],
+      btnOkOnPress: () {
+        if (result['success']) {
+          // Arahkan ke halaman login jika sukses
+          Get.offNamed(Routes.LOGIN_PARENT);
+        }
+      },
+      btnOkColor: result['success'] ? Colors.green : AppTheme.primaryColor,
+    ).show();
   }
 }

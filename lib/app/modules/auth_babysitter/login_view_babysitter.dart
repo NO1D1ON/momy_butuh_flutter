@@ -10,7 +10,25 @@ class LoginBabysitterView extends GetView<AuthBabysitterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Login Babysitter")),
+      appBar: AppBar(
+        // --- PERBAIKAN DI SINI ---
+        // Menambahkan tombol kembali secara eksplisit
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () =>
+              Get.back(), // Fungsi untuk kembali ke halaman sebelumnya
+        ),
+
+        // --- BATAS PERBAIKAN ---
+        title: const Text(
+          'Masuk Babysitter',
+          style: TextStyle(
+            color: Colors.white,
+          ), // Tambahkan warna teks agar kontras
+        ),
+        backgroundColor: AppTheme.primaryColor,
+        centerTitle: true, // Agar judul berada di tengah
+      ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(

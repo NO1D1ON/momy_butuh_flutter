@@ -8,7 +8,7 @@ class MapPickerController extends GetxController {
 
   // Posisi kamera awal (default Jakarta)
   final initialCameraPosition = const CameraPosition(
-    target: LatLng(-6.2088, 106.8456),
+    target: LatLng(3.579212785850644, 98.644330499191),
     zoom: 12.0,
   );
 

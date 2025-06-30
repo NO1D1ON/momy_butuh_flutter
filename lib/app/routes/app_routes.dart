@@ -40,6 +40,8 @@ abstract class Routes {
   static const BABYSITTER_FAVORITE = _Paths.BABYSITTER_FAVORITE;
 
   static const PARENT_DETAIL = _Paths.PARENT_DETAIL;
+
+  static const CREATE_AVAILABILITY = _Paths.CREATE_AVAILABILITY;
 }
 
 // Kelas ini mendefinisikan path URL sebenarnya untuk setiap rute.
@@ -77,4 +79,7 @@ abstract class _Paths {
   static const BABYSITTER_FAVORITE = '/babysitter-favorite';
 
   static const PARENT_DETAIL = '/parent-detail';
+  // ...
+  static const CREATE_AVAILABILITY = '/create-availability';
+  // ...
 }

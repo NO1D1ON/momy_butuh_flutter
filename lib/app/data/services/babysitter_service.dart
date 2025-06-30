@@ -56,31 +56,27 @@ class BabysitterService {
     double lat,
     double lon,
   ) async {
-    // 2. Baca token dari secure storage
-    final token = await _storage.read(key: 'auth_token');
-
     final url = Uri.parse(
       '${AppConstants.baseUrl}/babysitters/nearby?latitude=$lat&longitude=$lon',
     );
 
     try {
+      // Rute ini bersifat publik, jadi tidak perlu token
       final response = await http.get(
         url,
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token', // Sertakan token
-        },
+        headers: {'Accept': 'application/json'},
       );
 
       if (response.statusCode == 200) {
-        // API untuk nearby sepertinya mengembalikan list langsung
-        final List<dynamic> data = json.decode(response.body);
+        // API kita mengembalikan { "data": [...] }
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        final List<dynamic> data = responseData['data'];
         return data.map((json) => Babysitter.fromJson(json)).toList();
       } else {
         throw Exception('Gagal memuat data babysitter terdekat');
       }
     } catch (e) {
-      throw Exception('Terjadi kesalahan: $e');
+      throw Exception('Terjadi kesalahan koneksi: $e');
     }
   }
 

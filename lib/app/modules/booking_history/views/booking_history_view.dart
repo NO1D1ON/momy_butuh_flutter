@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:momy_butuh_flutter/app/data/models/bookinig_model.dart';
 import 'package:momy_butuh_flutter/app/utils/theme.dart';
 import '../controllers/booking_history_controller.dart';
 
@@ -32,28 +33,37 @@ class BookingHistoryView extends GetView<BookingHistoryController> {
             final booking = controller.bookingList[index];
             return Card(
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              elevation: 3,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
               child: ListTile(
-                contentPadding: const EdgeInsets.all(16),
-                title: Text(
-                  "Booking dengan ${booking.babysitterName}",
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
+                title: Text("Booking dengan ${booking.babysitterName}"),
                 subtitle: Text(
                   "Tanggal: ${booking.bookingDate}\nStatus: ${booking.status}",
                 ),
                 isThreeLine: true,
-                // Tombol aksi berdasarkan status booking
-                trailing: _buildTrailingButton(context, booking),
+                // --- LOGIKA TOMBOL BARU ---
+                trailing: _buildActionButton(booking),
               ),
             );
           },
         );
       }),
     );
+  }
+
+  Widget _buildActionButton(Booking booking) {
+    // Jika status masih 'confirmed', tampilkan tombol konfirmasi
+    if (booking.status == 'confirmed') {
+      return ElevatedButton(
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
+        onPressed: () => controller.confirmAsParent(booking.id),
+        child: const Text('Selesaikan'),
+      );
+    }
+    // Jika status sudah 'completed', tampilkan ikon centang
+    if (booking.status == 'completed') {
+      return const Icon(Icons.check_circle, color: Colors.green, size: 30);
+    }
+    // Jika status lain, tidak menampilkan apa-apa
+    return const SizedBox.shrink();
   }
 
   // Widget helper untuk membangun tombol di trailing

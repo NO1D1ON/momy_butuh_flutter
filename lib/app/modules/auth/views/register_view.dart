@@ -56,6 +56,15 @@ class RegisterView extends GetView<AuthController> {
                   decoration: const InputDecoration(labelText: 'Password'),
                   obscureText: true,
                 ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: controller.passwordConfirmationController,
+                  decoration: const InputDecoration(
+                    labelText: 'Konfirmasi Password',
+                  ),
+                  obscureText: true,
+                ),
+
                 const SizedBox(height: 32),
                 Obx(
                   () => ElevatedButton(
