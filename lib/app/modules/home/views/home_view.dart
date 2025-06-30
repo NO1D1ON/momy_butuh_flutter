@@ -195,7 +195,7 @@ class HomeView extends GetView<HomeController> {
                         child: InkWell(
                           onTap: () => Get.toNamed(
                             Routes.BABYSITTER_DETAIL,
-                            arguments: babysitter.id,
+                            arguments: babysitter,
                           ),
                           child: Card(
                             elevation: 2,
