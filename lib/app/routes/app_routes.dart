@@ -42,6 +42,7 @@ abstract class Routes {
   static const PARENT_DETAIL = _Paths.PARENT_DETAIL;
 
   static const CREATE_AVAILABILITY = _Paths.CREATE_AVAILABILITY;
+  static const NOTIFICATION = _Paths.NOTIFICATION;
 }
 
 // Kelas ini mendefinisikan path URL sebenarnya untuk setiap rute.
@@ -81,5 +82,7 @@ abstract class _Paths {
   static const PARENT_DETAIL = '/parent-detail';
   // ...
   static const CREATE_AVAILABILITY = '/create-availability';
+
+  static const NOTIFICATION = '/notification';
   // ...
 }

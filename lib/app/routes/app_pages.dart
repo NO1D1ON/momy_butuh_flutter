@@ -25,6 +25,8 @@ import 'package:momy_butuh_flutter/app/modules/job_offer_detail/binding.dart';
 import 'package:momy_butuh_flutter/app/modules/job_offer_detail/view.dart';
 import 'package:momy_butuh_flutter/app/modules/map_view/map_view_binding.dart';
 import 'package:momy_butuh_flutter/app/modules/map_view/map_view_view.dart';
+import 'package:momy_butuh_flutter/app/modules/notification/notification_binding.dart';
+import 'package:momy_butuh_flutter/app/modules/notification/notification_view.dart';
 import 'package:momy_butuh_flutter/app/modules/parent_detail/parent_detail_binding.dart';
 import 'package:momy_butuh_flutter/app/modules/parent_detail/parent_detail_view.dart';
 import 'package:momy_butuh_flutter/app/modules/role_selection/role_selection_view.dart';
@@ -175,6 +177,12 @@ class AppPages {
       page: () => const CreateAvailabilityView(),
       binding: CreateAvailabilityBinding(),
       transition: Transition.fadeIn,
+    ),
+
+    GetPage(
+      name: _Paths.NOTIFICATION,
+      page: () => const NotificationView(),
+      binding: NotificationBinding(),
     ),
   ];
 }

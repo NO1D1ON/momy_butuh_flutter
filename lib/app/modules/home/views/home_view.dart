@@ -42,15 +42,39 @@ class HomeView extends GetView<HomeController> {
                       children: [
                         const SizedBox(height: 10), // Spasi dari atas SafeArea
                         // Nama Aplikasi / Header
-                        Obx(
-                          () => Text(
-                            "Halo, ${controller.parentName.value}!",
-                            style: const TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Obx(
+                              () => Text(
+                                "Halo, ${controller.parentName.value}!",
+                                style: const TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
-                          ),
+
+                            Obx(
+                              () => Badge(
+                                label: Text(
+                                  controller.unreadNotifications.value
+                                      .toString(),
+                                ),
+                                isLabelVisible:
+                                    controller.unreadNotifications.value > 0,
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.notifications_outlined,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: () =>
+                                      Get.toNamed(Routes.NOTIFICATION),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         const Text(
                           "Temukan pengasuh terbaik\nuntuk buah hati Anda.",

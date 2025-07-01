@@ -255,4 +255,8 @@ class AuthService {
       return {'success': false, 'message': 'Terjadi kesalahan koneksi: $e'};
     }
   }
+
+  Future<String?> getUserId() async {
+    return await _storage.read(key: 'user_id');
+  }
 }

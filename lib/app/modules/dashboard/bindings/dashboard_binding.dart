@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:momy_butuh_flutter/app/data/services/auth_service.dart';
+import 'package:momy_butuh_flutter/app/data/services/echo_service.dart'; // 1. Import EchoService
 import 'package:momy_butuh_flutter/app/data/services/message_service.dart';
 import 'package:momy_butuh_flutter/app/modules/map_view/map_view_controller.dart';
 import 'package:momy_butuh_flutter/app/modules/profil/controllers/profile_controller.dart';
-
-// Import semua controller yang akan digunakan di dalam dashboard
 import '../../home/controllers/home_controller.dart';
 import '../../favorite/controllers/favorite_controller.dart';
 import '../../booking_history/controllers/booking_history_controller.dart';
@@ -15,15 +14,13 @@ import '../controllers/dashboard_controller.dart';
 class DashboardBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<DashboardController>(() => DashboardController());
-    Get.lazyPut<HomeController>(() => HomeController());
-    Get.lazyPut<FavoriteController>(() => FavoriteController());
-    Get.lazyPut<BookingHistoryController>(() => BookingHistoryController());
-    Get.lazyPut<MapViewController>(() => MapViewController());
+    // Daftarkan service yang akan digunakan di banyak tempat sebagai service permanen.
+    // fenix: true memastikan service ini tidak akan dihapus dari memori.
+    Get.lazyPut<AuthService>(() => AuthService(), fenix: true);
+    // 2. Daftarkan EchoService di sini sebagai service global.
+    Get.lazyPut<EchoService>(() => EchoService(), fenix: true);
 
-    // Tambahkan AuthService dan MessageService sebagai dependensi
-    Get.lazyPut<AuthService>(() => AuthService());
-
+    // Daftarkan service lain yang dibutuhkan
     Get.lazyPut<MessageService>(
       () => MessageService(
         authService: Get.find<AuthService>(),
@@ -31,6 +28,12 @@ class DashboardBinding extends Bindings {
       ),
     );
 
+    // Daftarkan semua controller untuk setiap tab
+    Get.lazyPut<DashboardController>(() => DashboardController());
+    Get.lazyPut<HomeController>(() => HomeController());
+    Get.lazyPut<FavoriteController>(() => FavoriteController());
+    Get.lazyPut<BookingHistoryController>(() => BookingHistoryController());
+    Get.lazyPut<MapViewController>(() => MapViewController());
     Get.lazyPut<ConversationListController>(
       () => ConversationListController(
         messageService: Get.find<MessageService>(),
@@ -38,7 +41,6 @@ class DashboardBinding extends Bindings {
         httpClient: Client(),
       ),
     );
-
     Get.lazyPut<ProfileController>(() => ProfileController());
   }
 }
