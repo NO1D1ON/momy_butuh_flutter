@@ -1,19 +1,17 @@
 import 'dart:convert';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart'; // Ganti dari SharedPreferences
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:momy_butuh_flutter/app/data/models/babysitter_model.dart';
 import '../../utils/constants.dart';
 
 class FavoriteService {
-  // Gunakan FlutterSecureStorage untuk keamanan token
   static const _storage = FlutterSecureStorage();
 
-  // Ambil daftar babysitter favorit (full data)
+  /// Mengambil daftar lengkap profil babysitter yang telah difavoritkan.
   static Future<List<Babysitter>> getFavorites() async {
     final token = await _storage.read(key: 'auth_token');
-
     if (token == null) {
-      throw Exception('Token tidak ditemukan, silakan login kembali.');
+      throw Exception('Otentikasi dibutuhkan. Silakan login kembali.');
     }
 
     final url = Uri.parse('${AppConstants.baseUrl}/favorites');
@@ -28,13 +26,23 @@ class FavoriteService {
       );
 
       if (response.statusCode == 200) {
-        final responseData = json.decode(response.body);
+        // PERBAIKAN UTAMA DI SINI
+        // 1. Decode JSON menjadi dynamic, bisa Map atau List
+        final dynamic responseData = json.decode(response.body);
 
-        // Bisa berbentuk langsung list atau data wrapper
-        final data = responseData is List
-            ? responseData
-            : responseData['data'] as List<dynamic>;
+        // 2. Cek apakah hasil decode adalah List atau Map yang berisi 'data'
+        final List<dynamic> data;
+        if (responseData is List) {
+          data = responseData;
+        } else if (responseData is Map<String, dynamic> &&
+            responseData.containsKey('data')) {
+          data = responseData['data'] as List<dynamic>;
+        } else {
+          // Jika format tidak dikenali, lempar error
+          throw Exception('Format data favorit tidak sesuai.');
+        }
 
+        // 3. Lanjutkan proses seperti biasa
         return data.map((json) => Babysitter.fromJson(json)).toList();
       } else {
         throw Exception('Gagal memuat data favorit dari server.');
@@ -44,13 +52,12 @@ class FavoriteService {
     }
   }
 
-  // Ambil hanya ID favorit (misalnya untuk perbandingan cepat)
+  /// Mengambil HANYA daftar ID dari babysitter yang difavoritkan.
   static Future<List<int>> getFavoriteIds() async {
     final token = await _storage.read(key: 'auth_token');
-
     if (token == null) return [];
 
-    final url = Uri.parse('${AppConstants.baseUrl}/favorites');
+    final url = Uri.parse('${AppConstants.baseUrl}/favorites/ids');
 
     try {
       final response = await http.get(
@@ -62,8 +69,7 @@ class FavoriteService {
       );
 
       if (response.statusCode == 200) {
-        final decoded = json.decode(response.body);
-        final List<dynamic> data = decoded is List ? decoded : decoded['data'];
+        final List<dynamic> data = json.decode(response.body);
         return data.map((id) => id as int).toList();
       } else {
         return [];
@@ -73,7 +79,7 @@ class FavoriteService {
     }
   }
 
-  // Toggle favorite
+  /// Menambah atau menghapus babysitter dari daftar favorit.
   static Future<Map<String, dynamic>> toggleFavorite(int babysitterId) async {
     final token = await _storage.read(key: 'auth_token');
 
@@ -84,7 +90,10 @@ class FavoriteService {
       };
     }
 
-    final url = Uri.parse('${AppConstants.baseUrl}/favorites/$babysitterId');
+    // Gunakan endpoint yang sesuai dengan yang Anda definisikan di backend
+    final url = Uri.parse(
+      '${AppConstants.baseUrl}/favorites/$babysitterId/toggle',
+    );
 
     try {
       final response = await http.post(
@@ -97,21 +106,15 @@ class FavoriteService {
 
       final data = json.decode(response.body);
 
-      if (response.statusCode == 200) {
-        return {'success': true, 'message': data['message'] ?? 'Berhasil'};
-      } else if (response.statusCode == 401) {
-        return {
-          'success': false,
-          'message': 'Sesi Anda telah berakhir, silakan login kembali.',
-        };
-      } else {
-        return {
-          'success': false,
-          'message': data['message'] ?? 'Gagal mengubah status favorit.',
-        };
-      }
+      return {
+        'success': response.statusCode == 200,
+        'message': data['message'] ?? 'Status favorit berhasil diubah.',
+      };
     } catch (e) {
-      return {'success': false, 'message': 'Terjadi kesalahan koneksi.'};
+      return {
+        'success': false,
+        'message': 'Terjadi kesalahan koneksi. Silakan coba lagi.',
+      };
     }
   }
 }

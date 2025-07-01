@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:momy_butuh_flutter/app/modules/babysitter_detail/controllers/baby_sitter_controller.dart';
-import 'package:momy_butuh_flutter/app/modules/chat/views/chat_view.dart';
 import '../../../data/models/babysitter_model.dart';
 import '../../../data/models/babysitter_availibility_model.dart';
 import '../../../data/models/review_babysitter_model.dart';
@@ -18,31 +18,19 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
       appBar: AppBar(title: const Text("Detail Babysitter")),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return const Center(
-            child: CircularProgressIndicator(color: AppTheme.primaryColor),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
-
-        if (controller.errorMessage.isNotEmpty &&
-            controller.currentBabysitter == null) {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Gagal memuat data.\n${controller.errorMessage.value}',
-                textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.red),
-              ),
-            ),
-          );
+        if (controller.errorMessage.isNotEmpty) {
+          return Center(child: Text(controller.errorMessage.value));
         }
-
         if (controller.currentBabysitter == null) {
           return const Center(child: Text("Data babysitter tidak ditemukan."));
         }
 
+        // Definisikan variabel dengan benar dari controller
         final babysitter = controller.currentBabysitter!;
         final availability = controller.currentAvailability;
+        final isBookingEnabled = availability != null;
 
         return SingleChildScrollView(
           child: Column(
@@ -50,15 +38,16 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
             children: [
               _buildHeader(babysitter, availability),
               const Divider(),
+              // Tampilkan info jadwal hanya jika ada
               if (availability != null) ...[
                 _buildAvailabilityInfo(availability),
                 const Divider(),
               ],
-              _buildActionButtons(babysitter, availability),
+              _buildActionButtons(babysitter, isBookingEnabled),
               const Divider(),
               _buildAboutSection(babysitter),
               const Divider(height: 32),
-              _buildReviewsSection(babysitter.reviews ?? []),
+              _buildReviewsSection(babysitter.reviews),
             ],
           ),
         );
@@ -70,18 +59,13 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
     Babysitter babysitter,
     BabysitterAvailability? availability,
   ) {
-    // Prioritaskan data dari availability jika ada, fallback ke babysitter
     final displayName = controller.displayName;
     final displayPhotoUrl = controller.displayPhotoUrl;
     final displayAge = controller.displayAge;
     final displayRating = controller.displayRating;
-    final ratePerHour =
-        availability?.ratePerHour ?? babysitter.ratePerHour ?? 0;
-    final reviewCount = babysitter.reviews?.length ?? 0;
-    final address =
-        babysitter.address ??
-        availability?.locationPreference ??
-        'Lokasi tidak tersedia';
+    final ratePerHour = availability?.ratePerHour ?? babysitter.ratePerHour;
+    final reviewCount = babysitter.reviews.length;
+    final address = availability?.locationPreference ?? babysitter.address;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -118,7 +102,7 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  "Rp ${ratePerHour.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}/jam",
+                  "Rp ${NumberFormat('#,##0', 'id_ID').format(ratePerHour)}/jam",
                   style: const TextStyle(
                     color: AppTheme.primaryColor,
                     fontWeight: FontWeight.bold,
@@ -184,7 +168,7 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
           _buildInfoRow(
             Icons.access_time,
             "Waktu",
-            "${availability.startTime} - ${availability.endTime}",
+            "${availability.startTime.substring(0, 5)} - ${availability.endTime.substring(0, 5)}",
           ),
           const SizedBox(height: 8),
           _buildInfoRow(
@@ -224,31 +208,13 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
   String _formatDate(String dateString) {
     try {
       final date = DateTime.parse(dateString);
-      final months = [
-        '',
-        'Januari',
-        'Februari',
-        'Maret',
-        'April',
-        'Mei',
-        'Juni',
-        'Juli',
-        'Agustus',
-        'September',
-        'Oktober',
-        'November',
-        'Desember',
-      ];
-      return "${date.day} ${months[date.month]} ${date.year}";
+      return DateFormat('d MMMM y', 'id_ID').format(date);
     } catch (e) {
-      return dateString; // Return original string if parsing fails
+      return dateString;
     }
   }
 
-  Widget _buildActionButtons(
-    Babysitter babysitter,
-    BabysitterAvailability? availability,
-  ) {
+  Widget _buildActionButtons(Babysitter babysitter, bool isBookingEnabled) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Row(
@@ -256,9 +222,7 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
           Expanded(
             child: OutlinedButton.icon(
               onPressed: () {
-                // Kirim data yang konsisten ke chat
-                final chatData = availability ?? babysitter;
-                Get.toNamed(Routes.CHAT, arguments: chatData);
+                Get.toNamed(Routes.CHAT, arguments: babysitter);
               },
               icon: const Icon(Icons.chat_bubble_outline),
               label: const Text("Chat"),
@@ -267,13 +231,21 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
           const SizedBox(width: 16),
           Expanded(
             child: ElevatedButton.icon(
-              onPressed: () {
-                // Kirim data yang konsisten ke booking
-                final bookingData = availability ?? babysitter;
-                Get.toNamed(Routes.BOOKING, arguments: bookingData);
-              },
+              onPressed: isBookingEnabled
+                  ? () {
+                      Get.toNamed(
+                        Routes.BOOKING,
+                        arguments: controller.currentAvailability,
+                      );
+                    }
+                  : null,
               icon: const Icon(Icons.calendar_month_outlined),
               label: const Text("Booking"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: isBookingEnabled
+                    ? AppTheme.primaryColor
+                    : Colors.grey,
+              ),
             ),
           ),
         ],
@@ -283,7 +255,6 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
 
   Widget _buildAboutSection(Babysitter babysitter) {
     final bio = babysitter.bio ?? 'Tidak ada informasi bio tersedia.';
-
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -307,7 +278,6 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
         child: Center(child: Text("Belum ada ulasan.")),
       );
     }
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
@@ -328,7 +298,6 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
               final initial = (userName != null && userName.isNotEmpty)
                   ? userName.substring(0, 1).toUpperCase()
                   : 'U';
-
               return Card(
                 margin: const EdgeInsets.only(bottom: 8),
                 child: ListTile(
@@ -350,7 +319,7 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
                   subtitle: Padding(
                     padding: const EdgeInsets.only(top: 4),
                     child: Text(
-                      review.comment ?? 'Tidak ada komentar',
+                      review.comment,
                       style: const TextStyle(height: 1.3),
                     ),
                   ),
@@ -367,7 +336,7 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          (review.rating ?? 0).toStringAsFixed(1),
+                          review.rating.toStringAsFixed(1),
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(width: 4),

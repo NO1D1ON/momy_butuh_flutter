@@ -13,6 +13,10 @@ class BabysitterAvailability {
   final double rating;
   final String name;
 
+  // --- PERUBAHAN 1: Tambahkan properti latitude dan longitude ---
+  final double? latitude;
+  final double? longitude;
+
   BabysitterAvailability({
     required this.id,
     required this.availableDate,
@@ -25,6 +29,9 @@ class BabysitterAvailability {
     this.photoUrl,
     required this.age,
     required this.rating,
+    // --- PERUBAHAN 2: Tambahkan ke konstruktor ---
+    this.latitude,
+    this.longitude,
   });
 
   factory BabysitterAvailability.fromJson(Map<String, dynamic> json) {
@@ -36,14 +43,16 @@ class BabysitterAvailability {
         endTime: json['end_time'] ?? '',
         ratePerHour: json['rate_per_hour'] ?? 0,
         locationPreference: json['location_preference'] ?? 'Area sekitar',
-        // Parse babysitter object dengan pengecekan null
         babysitter: json['babysitter'] != null
             ? Babysitter.fromJson(json['babysitter'])
-            : Babysitter.empty(), // Pastikan ada constructor empty di Babysitter model
+            : Babysitter.empty(),
         name: json['name'] ?? 'Nama tidak tersedia',
         photoUrl: json['photo_url'],
         age: json['age'] ?? 0,
         rating: _parseDouble(json['rating']),
+        // --- PERUBAHAN 3: Ambil dan parse latitude & longitude dari JSON ---
+        latitude: _parseDouble(json['latitude']),
+        longitude: _parseDouble(json['longitude']),
       );
     } catch (e) {
       print('Error parsing BabysitterAvailability: $e');

@@ -19,6 +19,9 @@ class CreateAvailabilityController extends GetxController {
 
   var isLoading = false.obs;
 
+  // State untuk menampung data posisi (latitude & longitude)
+  var currentPosition = Rxn<Position>();
+
   @override
   void onInit() {
     super.onInit();
@@ -43,6 +46,9 @@ class CreateAvailabilityController extends GetxController {
       locationC.text = "Mencari alamat Anda...";
       Position position = await _determinePosition();
 
+      // Simpan objek Position lengkap
+      currentPosition.value = position;
+
       try {
         // Coba lakukan reverse geocoding
         List<Placemark> placemarks = await placemarkFromCoordinates(
@@ -60,7 +66,6 @@ class CreateAvailabilityController extends GetxController {
           throw Exception('Alamat tidak ditemukan');
         }
       } catch (geocodingError) {
-        // --- PERBAIKAN UTAMA DI SINI ---
         // Jika geocoding gagal, tampilkan koordinat sebagai gantinya
         print("Geocoding Gagal, menggunakan fallback: $geocodingError");
         locationC.text =
@@ -70,6 +75,7 @@ class CreateAvailabilityController extends GetxController {
       // Jika error terjadi saat mendapatkan posisi GPS itu sendiri
       locationC.text = "Gagal mendapatkan lokasi.";
       Get.snackbar("Error Lokasi", e.toString());
+      print("Error mendapatkan lokasi: $e");
     }
   }
 
@@ -113,6 +119,11 @@ class CreateAvailabilityController extends GetxController {
     }
   }
 
+  // Fungsi untuk refresh lokasi manual jika diperlukan
+  void refreshLocation() async {
+    await getCurrentLocation();
+  }
+
   // --- Fungsi untuk Mengirim Penawaran ---
   void submitAvailability() async {
     // Validasi sederhana di sisi klien
@@ -129,8 +140,25 @@ class CreateAvailabilityController extends GetxController {
       return;
     }
 
+    // Validasi untuk memastikan posisi tersedia sebelum submit
+    if (currentPosition.value == null) {
+      AwesomeDialog(
+        context: Get.context!,
+        dialogType: DialogType.warning,
+        title: 'Lokasi Belum Tersedia',
+        desc:
+            'Lokasi Anda belum berhasil dideteksi. Silakan tunggu sebentar atau refresh lokasi.',
+        btnOkOnPress: () {
+          getCurrentLocation();
+        },
+        btnOkText: 'Refresh Lokasi',
+      ).show();
+      return;
+    }
+
     isLoading.value = true;
 
+    // Siapkan data dengan menambahkan latitude dan longitude
     Map<String, String> availabilityData = {
       'available_date': dateC.text,
       'start_time': startTimeC.text,
@@ -138,7 +166,11 @@ class CreateAvailabilityController extends GetxController {
       'rate_per_hour': rateC.text.replaceAll('.', ''),
       'location_preference': locationC.text,
       'notes': notesC.text,
+      'latitude': currentPosition.value!.latitude.toString(),
+      'longitude': currentPosition.value!.longitude.toString(),
     };
+
+    print("Data yang akan dikirim: $availabilityData");
 
     var result = await BabysitterAvailabilityService.createAvailability(
       availabilityData,
@@ -152,8 +184,6 @@ class CreateAvailabilityController extends GetxController {
       desc: result['message'],
       btnOkOnPress: () {
         if (result['success']) {
-          // Ganti Get.back() menjadi Get.offAllNamed()
-          // untuk kembali ke dashboard utama babysitter.
           Get.offAllNamed(Routes.DASHBOARD_BABYSITTER);
         }
       },

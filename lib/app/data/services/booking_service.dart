@@ -1,23 +1,21 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter_secure_storage/flutter_secure_storage.dart'; // <-- 1. Import paket yang benar
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:momy_butuh_flutter/app/data/models/bookinig_model.dart';
 import 'package:momy_butuh_flutter/app/data/models/user_model.dart';
 import '../../utils/constants.dart';
 
 class BookingService {
-  // Buat instance dari secure storage untuk digunakan di semua method
   static const _storage = FlutterSecureStorage();
 
+  // ... (fungsi createBooking, getMyBookings, completeBooking, fetchParentProfileById tetap sama) ...
   static Future<Map<String, dynamic>> createBooking({
     required int babysitterId,
     required String bookingDate,
     required String startTime,
     required String endTime,
   }) async {
-    // --- PERBAIKAN DI SINI ---
     final token = await _storage.read(key: 'auth_token');
-
     final url = Uri.parse('${AppConstants.baseUrl}/bookings');
     try {
       final response = await http.post(
@@ -33,9 +31,7 @@ class BookingService {
           'end_time': endTime,
         },
       );
-
       final responseData = json.decode(response.body);
-
       if (response.statusCode == 201) {
         return {'success': true, 'message': responseData['message']};
       } else {
@@ -50,9 +46,7 @@ class BookingService {
   }
 
   static Future<List<Booking>> getMyBookings() async {
-    // --- PERBAIKAN DI SINI ---
     final token = await _storage.read(key: 'auth_token');
-
     final url = Uri.parse('${AppConstants.baseUrl}/my-bookings');
     try {
       final response = await http.get(
@@ -75,13 +69,10 @@ class BookingService {
   }
 
   static Future<Map<String, dynamic>> completeBooking(int bookingId) async {
-    // --- PERBAIKAN DI SINI ---
     final token = await _storage.read(key: 'auth_token');
-
     final url = Uri.parse(
       '${AppConstants.baseUrl}/bookings/$bookingId/complete',
     );
-
     try {
       final response = await http.patch(
         url,
@@ -90,9 +81,7 @@ class BookingService {
           'Authorization': 'Bearer $token',
         },
       );
-
       final responseData = json.decode(response.body);
-
       if (response.statusCode == 200) {
         return {'success': true, 'message': responseData['message']};
       } else {
@@ -111,11 +100,7 @@ class BookingService {
     if (token == null) {
       throw Exception('Token tidak ditemukan.');
     }
-
-    // --- PERBAIKAN UTAMA DI SINI ---
-    // URL disesuaikan agar cocok dengan file routes/api.php Anda
     final url = Uri.parse('${AppConstants.baseUrl}/parents/$userId');
-
     try {
       final response = await http.get(
         url,
@@ -124,13 +109,8 @@ class BookingService {
           'Authorization': 'Bearer $token',
         },
       );
-
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
-
-        // --- PENYESUAIAN KEDUA ---
-        // Berdasarkan controller backend Anda (ParentProfileController),
-        // API langsung mengembalikan data user, bukan di dalam key 'data'.
         return UserModel.fromJson(data);
       } else {
         throw Exception(
@@ -142,10 +122,16 @@ class BookingService {
     }
   }
 
+  // --- FUNGSI BARU UNTUK KONFIRMASI DARI ORANG TUA ---
   static Future<Map<String, dynamic>> parentConfirmBooking(
     int bookingId,
   ) async {
     final token = await _storage.read(key: 'auth_token');
+    if (token == null) {
+      return {'success': false, 'message': 'Otentikasi gagal.'};
+    }
+
+    // Endpoint ini harus Anda buat di backend (routes/api.php)
     final url = Uri.parse(
       '${AppConstants.baseUrl}/bookings/$bookingId/parent-confirm',
     );
@@ -162,7 +148,11 @@ class BookingService {
       final responseData = json.decode(response.body);
 
       if (response.statusCode == 200) {
-        return {'success': true, 'message': responseData['message']};
+        return {
+          'success': true,
+          'message': responseData['message'],
+          'data': responseData,
+        };
       } else {
         return {
           'success': false,

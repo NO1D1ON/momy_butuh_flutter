@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+// Sesuaikan path jika perlu
 import '../../../data/models/babysitter_model.dart';
 import '../../../data/models/babysitter_availibility_model.dart';
 import '../../../data/services/babysitter_service.dart';
+import '../../../data/services/babysitter_available_service.dart';
 
 class BabysitterDetailController extends GetxController {
+  // State untuk menampung data
   var babysitter = Rxn<Babysitter>();
-  var babysitterAvailability = Rxn<BabysitterAvailability>(); // Tambahkan ini
+  var babysitterAvailability = Rxn<BabysitterAvailability>();
+
   var isLoading = true.obs;
   var errorMessage = ''.obs;
 
@@ -15,84 +20,105 @@ class BabysitterDetailController extends GetxController {
     super.onInit();
     final dynamic arguments = Get.arguments;
 
+    // Logika baru untuk menangani berbagai tipe argumen
     if (arguments is BabysitterAvailability) {
-      // Jika yang dikirim adalah object BabysitterAvailability dari beranda
+      // Skenario 1: Data lengkap dari Peta atau Beranda
       _loadFromAvailabilityObject(arguments);
     } else if (arguments is int) {
-      // Fallback: jika yang dikirim adalah ID (untuk kompatibilitas)
-      fetchDetail(arguments);
+      // Skenario 2: Hanya ID dari Pencarian atau Favorit
+      _fetchDetailsById(arguments);
     } else {
       _handleInvalidArguments();
     }
   }
 
-  // Method untuk memuat data dari object yang sudah ada
+  // Metode untuk memuat data dari object yang sudah ada
   void _loadFromAvailabilityObject(BabysitterAvailability availability) {
+    isLoading(true);
+    babysitterAvailability.value = availability;
+    // Ambil data babysitter dari dalam object availability
+    babysitter.value = availability.babysitter;
+    isLoading(false);
+  }
+
+  // Metode baru untuk fetch data lengkap berdasarkan ID
+  Future<void> _fetchDetailsById(int id) async {
     try {
       isLoading(true);
-
-      // Set data availability
-      babysitterAvailability.value = availability;
-
-      // Set data babysitter dari object availability
-      babysitter.value = availability.babysitter;
-
-      isLoading(false);
+      errorMessage('');
+      // 1. Ambil detail profil babysitter
+      final fetchedBabysitter = await BabysitterService.fetchBabysitterDetail(
+        id,
+      );
+      if (fetchedBabysitter != null) {
+        babysitter.value = fetchedBabysitter;
+        // 2. (Opsional tapi direkomendasikan) Coba cari jadwal aktifnya juga
+        // Ini akan membuat tombol "Booking" tetap berfungsi dengan tarif yang benar
+        final allAvailabilities =
+            await BabysitterAvailabilityService.fetchAvailabilities();
+        final activeAvailability = allAvailabilities.firstWhereOrNull(
+          (avail) => avail.babysitter.id == id && _isShiftActive(avail),
+        );
+        babysitterAvailability.value = activeAvailability;
+      } else {
+        throw Exception("Babysitter dengan ID $id tidak ditemukan.");
+      }
     } catch (e) {
-      errorMessage.value = "Gagal memuat data babysitter";
+      errorMessage.value = e.toString().replaceAll('Exception: ', '');
+    } finally {
       isLoading(false);
     }
   }
 
-  // Method fallback untuk fetch via API (jika masih dibutuhkan)
-  Future<void> fetchDetail(int id) async {
+  // Helper untuk mengecek apakah shift sedang aktif
+  bool _isShiftActive(BabysitterAvailability avail) {
+    final now = DateTime.now();
+    final todayDateString = DateFormat('yyyy-MM-dd').format(now);
+    if (avail.availableDate != todayDateString) return false;
     try {
-      isLoading(true);
-      errorMessage('');
-      final result = await BabysitterService.fetchBabysitterDetail(id);
-      babysitter.value = result;
-      // babysitterAvailability akan null dalam kasus ini
-    } catch (e) {
-      final errorMsg = e.toString().replaceAll('Exception: ', '');
-      errorMessage.value = errorMsg;
-      Get.snackbar(
-        'Terjadi Kesalahan',
-        errorMsg,
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.red[600],
-        colorText: Colors.white,
+      final startTime = DateFormat("HH:mm:ss").parse(avail.startTime);
+      final endTime = DateFormat("HH:mm:ss").parse(avail.endTime);
+      final currentTime = TimeOfDay.fromDateTime(now);
+      final startTOD = TimeOfDay(
+        hour: startTime.hour,
+        minute: startTime.minute,
       );
-    } finally {
-      isLoading(false);
+      final endTOD = TimeOfDay(hour: endTime.hour, minute: endTime.minute);
+
+      // Konversi ke menit untuk perbandingan yang mudah
+      final nowInMinutes = currentTime.hour * 60 + currentTime.minute;
+      final startInMinutes = startTOD.hour * 60 + startTOD.minute;
+      final endInMinutes = endTOD.hour * 60 + endTOD.minute;
+
+      if (startInMinutes <= endInMinutes) {
+        return nowInMinutes >= startInMinutes && nowInMinutes < endInMinutes;
+      } else {
+        // Handle shift yang melewati tengah malam
+        return nowInMinutes >= startInMinutes || nowInMinutes < endInMinutes;
+      }
+    } catch (e) {
+      return false;
     }
   }
 
   void _handleInvalidArguments() {
     isLoading.value = false;
     errorMessage.value = "Gagal memuat: Data Babysitter tidak valid.";
-    print(
-      "Error: Argumen navigasi tidak valid. Diharapkan BabysitterAvailability atau int",
-    );
-
-    Future.delayed(const Duration(seconds: 2), () {
-      if (!isClosed) Get.back();
-    });
+    Get.snackbar("Error", "Argumen navigasi tidak valid.");
   }
 
-  // Getter untuk mendapatkan data yang konsisten
+  // Getter untuk UI, sekarang lebih aman
   Babysitter? get currentBabysitter => babysitter.value;
   BabysitterAvailability? get currentAvailability =>
       babysitterAvailability.value;
 
-  // Method untuk mendapatkan info yang mungkin berbeda antara availability dan babysitter
   String get displayName =>
-      babysitterAvailability.value?.name ??
-      babysitter.value?.name ??
+      currentAvailability?.name ??
+      currentBabysitter?.name ??
       'Nama tidak tersedia';
   String? get displayPhotoUrl =>
-      babysitterAvailability.value?.photoUrl ?? babysitter.value?.photoUrl;
-  int get displayAge =>
-      babysitterAvailability.value?.age ?? babysitter.value?.age ?? 0;
+      currentAvailability?.photoUrl ?? currentBabysitter?.photoUrl;
+  int get displayAge => currentAvailability?.age ?? currentBabysitter?.age ?? 0;
   double get displayRating =>
-      babysitterAvailability.value?.rating ?? babysitter.value?.rating ?? 0.0;
+      currentAvailability?.rating ?? currentBabysitter?.rating ?? 0.0;
 }

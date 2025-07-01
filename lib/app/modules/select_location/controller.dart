@@ -26,8 +26,8 @@ class SelectLocationController extends GetxController {
 
   // Posisi kamera awal (default Medan, sesuai lokasi Anda)
   final initialCameraPosition = const CameraPosition(
-    target: LatLng(3.579212785850644, 98.644330499191),
-    zoom: 12.0,
+    target: LatLng(3.601287045369116, 98.71801961534234),
+    zoom: 17.0,
   );
 
   @override

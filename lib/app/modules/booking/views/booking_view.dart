@@ -24,7 +24,7 @@ class BookingView extends GetView<BookingController> {
         ),
 
         // --- BATAS PENAMBAHAN ---
-        title: Text('Booking ${controller.babysitter.name}'),
+        title: Text('Booking ${controller.availability.babysitter.name}'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -36,7 +36,7 @@ class BookingView extends GetView<BookingController> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             const SizedBox(height: 16),
-            _buildInfoRow("Babysitter", controller.babysitter.name),
+            _buildInfoRow("Babysitter", controller.availability.name),
             const Divider(),
             _buildPickerRow(
               context: context,

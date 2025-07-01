@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:momy_butuh_flutter/app/data/models/babysitter_model.dart';
-import 'package:momy_butuh_flutter/app/data/services/babysitter_service.dart';
+import 'package:intl/intl.dart';
+import 'package:momy_butuh_flutter/app/data/models/babysitter_availibility_model.dart';
+import 'package:momy_butuh_flutter/app/data/services/babysitter_available_service.dart';
 import 'package:momy_butuh_flutter/app/routes/app_pages.dart';
 
 class MapViewController extends GetxController {
@@ -14,8 +15,8 @@ class MapViewController extends GetxController {
   GoogleMapController? mapController;
   var markers = <Marker>{}.obs;
   var initialCameraPosition = const CameraPosition(
-    target: LatLng(-6.2088, 106.8456),
-    zoom: 12.0,
+    target: LatLng(3.601287045369116, 98.71801961534234), // Default Jakarta
+    zoom: 17.0,
   ).obs;
 
   @override
@@ -24,17 +25,15 @@ class MapViewController extends GetxController {
     getCurrentLocationAndFetchBabysitters();
   }
 
-  /// Fungsi utama
+  /// Fungsi utama yang diperbarui untuk mengambil dan memfilter jadwal.
   Future<void> getCurrentLocationAndFetchBabysitters() async {
     try {
       isLoading(true);
       errorMessage.value = '';
 
-      // ✅ Gunakan fungsi baru yang mengembalikan Position
-      Position position = await getCurrentPosition();
+      Position position = await _determinePosition();
       currentPosition.value = position;
 
-      // Gerakkan kamera ke lokasi pengguna
       mapController?.animateCamera(
         CameraUpdate.newLatLngZoom(
           LatLng(position.latitude, position.longitude),
@@ -42,21 +41,45 @@ class MapViewController extends GetxController {
         ),
       );
 
-      // Ambil data babysitter
-      final babysitters = await BabysitterService.fetchNearbyBabysitters(
-        position.latitude,
-        position.longitude,
-      );
+      final allNearbyAvailabilities =
+          await BabysitterAvailabilityService.fetchAvailabilities();
 
-      if (babysitters.isEmpty) {
+      final now = DateTime.now();
+      final todayDateString = DateFormat('yyyy-MM-dd').format(now);
+
+      final activeBabysitters = allNearbyAvailabilities.where((avail) {
+        if (avail.availableDate != todayDateString) {
+          return false;
+        }
+
+        try {
+          final startTime = DateFormat(
+            "yyyy-MM-dd HH:mm:ss",
+          ).parse("${avail.availableDate} ${avail.startTime}");
+          var endTime = DateFormat(
+            "yyyy-MM-dd HH:mm:ss",
+          ).parse("${avail.availableDate} ${avail.endTime}");
+
+          if (endTime.isBefore(startTime)) {
+            endTime = endTime.add(const Duration(days: 1));
+          }
+
+          return now.isAfter(startTime) && now.isBefore(endTime);
+        } catch (e) {
+          print("Error parsing time for availability ID ${avail.id}: $e");
+          return false;
+        }
+      }).toList();
+
+      // --- MODIFIKASI: Mengirim posisi saat ini untuk membuat marker pengguna ---
+      _createMarkers(activeBabysitters, position);
+
+      if (activeBabysitters.isEmpty) {
         Get.snackbar(
           "Info",
-          "Tidak ada babysitter yang ditemukan di sekitar Anda saat ini.",
+          "Tidak ada babysitter yang sedang aktif di sekitar Anda saat ini.",
         );
-        return;
       }
-
-      _createMarkers(babysitters);
     } catch (e) {
       errorMessage.value = e.toString().replaceAll('Exception: ', '');
       Get.snackbar("Error", errorMessage.value);
@@ -65,74 +88,62 @@ class MapViewController extends GetxController {
     }
   }
 
-  /// ✅ Fungsi baru yang mengembalikan Position
-  Future<Position> getCurrentPosition() async {
+  /// Fungsi untuk mendapatkan posisi (tidak ada perubahan)
+  Future<Position> _determinePosition() async {
     LocationPermission permission = await Geolocator.checkPermission();
-
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
+      if (permission == LocationPermission.denied)
         throw Exception('Izin lokasi ditolak.');
-      }
     }
-
-    if (permission == LocationPermission.deniedForever) {
-      throw Exception(
-        'Izin lokasi ditolak secara permanen. Silakan aktifkan di pengaturan.',
-      );
-    }
-
+    if (permission == LocationPermission.deniedForever)
+      throw Exception('Izin lokasi ditolak permanen.');
     return await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
-      timeLimit: const Duration(seconds: 10),
     );
   }
 
-  /// (Opsional) Jika dipanggil untuk hanya menggeser kamera ke posisi saat ini
-  Future<void> determinePositionAndMoveCamera() async {
-    try {
-      Position position = await getCurrentPosition();
-      currentPosition.value = position;
-
-      if (mapController != null) {
-        await mapController!.animateCamera(
-          CameraUpdate.newLatLngZoom(
-            LatLng(position.latitude, position.longitude),
-            15.0,
-          ),
-        );
-      }
-    } catch (e) {
-      debugPrint("Error getting location: $e");
-      Get.snackbar(
-        "Error Lokasi",
-        e.toString(),
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.withOpacity(0.7),
-        colorText: Colors.white,
-      );
-    }
-  }
-
-  /// Marker builder
-  void _createMarkers(List<Babysitter> babysitters) {
+  /// --- MODIFIKASI: Nama fungsi diubah agar lebih umum ---
+  /// Membuat marker untuk babysitter dan lokasi pengguna.
+  void _createMarkers(
+    List<BabysitterAvailability> availabilities,
+    Position myPosition, // --- MODIFIKASI: Menerima posisi pengguna ---
+  ) {
     var tempMarkers = <Marker>{};
-    for (var babysitter in babysitters) {
-      if (babysitter.latitude != null && babysitter.longitude != null) {
+
+    // --- TAMBAHAN: Membuat marker untuk lokasi pengguna ---
+    tempMarkers.add(
+      Marker(
+        markerId: const MarkerId('my_location'),
+        position: LatLng(myPosition.latitude, myPosition.longitude),
+        infoWindow: const InfoWindow(title: 'Lokasi Saya'),
+        // Menggunakan warna yang berbeda untuk membedakan
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
+      ),
+    );
+
+    // Loop untuk membuat marker babysitter
+    for (var avail in availabilities) {
+      if (avail.latitude != null && avail.longitude != null) {
+        final snippetText =
+            "Rp ${NumberFormat('#,##0', 'id_ID').format(avail.ratePerHour)}/jam\nAktif: ${avail.startTime.substring(0, 5)} - ${avail.endTime.substring(0, 5)}";
+
         tempMarkers.add(
           Marker(
-            markerId: MarkerId(babysitter.id.toString()),
-            position: LatLng(babysitter.latitude!, babysitter.longitude!),
+            markerId: MarkerId('avail-${avail.id}'),
+            position: LatLng(avail.latitude!, avail.longitude!),
             infoWindow: InfoWindow(
-              title: babysitter.name,
-              snippet:
-                  "Rp ${babysitter.ratePerHour}/jam - Rating: ${babysitter.rating}",
+              title: avail.name,
+              snippet: snippetText,
               onTap: () {
-                Get.toNamed(Routes.BABYSITTER_DETAIL, arguments: babysitter.id);
+                print(
+                  "Marker Tapped! Navigating to detail for Babysitter ID: ${avail.babysitter.id}",
+                );
+                Get.toNamed(Routes.BABYSITTER_DETAIL, arguments: avail);
               },
             ),
             icon: BitmapDescriptor.defaultMarkerWithHue(
-              BitmapDescriptor.hueRose,
+              BitmapDescriptor.hueAzure,
             ),
           ),
         );
