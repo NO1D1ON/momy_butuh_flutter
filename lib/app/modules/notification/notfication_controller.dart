@@ -1,35 +1,40 @@
-import 'dart:convert'; // PERBAIKAN: Import dart:convert untuk json.decode
+import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:laravel_echo/laravel_echo.dart';
 import 'package:momy_butuh_flutter/app/data/models/notification_model.dart';
 import 'package:momy_butuh_flutter/app/data/services/auth_service.dart';
 import 'package:momy_butuh_flutter/app/data/services/echo_service.dart';
 import 'package:momy_butuh_flutter/app/data/services/notification_service.dart';
-import 'package:pusher_client/pusher_client.dart';
 
 class NotificationController extends GetxController {
   var isLoading = true.obs;
   var notifications = <AppNotification>[].obs;
 
+  // Dependensi yang di-inject melalui GetX
   final EchoService _echoService = Get.find<EchoService>();
   final AuthService _authService = Get.find<AuthService>();
+
+  // Properti untuk menyimpan ID pengguna agar tidak perlu memanggil berulang kali
+  String? _currentUserId;
 
   @override
   void onInit() {
     super.onInit();
-    fetchNotifications();
-    listenForRealtimeUpdates();
+    _initialize();
   }
 
   @override
-  void onClose() async {
-    // PERBAIKAN: Jadikan onClose async
-    super.onClose();
-    // PERBAIKAN: Gunakan metode getUserId() yang asynchronous dan aman dari null
-    final userId = await _authService.getUserId();
-    if (userId != null) {
-      _echoService.echo?.leave('notifications.$userId');
+  void onClose() {
+    // Berhenti mendengarkan channel notifikasi saat controller ditutup
+    if (_currentUserId != null) {
+      _echoService.unsubscribe(channelName: 'notifications.$_currentUserId');
     }
+    super.onClose();
+  }
+
+  /// Inisialisasi data dan listener
+  Future<void> _initialize() async {
+    fetchNotifications();
+    await listenForRealtimeUpdates();
   }
 
   void fetchNotifications() async {
@@ -44,39 +49,38 @@ class NotificationController extends GetxController {
     }
   }
 
-  void listenForRealtimeUpdates() async {
-    // PERBAIKAN: Panggil metode getUserId() yang sudah benar
-    final userId = await _authService.getUserId();
-    if (userId == null) return;
+  /// Menggunakan EchoService yang baru untuk mendengarkan notifikasi.
+  Future<void> listenForRealtimeUpdates() async {
+    // Pastikan koneksi sudah diinisialisasi
+    await _echoService.init();
 
-    _echoService.echo?.private('notifications.$userId').listen(
-      '.new.notification', // Nama event dari backend
-      (e) {
-        if (e is PusherEvent) {
-          // PERBAIKAN: Penanganan data dari PusherEvent yang lebih aman
-          final eventDataString = e.data;
-          if (eventDataString != null) {
-            try {
-              // PusherEvent.data adalah String, jadi perlu di-decode
-              final decodedData = json.decode(eventDataString);
+    // Ambil User ID sekali saja
+    _currentUserId = await _authService.getUserId();
+    if (_currentUserId == null) return;
 
-              // Pastikan data yang di-decode adalah Map dan memiliki key 'notification'
-              if (decodedData is Map<String, dynamic> &&
-                  decodedData.containsKey('notification')) {
-                final notificationData = decodedData['notification'];
-                // Pastikan notificationData juga adalah Map sebelum di-parse
-                if (notificationData is Map<String, dynamic>) {
-                  final newNotification = AppNotification.fromJson(
-                    notificationData,
-                  );
-                  notifications.insert(0, newNotification);
-                }
-              }
-            } catch (err) {
-              print("Gagal parsing notifikasi real-time: $err");
-              print("Data yang diterima: $eventDataString");
+    // Gunakan metode subscribe yang generik dari EchoService
+    _echoService.subscribe(
+      channelName: 'notifications.$_currentUserId',
+      // Pastikan nama event ini sama persis dengan yang ada di backend Laravel
+      // Biasanya tanpa titik di depan jika menggunakan Notifiable trait standar
+      eventName: 'new.notification',
+      onEventCallback: (decodedData) {
+        // Callback ini menerima data yang sudah di-decode menjadi Map/List
+        try {
+          // Struktur data dari Laravel Notification biasanya { 'notification': {...} }
+          if (decodedData is Map<String, dynamic> &&
+              decodedData.containsKey('notification')) {
+            final notificationData = decodedData['notification'];
+            if (notificationData is Map<String, dynamic>) {
+              final newNotification = AppNotification.fromJson(
+                notificationData,
+              );
+              // Tambahkan notifikasi baru di paling atas daftar
+              notifications.insert(0, newNotification);
             }
           }
+        } catch (err) {
+          print("Gagal memproses data notifikasi real-time: $err");
         }
       },
     );

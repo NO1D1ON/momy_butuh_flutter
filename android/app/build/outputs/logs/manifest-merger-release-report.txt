@@ -1,0 +1,595 @@
+-- Merging decision tree log ---
+application
+INJECTED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:2:5-36:19
+INJECTED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:2:5-36:19
+MERGED from [:location] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\location-8.0.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:10:5-16:19
+MERGED from [:location] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\location-8.0.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:10:5-16:19
+MERGED from [com.google.android.material:material:1.12.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\fb6f04d2bdd941eadeed6b3a0071eee6\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.12.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\fb6f04d2bdd941eadeed6b3a0071eee6\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\7d2f64d943f17384c796e08d8919a9f5\transformed\constraintlayout-2.0.1\AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\7d2f64d943f17384c796e08d8919a9f5\transformed\constraintlayout-2.0.1\AndroidManifest.xml:9:5-20
+MERGED from [:geolocator_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-5.0.1+1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:7:5-13:19
+MERGED from [:geolocator_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-5.0.1+1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:7:5-13:19
+MERGED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:8:5-32:19
+MERGED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:8:5-32:19
+MERGED from [:url_launcher_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_android-6.3.16\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:7:5-12:19
+MERGED from [:url_launcher_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_android-6.3.16\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:7:5-12:19
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:36:5-42:19
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:36:5-42:19
+MERGED from [com.google.android.gms:play-services-location:21.3.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\566d820d62eceeef77e6fc5ea49a076e\transformed\jetified-play-services-location-21.3.0\AndroidManifest.xml:6:5-20
+MERGED from [com.google.android.gms:play-services-location:21.3.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\566d820d62eceeef77e6fc5ea49a076e\transformed\jetified-play-services-location-21.3.0\AndroidManifest.xml:6:5-20
+MERGED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\e1f6d2e0b1aa38467964f5b59b4f29f9\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:4:5-6:19
+MERGED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\e1f6d2e0b1aa38467964f5b59b4f29f9\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:4:5-6:19
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\7795f05fbf8283409257f8d4d50c7a58\transformed\jetified-play-services-tasks-18.2.0\AndroidManifest.xml:4:5-20
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\7795f05fbf8283409257f8d4d50c7a58\transformed\jetified-play-services-tasks-18.2.0\AndroidManifest.xml:4:5-20
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1186d146da5ef23629d7bf94e5a0d382\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:5:5-7:19
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1186d146da5ef23629d7bf94e5a0d382\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:5:5-7:19
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\2f9e30b92e09a4c79f34f925067bc407\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\2f9e30b92e09a4c79f34f925067bc407\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.window:window:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\197f12b192a3f06912c946d4cbd2dd7d\transformed\jetified-window-1.2.0\AndroidManifest.xml:22:5-29:19
+MERGED from [androidx.window:window:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\197f12b192a3f06912c946d4cbd2dd7d\transformed\jetified-window-1.2.0\AndroidManifest.xml:22:5-29:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0c7cd1674da718ccee593f79cf8da244\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0c7cd1674da718ccee593f79cf8da244\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.core:core:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f86078c5128bfb38b5fd12a707b3b369\transformed\core-1.16.0\AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f86078c5128bfb38b5fd12a707b3b369\transformed\core-1.16.0\AndroidManifest.xml:28:5-89
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\85879f220671a879b538e8ef16ed1744\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\85879f220671a879b538e8ef16ed1744\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f3b8632830106ae874bd20aa567485d8\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f3b8632830106ae874bd20aa567485d8\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [com.google.maps.android:android-maps-utils:3.6.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\ff5ac7cfd2808965c34268d0c0238e7f\transformed\jetified-android-maps-utils-3.6.0\AndroidManifest.xml:7:5-11:19
+MERGED from [com.google.maps.android:android-maps-utils:3.6.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\ff5ac7cfd2808965c34268d0c0238e7f\transformed\jetified-android-maps-utils-3.6.0\AndroidManifest.xml:7:5-11:19
+	android:extractNativeLibs
+		INJECTED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f86078c5128bfb38b5fd12a707b3b369\transformed\core-1.16.0\AndroidManifest.xml:28:18-86
+	android:label
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:3:9-35
+	android:icon
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:5:9-43
+	android:name
+		INJECTED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:4:9-42
+manifest
+ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:1:1-52:12
+INJECTED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:1:1-52:12
+INJECTED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:1:1-52:12
+INJECTED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:1:1-52:12
+MERGED from [:location] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\location-8.0.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:2:1-18:12
+MERGED from [:shared_preferences_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_android-2.4.10\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.material:material:1.12.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\fb6f04d2bdd941eadeed6b3a0071eee6\transformed\material-1.12.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\7d2f64d943f17384c796e08d8919a9f5\transformed\constraintlayout-2.0.1\AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.preference:preference:1.2.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\b83b8b00b8346c9e7414a1f1298f055d\transformed\preference-1.2.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0f448994e490bf59f20aa19226509e50\transformed\jetified-appcompat-resources-1.6.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\4a06d06ec0ce1c73cc8df2ae11f0f21f\transformed\appcompat-1.6.1\AndroidManifest.xml:17:1-22:12
+MERGED from [:geolocator_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-5.0.1+1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:2:1-15:12
+MERGED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:2:1-34:12
+MERGED from [:url_launcher_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_android-6.3.16\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:2:1-14:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\92e25ebfa9da2ff8052a055da0acd6ca\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\026eaf91a704f686abc435b9c478bb2d\transformed\drawerlayout-1.1.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f71e40716bc29995f4cada24da499d83\transformed\slidingpanelayout-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.transition:transition:1.5.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\782d754970964cf1b7475ae88dbc4ce4\transformed\transition-1.5.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0d0d5f17a702e8a6097024f40b22f428\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\afec9dc0bcc11d087323dc11f5e0350a\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\ee817ed912dd87a9ffe7b0d8087b9e11\transformed\vectordrawable-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\3159bb33404aa6a4b2af9e21283225fe\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [:google_maps_flutter_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\google_maps_flutter_android-2.16.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:2:1-7:12
+MERGED from [:flutter_plugin_android_lifecycle] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_plugin_android_lifecycle-2.0.28\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:2:1-7:12
+MERGED from [:flutter_secure_storage] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_secure_storage-9.2.4\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:2:1-10:12
+MERGED from [:geocoding_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\geocoding_android-3.3.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:2:1-7:12
+MERGED from [:path_provider_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\path_provider_android-2.2.17\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:2:1-7:12
+MERGED from [:pusher_channels_flutter] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\pusher_channels_flutter-2.4.0\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:2:1-7:12
+MERGED from [:rive_common] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\rive_common-0.4.15\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:2:1-7:12
+MERGED from [:sqflite_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\sqflite_android-2.4.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:17:1-44:12
+MERGED from [com.google.android.gms:play-services-location:21.3.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\566d820d62eceeef77e6fc5ea49a076e\transformed\jetified-play-services-location-21.3.0\AndroidManifest.xml:2:1-8:12
+MERGED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\e1f6d2e0b1aa38467964f5b59b4f29f9\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\7795f05fbf8283409257f8d4d50c7a58\transformed\jetified-play-services-tasks-18.2.0\AndroidManifest.xml:2:1-5:12
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1186d146da5ef23629d7bf94e5a0d382\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.fragment:fragment-ktx:1.7.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\972419750b36e9fbf2d0c26a45927d82\transformed\jetified-fragment-ktx-1.7.1\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.fragment:fragment:1.7.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1c8746a36ac065afed39d95b2852a559\transformed\fragment-1.7.1\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.activity:activity-ktx:1.9.3] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\32f4a2813ac7c771e056d42a720055af\transformed\jetified-activity-ktx-1.9.3\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.activity:activity:1.9.3] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\93eeca70efd8419049cd49df8af72af1\transformed\jetified-activity-1.9.3\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.browser:browser:1.8.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0c69679757972620720ec039d7103818\transformed\browser-1.8.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\c2bb4cddb87481b6b754c0fdd3839a9b\transformed\jetified-emoji2-views-helper-1.2.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\2f9e30b92e09a4c79f34f925067bc407\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\ee531b38ae54cb474462f6278bef0ac4\transformed\recyclerview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\d2f89760d0d7afc020c36efe677962c0\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\08d6944c906bcd30c9d42a63993176cf\transformed\customview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\d21df4d1a80ec9bf2502ed8e05d37297\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.window:window:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\197f12b192a3f06912c946d4cbd2dd7d\transformed\jetified-window-1.2.0\AndroidManifest.xml:17:1-31:12
+MERGED from [androidx.window:window-java:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\51d67b28f04358995f888f3317b40779\transformed\jetified-window-java-1.2.0\AndroidManifest.xml:17:1-21:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\df95e149204d983cb4c11efbc84ab4c1\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\dc0590902d0fbba9efca7bc74a8bc4cb\transformed\jetified-lifecycle-livedata-core-ktx-2.7.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\e72f610bb8a20735f78a04c908b9b793\transformed\lifecycle-livedata-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\306016bcb4195b3238dbb4d76cafb64c\transformed\jetified-lifecycle-viewmodel-ktx-2.7.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\c244a6ce50b3288fe79d3f6ae212397f\transformed\jetified-lifecycle-runtime-ktx-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1e1e86d9fc1ea8180a98a95859125403\transformed\lifecycle-livedata-core-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\84addddb59162e1cea52976d5f2c6cc1\transformed\lifecycle-viewmodel-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0c7cd1674da718ccee593f79cf8da244\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\425b3275685a974b685af27ff4ed6b1d\transformed\jetified-savedstate-ktx-1.2.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\7f734b899c9b5bcf473e5c8a79b68b93\transformed\jetified-savedstate-1.2.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\aa55b2079cbc673a6a445c1850daa153\transformed\lifecycle-runtime-2.7.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\23f1459f3a17c3f297faa9e854d895db\transformed\jetified-lifecycle-viewmodel-savedstate-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core-ktx:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\b20746735fee67b2d1d0e57b3aafa867\transformed\jetified-core-ktx-1.16.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.core:core:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f86078c5128bfb38b5fd12a707b3b369\transformed\core-1.16.0\AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.datastore:datastore-core-android:1.1.3] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\31eccd218f5b1fd8272959453f411784\transformed\jetified-datastore-core-release\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.datastore:datastore-preferences-android:1.1.3] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\7535a935f9e65beb6c79d36312378a64\transformed\jetified-datastore-preferences-release\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.datastore:datastore-android:1.1.3] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\479b3bf32f00901a230d7d79262001b9\transformed\jetified-datastore-release\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1ea03ff4645f48d24e3fb5a42281310d\transformed\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.security:security-crypto:1.1.0-alpha06] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\b87823aa9ee377cf4f75094088b20314\transformed\jetified-security-crypto-1.1.0-alpha06\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.exifinterface:exifinterface:1.3.7] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\17952863fa1b6f5dddf3dbb6f4ce2941\transformed\exifinterface-1.3.7\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\4cfa7aabd0ff8beb21daa4d12f46b519\transformed\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:17:1-55:12
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\85879f220671a879b538e8ef16ed1744\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.tracing:tracing:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\27003765dae66b7dc3bf878451ba1684\transformed\jetified-tracing-1.2.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\dc56adcbf17b642cc8bc810bfcbda96d\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f3b8632830106ae874bd20aa567485d8\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a58c138301656e62a00a9163f21e3a54\transformed\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\cb263d6c3807b4994a64a61fe4ea2bcf\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\b7f63da0fad92ba134922d35b82d48c3\transformed\print-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1d33f966f1aab687e952d4b7cce6845e\transformed\core-runtime-2.2.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.window.extensions.core:core:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\449958d8d573c37840f9e10ca78b3740\transformed\jetified-core-1.0.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.annotation:annotation-experimental:1.4.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\683cbfde6a58705556f8fa87883a18e1\transformed\jetified-annotation-experimental-1.4.1\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.core:core-viewtree:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\3b106ec6394803c577492ce2f65d8645\transformed\jetified-core-viewtree-1.0.0\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.maps.android:android-maps-utils:3.6.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\ff5ac7cfd2808965c34268d0c0238e7f\transformed\jetified-android-maps-utils-3.6.0\AndroidManifest.xml:2:1-13:12
+MERGED from [com.getkeepsafe.relinker:relinker:1.4.5] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\aa2b156f95f9eab66ccb02ea9eacfedd\transformed\jetified-relinker-1.4.5\AndroidManifest.xml:2:1-7:12
+	package
+		INJECTED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:1:11-69
+queries
+ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:42:5-47:15
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:30:5-34:15
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:30:5-34:15
+intent#action:name:android.intent.action.PROCESS_TEXT+data:mimeType:text/plain
+ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:43:9-46:18
+action#android.intent.action.PROCESS_TEXT
+ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:44:13-72
+	android:name
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:44:21-70
+data
+ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:45:13-50
+	android:mimeType
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:45:19-48
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:49:5-79
+MERGED from [:location] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\location-8.0.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:8:5-79
+MERGED from [:location] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\location-8.0.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:8:5-79
+	android:name
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:49:22-76
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:50:5-81
+MERGED from [:location] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\location-8.0.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:7:5-81
+MERGED from [:location] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\location-8.0.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:7:5-81
+	android:name
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:50:22-78
+uses-permission#android.permission.INTERNET
+ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:51:5-67
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:24:5-67
+	android:name
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:51:22-64
+activity#com.example.momy_butuh_flutter.MainActivity
+ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:6:9-27:20
+	android:launchMode
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:9:13-43
+	android:hardwareAccelerated
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:13:13-47
+	android:windowSoftInputMode
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:14:13-55
+	android:exported
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:8:13-36
+	android:configChanges
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:12:13-163
+	android:theme
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:11:13-47
+	android:taskAffinity
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:10:13-36
+	android:name
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:7:13-41
+meta-data#io.flutter.embedding.android.NormalTheme
+ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:19:13-22:17
+	android:resource
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:21:15-52
+	android:name
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:20:15-70
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:23:13-26:29
+action#android.intent.action.MAIN
+ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:24:17-68
+	android:name
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:24:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:25:17-76
+	android:name
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:25:27-74
+meta-data#flutterEmbedding
+ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:30:9-32:33
+	android:value
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:32:13-30
+	android:name
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:31:13-44
+meta-data#com.google.android.geo.API_KEY
+ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:34:9-35:73
+	android:value
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:35:16-71
+	android:name
+		ADDED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml:34:20-65
+uses-sdk
+INJECTED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml
+INJECTED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml
+MERGED from [:location] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\location-8.0.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:location] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\location-8.0.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_android-2.4.10\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_android-2.4.10\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.material:material:1.12.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\fb6f04d2bdd941eadeed6b3a0071eee6\transformed\material-1.12.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.12.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\fb6f04d2bdd941eadeed6b3a0071eee6\transformed\material-1.12.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\7d2f64d943f17384c796e08d8919a9f5\transformed\constraintlayout-2.0.1\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\7d2f64d943f17384c796e08d8919a9f5\transformed\constraintlayout-2.0.1\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.preference:preference:1.2.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\b83b8b00b8346c9e7414a1f1298f055d\transformed\preference-1.2.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.preference:preference:1.2.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\b83b8b00b8346c9e7414a1f1298f055d\transformed\preference-1.2.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0f448994e490bf59f20aa19226509e50\transformed\jetified-appcompat-resources-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0f448994e490bf59f20aa19226509e50\transformed\jetified-appcompat-resources-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\4a06d06ec0ce1c73cc8df2ae11f0f21f\transformed\appcompat-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\4a06d06ec0ce1c73cc8df2ae11f0f21f\transformed\appcompat-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [:geolocator_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-5.0.1+1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:geolocator_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-5.0.1+1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:6:5-44
+MERGED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:6:5-44
+MERGED from [:url_launcher_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_android-6.3.16\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_android-6.3.16\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\92e25ebfa9da2ff8052a055da0acd6ca\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\92e25ebfa9da2ff8052a055da0acd6ca\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\026eaf91a704f686abc435b9c478bb2d\transformed\drawerlayout-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\026eaf91a704f686abc435b9c478bb2d\transformed\drawerlayout-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f71e40716bc29995f4cada24da499d83\transformed\slidingpanelayout-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f71e40716bc29995f4cada24da499d83\transformed\slidingpanelayout-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.5.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\782d754970964cf1b7475ae88dbc4ce4\transformed\transition-1.5.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.transition:transition:1.5.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\782d754970964cf1b7475ae88dbc4ce4\transformed\transition-1.5.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0d0d5f17a702e8a6097024f40b22f428\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0d0d5f17a702e8a6097024f40b22f428\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\afec9dc0bcc11d087323dc11f5e0350a\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\afec9dc0bcc11d087323dc11f5e0350a\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\ee817ed912dd87a9ffe7b0d8087b9e11\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\ee817ed912dd87a9ffe7b0d8087b9e11\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\3159bb33404aa6a4b2af9e21283225fe\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\3159bb33404aa6a4b2af9e21283225fe\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [:google_maps_flutter_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\google_maps_flutter_android-2.16.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:google_maps_flutter_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\google_maps_flutter_android-2.16.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_plugin_android_lifecycle] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_plugin_android_lifecycle-2.0.28\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_plugin_android_lifecycle] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_plugin_android_lifecycle-2.0.28\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_secure_storage] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_secure_storage-9.2.4\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:6:5-8:53
+MERGED from [:flutter_secure_storage] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_secure_storage-9.2.4\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:6:5-8:53
+MERGED from [:geocoding_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\geocoding_android-3.3.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:geocoding_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\geocoding_android-3.3.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\path_provider_android-2.2.17\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\path_provider_android-2.2.17\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:pusher_channels_flutter] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\pusher_channels_flutter-2.4.0\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:pusher_channels_flutter] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\pusher_channels_flutter-2.4.0\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:rive_common] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\rive_common-0.4.15\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:rive_common] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\rive_common-0.4.15\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:sqflite_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\sqflite_android-2.4.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [:sqflite_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\sqflite_android-2.4.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-location:21.3.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\566d820d62eceeef77e6fc5ea49a076e\transformed\jetified-play-services-location-21.3.0\AndroidManifest.xml:4:5-44
+MERGED from [com.google.android.gms:play-services-location:21.3.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\566d820d62eceeef77e6fc5ea49a076e\transformed\jetified-play-services-location-21.3.0\AndroidManifest.xml:4:5-44
+MERGED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\e1f6d2e0b1aa38467964f5b59b4f29f9\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:3:5-44
+MERGED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\e1f6d2e0b1aa38467964f5b59b4f29f9\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:3:5-44
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\7795f05fbf8283409257f8d4d50c7a58\transformed\jetified-play-services-tasks-18.2.0\AndroidManifest.xml:3:5-44
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\7795f05fbf8283409257f8d4d50c7a58\transformed\jetified-play-services-tasks-18.2.0\AndroidManifest.xml:3:5-44
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1186d146da5ef23629d7bf94e5a0d382\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:3:5-44
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1186d146da5ef23629d7bf94e5a0d382\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:3:5-44
+MERGED from [androidx.fragment:fragment-ktx:1.7.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\972419750b36e9fbf2d0c26a45927d82\transformed\jetified-fragment-ktx-1.7.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.fragment:fragment-ktx:1.7.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\972419750b36e9fbf2d0c26a45927d82\transformed\jetified-fragment-ktx-1.7.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.fragment:fragment:1.7.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1c8746a36ac065afed39d95b2852a559\transformed\fragment-1.7.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.fragment:fragment:1.7.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1c8746a36ac065afed39d95b2852a559\transformed\fragment-1.7.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.9.3] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\32f4a2813ac7c771e056d42a720055af\transformed\jetified-activity-ktx-1.9.3\AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.9.3] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\32f4a2813ac7c771e056d42a720055af\transformed\jetified-activity-ktx-1.9.3\AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity:1.9.3] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\93eeca70efd8419049cd49df8af72af1\transformed\jetified-activity-1.9.3\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.9.3] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\93eeca70efd8419049cd49df8af72af1\transformed\jetified-activity-1.9.3\AndroidManifest.xml:20:5-44
+MERGED from [androidx.browser:browser:1.8.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0c69679757972620720ec039d7103818\transformed\browser-1.8.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.browser:browser:1.8.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0c69679757972620720ec039d7103818\transformed\browser-1.8.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\c2bb4cddb87481b6b754c0fdd3839a9b\transformed\jetified-emoji2-views-helper-1.2.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\c2bb4cddb87481b6b754c0fdd3839a9b\transformed\jetified-emoji2-views-helper-1.2.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\2f9e30b92e09a4c79f34f925067bc407\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\2f9e30b92e09a4c79f34f925067bc407\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\ee531b38ae54cb474462f6278bef0ac4\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\ee531b38ae54cb474462f6278bef0ac4\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\d2f89760d0d7afc020c36efe677962c0\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\d2f89760d0d7afc020c36efe677962c0\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\08d6944c906bcd30c9d42a63993176cf\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\08d6944c906bcd30c9d42a63993176cf\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\d21df4d1a80ec9bf2502ed8e05d37297\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\d21df4d1a80ec9bf2502ed8e05d37297\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.window:window:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\197f12b192a3f06912c946d4cbd2dd7d\transformed\jetified-window-1.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.window:window:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\197f12b192a3f06912c946d4cbd2dd7d\transformed\jetified-window-1.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.window:window-java:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\51d67b28f04358995f888f3317b40779\transformed\jetified-window-java-1.2.0\AndroidManifest.xml:19:5-44
+MERGED from [androidx.window:window-java:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\51d67b28f04358995f888f3317b40779\transformed\jetified-window-java-1.2.0\AndroidManifest.xml:19:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\df95e149204d983cb4c11efbc84ab4c1\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\df95e149204d983cb4c11efbc84ab4c1\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\dc0590902d0fbba9efca7bc74a8bc4cb\transformed\jetified-lifecycle-livedata-core-ktx-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\dc0590902d0fbba9efca7bc74a8bc4cb\transformed\jetified-lifecycle-livedata-core-ktx-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\e72f610bb8a20735f78a04c908b9b793\transformed\lifecycle-livedata-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\e72f610bb8a20735f78a04c908b9b793\transformed\lifecycle-livedata-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\306016bcb4195b3238dbb4d76cafb64c\transformed\jetified-lifecycle-viewmodel-ktx-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\306016bcb4195b3238dbb4d76cafb64c\transformed\jetified-lifecycle-viewmodel-ktx-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\c244a6ce50b3288fe79d3f6ae212397f\transformed\jetified-lifecycle-runtime-ktx-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\c244a6ce50b3288fe79d3f6ae212397f\transformed\jetified-lifecycle-runtime-ktx-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1e1e86d9fc1ea8180a98a95859125403\transformed\lifecycle-livedata-core-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1e1e86d9fc1ea8180a98a95859125403\transformed\lifecycle-livedata-core-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\84addddb59162e1cea52976d5f2c6cc1\transformed\lifecycle-viewmodel-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\84addddb59162e1cea52976d5f2c6cc1\transformed\lifecycle-viewmodel-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0c7cd1674da718ccee593f79cf8da244\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0c7cd1674da718ccee593f79cf8da244\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\425b3275685a974b685af27ff4ed6b1d\transformed\jetified-savedstate-ktx-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\425b3275685a974b685af27ff4ed6b1d\transformed\jetified-savedstate-ktx-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\7f734b899c9b5bcf473e5c8a79b68b93\transformed\jetified-savedstate-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\7f734b899c9b5bcf473e5c8a79b68b93\transformed\jetified-savedstate-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\aa55b2079cbc673a6a445c1850daa153\transformed\lifecycle-runtime-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\aa55b2079cbc673a6a445c1850daa153\transformed\lifecycle-runtime-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\23f1459f3a17c3f297faa9e854d895db\transformed\jetified-lifecycle-viewmodel-savedstate-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\23f1459f3a17c3f297faa9e854d895db\transformed\jetified-lifecycle-viewmodel-savedstate-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core-ktx:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\b20746735fee67b2d1d0e57b3aafa867\transformed\jetified-core-ktx-1.16.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\b20746735fee67b2d1d0e57b3aafa867\transformed\jetified-core-ktx-1.16.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f86078c5128bfb38b5fd12a707b3b369\transformed\core-1.16.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f86078c5128bfb38b5fd12a707b3b369\transformed\core-1.16.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.datastore:datastore-core-android:1.1.3] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\31eccd218f5b1fd8272959453f411784\transformed\jetified-datastore-core-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.datastore:datastore-core-android:1.1.3] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\31eccd218f5b1fd8272959453f411784\transformed\jetified-datastore-core-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.datastore:datastore-preferences-android:1.1.3] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\7535a935f9e65beb6c79d36312378a64\transformed\jetified-datastore-preferences-release\AndroidManifest.xml:20:5-44
+MERGED from [androidx.datastore:datastore-preferences-android:1.1.3] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\7535a935f9e65beb6c79d36312378a64\transformed\jetified-datastore-preferences-release\AndroidManifest.xml:20:5-44
+MERGED from [androidx.datastore:datastore-android:1.1.3] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\479b3bf32f00901a230d7d79262001b9\transformed\jetified-datastore-release\AndroidManifest.xml:20:5-44
+MERGED from [androidx.datastore:datastore-android:1.1.3] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\479b3bf32f00901a230d7d79262001b9\transformed\jetified-datastore-release\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1ea03ff4645f48d24e3fb5a42281310d\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1ea03ff4645f48d24e3fb5a42281310d\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.security:security-crypto:1.1.0-alpha06] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\b87823aa9ee377cf4f75094088b20314\transformed\jetified-security-crypto-1.1.0-alpha06\AndroidManifest.xml:20:5-44
+MERGED from [androidx.security:security-crypto:1.1.0-alpha06] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\b87823aa9ee377cf4f75094088b20314\transformed\jetified-security-crypto-1.1.0-alpha06\AndroidManifest.xml:20:5-44
+MERGED from [androidx.exifinterface:exifinterface:1.3.7] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\17952863fa1b6f5dddf3dbb6f4ce2941\transformed\exifinterface-1.3.7\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.7] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\17952863fa1b6f5dddf3dbb6f4ce2941\transformed\exifinterface-1.3.7\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\4cfa7aabd0ff8beb21daa4d12f46b519\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\4cfa7aabd0ff8beb21daa4d12f46b519\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:21:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:21:5-44
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\85879f220671a879b538e8ef16ed1744\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\85879f220671a879b538e8ef16ed1744\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.tracing:tracing:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\27003765dae66b7dc3bf878451ba1684\transformed\jetified-tracing-1.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.tracing:tracing:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\27003765dae66b7dc3bf878451ba1684\transformed\jetified-tracing-1.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\dc56adcbf17b642cc8bc810bfcbda96d\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\dc56adcbf17b642cc8bc810bfcbda96d\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f3b8632830106ae874bd20aa567485d8\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f3b8632830106ae874bd20aa567485d8\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a58c138301656e62a00a9163f21e3a54\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a58c138301656e62a00a9163f21e3a54\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\cb263d6c3807b4994a64a61fe4ea2bcf\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\cb263d6c3807b4994a64a61fe4ea2bcf\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\b7f63da0fad92ba134922d35b82d48c3\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\b7f63da0fad92ba134922d35b82d48c3\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1d33f966f1aab687e952d4b7cce6845e\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1d33f966f1aab687e952d4b7cce6845e\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.window.extensions.core:core:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\449958d8d573c37840f9e10ca78b3740\transformed\jetified-core-1.0.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.window.extensions.core:core:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\449958d8d573c37840f9e10ca78b3740\transformed\jetified-core-1.0.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\683cbfde6a58705556f8fa87883a18e1\transformed\jetified-annotation-experimental-1.4.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\683cbfde6a58705556f8fa87883a18e1\transformed\jetified-annotation-experimental-1.4.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-viewtree:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\3b106ec6394803c577492ce2f65d8645\transformed\jetified-core-viewtree-1.0.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-viewtree:1.0.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\3b106ec6394803c577492ce2f65d8645\transformed\jetified-core-viewtree-1.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.maps.android:android-maps-utils:3.6.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\ff5ac7cfd2808965c34268d0c0238e7f\transformed\jetified-android-maps-utils-3.6.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.maps.android:android-maps-utils:3.6.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\ff5ac7cfd2808965c34268d0c0238e7f\transformed\jetified-android-maps-utils-3.6.0\AndroidManifest.xml:5:5-44
+MERGED from [com.getkeepsafe.relinker:relinker:1.4.5] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\aa2b156f95f9eab66ccb02ea9eacfedd\transformed\jetified-relinker-1.4.5\AndroidManifest.xml:5:5-43
+MERGED from [com.getkeepsafe.relinker:relinker:1.4.5] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\aa2b156f95f9eab66ccb02ea9eacfedd\transformed\jetified-relinker-1.4.5\AndroidManifest.xml:5:5-43
+	tools:overrideLibrary
+		ADDED from [:flutter_secure_storage] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_secure_storage-9.2.4\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:8:9-50
+	android:targetSdkVersion
+		INJECTED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Juoki\MomyButuh\momy_butuh_flutter\android\app\src\main\AndroidManifest.xml
+service#com.lyokone.location.FlutterLocationService
+ADDED from [:location] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\location-8.0.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:11:9-15:56
+	android:enabled
+		ADDED from [:location] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\location-8.0.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:13:13-35
+	android:exported
+		ADDED from [:location] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\location-8.0.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:14:13-37
+	android:foregroundServiceType
+		ADDED from [:location] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\location-8.0.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:15:13-53
+	android:name
+		ADDED from [:location] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\location-8.0.1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:12:13-71
+service#com.baseflow.geolocator.GeolocatorLocationService
+ADDED from [:geolocator_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-5.0.1+1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:8:9-12:56
+	android:enabled
+		ADDED from [:geolocator_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-5.0.1+1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:10:13-35
+	android:exported
+		ADDED from [:geolocator_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-5.0.1+1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:11:13-37
+	android:foregroundServiceType
+		ADDED from [:geolocator_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-5.0.1+1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:12:13-53
+	android:name
+		ADDED from [:geolocator_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\geolocator_android-5.0.1+1\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:9:13-77
+provider#io.flutter.plugins.imagepicker.ImagePickerFileProvider
+ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:9:9-17:20
+	android:grantUriPermissions
+		ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:13:13-47
+	android:authorities
+		ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:11:13-74
+	android:exported
+		ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:12:13-37
+	android:name
+		ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:10:13-82
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:14:13-16:75
+	android:resource
+		ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:16:17-72
+	android:name
+		ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:15:17-67
+service#com.google.android.gms.metadata.ModuleDependencies
+ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:19:9-31:19
+	android:enabled
+		ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:21:13-36
+	android:exported
+		ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:22:13-37
+	tools:ignore
+		ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:23:13-40
+	android:name
+		ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:20:13-78
+intent-filter#action:name:com.google.android.gms.metadata.MODULE_DEPENDENCIES
+ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:24:13-26:29
+action#com.google.android.gms.metadata.MODULE_DEPENDENCIES
+ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:25:17-94
+	android:name
+		ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:25:25-91
+meta-data#photopicker_activity:0:required
+ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:28:13-30:36
+	android:value
+		ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:30:17-33
+	android:name
+		ADDED from [:image_picker_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.12+23\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:29:17-63
+activity#io.flutter.plugins.urllauncher.WebViewActivity
+ADDED from [:url_launcher_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_android-6.3.16\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:8:9-11:74
+	android:exported
+		ADDED from [:url_launcher_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_android-6.3.16\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:10:13-37
+	android:theme
+		ADDED from [:url_launcher_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_android-6.3.16\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:11:13-71
+	android:name
+		ADDED from [:url_launcher_android] C:\Users\Dionikxon\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_android-6.3.16\android\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:9:13-74
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:23:5-79
+	android:name
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:23:22-76
+uses-feature#0x00020000
+ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:26:5-28:35
+	android:glEsVersion
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:27:9-41
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:28:9-32
+package#com.google.android.apps.maps
+ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:33:9-64
+	android:name
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:33:18-61
+uses-library#org.apache.http.legacy
+ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:39:9-41:40
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:41:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\267285d13dfee259da936810495645c5\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:40:13-50
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\e1f6d2e0b1aa38467964f5b59b4f29f9\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:9-173
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\e1f6d2e0b1aa38467964f5b59b4f29f9\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:146-170
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\e1f6d2e0b1aa38467964f5b59b4f29f9\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:86-145
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\e1f6d2e0b1aa38467964f5b59b4f29f9\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:19-85
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1186d146da5ef23629d7bf94e5a0d382\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:6:9-122
+MERGED from [com.google.maps.android:android-maps-utils:3.6.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\ff5ac7cfd2808965c34268d0c0238e7f\transformed\jetified-android-maps-utils-3.6.0\AndroidManifest.xml:8:9-10:69
+MERGED from [com.google.maps.android:android-maps-utils:3.6.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\ff5ac7cfd2808965c34268d0c0238e7f\transformed\jetified-android-maps-utils-3.6.0\AndroidManifest.xml:8:9-10:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1186d146da5ef23629d7bf94e5a0d382\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:6:66-119
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\1186d146da5ef23629d7bf94e5a0d382\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:6:20-65
+provider#androidx.startup.InitializationProvider
+ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\2f9e30b92e09a4c79f34f925067bc407\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0c7cd1674da718ccee593f79cf8da244\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0c7cd1674da718ccee593f79cf8da244\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\85879f220671a879b538e8ef16ed1744\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\85879f220671a879b538e8ef16ed1744\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:26:9-30:34
+	tools:node
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\2f9e30b92e09a4c79f34f925067bc407\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:28:13-31
+	android:authorities
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\2f9e30b92e09a4c79f34f925067bc407\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+	android:exported
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\2f9e30b92e09a4c79f34f925067bc407\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\2f9e30b92e09a4c79f34f925067bc407\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+meta-data#androidx.emoji2.text.EmojiCompatInitializer
+ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\2f9e30b92e09a4c79f34f925067bc407\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\2f9e30b92e09a4c79f34f925067bc407\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\2f9e30b92e09a4c79f34f925067bc407\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+uses-library#androidx.window.extensions
+ADDED from [androidx.window:window:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\197f12b192a3f06912c946d4cbd2dd7d\transformed\jetified-window-1.2.0\AndroidManifest.xml:23:9-25:40
+	android:required
+		ADDED from [androidx.window:window:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\197f12b192a3f06912c946d4cbd2dd7d\transformed\jetified-window-1.2.0\AndroidManifest.xml:25:13-37
+	android:name
+		ADDED from [androidx.window:window:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\197f12b192a3f06912c946d4cbd2dd7d\transformed\jetified-window-1.2.0\AndroidManifest.xml:24:13-54
+uses-library#androidx.window.sidecar
+ADDED from [androidx.window:window:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\197f12b192a3f06912c946d4cbd2dd7d\transformed\jetified-window-1.2.0\AndroidManifest.xml:26:9-28:40
+	android:required
+		ADDED from [androidx.window:window:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\197f12b192a3f06912c946d4cbd2dd7d\transformed\jetified-window-1.2.0\AndroidManifest.xml:28:13-37
+	android:name
+		ADDED from [androidx.window:window:1.2.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\197f12b192a3f06912c946d4cbd2dd7d\transformed\jetified-window-1.2.0\AndroidManifest.xml:27:13-51
+meta-data#androidx.lifecycle.ProcessLifecycleInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0c7cd1674da718ccee593f79cf8da244\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0c7cd1674da718ccee593f79cf8da244\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\0c7cd1674da718ccee593f79cf8da244\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f86078c5128bfb38b5fd12a707b3b369\transformed\core-1.16.0\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f86078c5128bfb38b5fd12a707b3b369\transformed\core-1.16.0\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f86078c5128bfb38b5fd12a707b3b369\transformed\core-1.16.0\AndroidManifest.xml:23:9-81
+permission#com.example.momy_butuh_flutter.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f86078c5128bfb38b5fd12a707b3b369\transformed\core-1.16.0\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f86078c5128bfb38b5fd12a707b3b369\transformed\core-1.16.0\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f86078c5128bfb38b5fd12a707b3b369\transformed\core-1.16.0\AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f86078c5128bfb38b5fd12a707b3b369\transformed\core-1.16.0\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f86078c5128bfb38b5fd12a707b3b369\transformed\core-1.16.0\AndroidManifest.xml:26:22-94
+uses-permission#com.example.momy_butuh_flutter.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f86078c5128bfb38b5fd12a707b3b369\transformed\core-1.16.0\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.16.0] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\f86078c5128bfb38b5fd12a707b3b369\transformed\core-1.16.0\AndroidManifest.xml:26:22-94
+meta-data#androidx.profileinstaller.ProfileInstallerInitializer
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+receiver#androidx.profileinstaller.ProfileInstallReceiver
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+	android:enabled
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+	android:permission
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+	android:directBootAware
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+intent-filter#action:name:androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+action#androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+intent-filter#action:name:androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+action#androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+intent-filter#action:name:androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+action#androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+intent-filter#action:name:androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+action#androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dionikxon\.gradle\caches\8.12\transforms\a41c77be64ae79775eea5abf0296f1bb\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
