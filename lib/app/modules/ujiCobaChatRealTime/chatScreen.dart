@@ -63,9 +63,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Future<void> _initializeChat() async {
     await _fetchProfileAndHistory();
-    if (mounted) {
-      _connectToWebSocket();
-    }
+    // if (mounted) {
+    //   _connectToWebSocket();
+    // }
   }
 
   Future<void> _fetchProfileAndHistory() async {
@@ -119,88 +119,88 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  void _connectToWebSocket() async {
-    if (_currentUserId == null) return;
+  // void _connectToWebSocket() async {
+  //   if (_currentUserId == null) return;
 
-    final token = await widget.authService.getToken();
-    if (token == null) return;
+  //   final token = await widget.authService.getToken();
+  //   if (token == null) return;
 
-    try {
-      // PERBAIKAN: Menggunakan widget.httpClient.post
-      final authResponse = await widget.httpClient.post(
-        Uri.parse(
-          '${AppConstants.baseUrl.replaceFirst('/api', '')}/broadcasting/auth',
-        ),
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: jsonEncode({
-          'channel_name': 'private-conversation.${widget.conversationId}',
-        }),
-      );
+  //   try {
+  //     // PERBAIKAN: Menggunakan widget.httpClient.post
+  //     final authResponse = await widget.httpClient.post(
+  //       Uri.parse(
+  //         '${AppConstants.baseUrl.replaceFirst('/api', '')}/broadcasting/auth',
+  //       ),
+  //       headers: {
+  //         'Authorization': 'Bearer $token',
+  //         'Content-Type': 'application/json',
+  //         'Accept': 'application/json',
+  //       },
+  //       body: jsonEncode({
+  //         'channel_name': 'private-conversation.${widget.conversationId}',
+  //       }),
+  //     );
 
-      if (authResponse.statusCode != 200) {
-        throw Exception('Gagal otorisasi broadcast: ${authResponse.body}');
-      }
+  //     if (authResponse.statusCode != 200) {
+  //       throw Exception('Gagal otorisasi broadcast: ${authResponse.body}');
+  //     }
 
-      final reverbAppKey = 'your_reverb_app_key'; // Ganti dengan key Anda
-      final wsUrl =
-          'ws://${AppConstants.baseUrl.split('//')[1].split('/api')[0]}/app/$reverbAppKey?protocol=7&client=js&version=8.4.0-rc2&flash=false';
+  //     final reverbAppKey = 'your_reverb_app_key'; // Ganti dengan key Anda
+  //     final wsUrl =
+  //         'ws://${AppConstants.baseUrl.split('//')[1].split('/api')[0]}/app/$reverbAppKey?protocol=7&client=js&version=8.4.0-rc2&flash=false';
 
-      _channel = WebSocketChannel.connect(Uri.parse(wsUrl));
+  //     _channel = WebSocketChannel.connect(Uri.parse(wsUrl));
 
-      _channel!.stream.listen(
-        (data) {
-          final decoded = jsonDecode(data);
+  //     _channel!.stream.listen(
+  //       (data) {
+  //         final decoded = jsonDecode(data);
 
-          if (decoded['event'] == 'pusher:connection_established') {
-            final authData = jsonDecode(authResponse.body);
-            _channel!.sink.add(
-              jsonEncode({
-                'event': 'pusher:subscribe',
-                'data': {
-                  'auth': authData['auth'],
-                  'channel': 'private-conversation.${widget.conversationId}',
-                },
-              }),
-            );
-          } else if (decoded['event'] == 'new.message' &&
-              decoded['channel'] ==
-                  'private-conversation.${widget.conversationId}') {
-            final messageData = jsonDecode(decoded['data'])['message'];
-            final newMessage = ChatMessage(
-              text: messageData['body'],
-              senderName: messageData['sender']['name'],
-              isMe: messageData['sender']['id'] == _currentUserId,
-            );
-            if (mounted) {
-              setState(() => _messages.add(newMessage));
-              _scrollToBottom();
-            }
-          } else if (decoded['event'] == 'user.typing' &&
-              decoded['channel'] ==
-                  'presence-conversation.${widget.conversationId}') {
-            final typingUser = decoded['data']['user'];
-            if (typingUser['id'] != _currentUserId) {
-              if (mounted) {
-                setState(() => _isOpponentTyping = true);
-                _typingTimer?.cancel();
-                _typingTimer = Timer(const Duration(seconds: 2), () {
-                  if (mounted) setState(() => _isOpponentTyping = false);
-                });
-              }
-            }
-          }
-        },
-        onError: (error) => print('WebSocket Error: $error'),
-        onDone: () => print('WebSocket Channel Closed'),
-      );
-    } catch (e) {
-      print('Error menghubungkan ke WebSocket: $e');
-    }
-  }
+  //         if (decoded['event'] == 'pusher:connection_established') {
+  //           final authData = jsonDecode(authResponse.body);
+  //           _channel!.sink.add(
+  //             jsonEncode({
+  //               'event': 'pusher:subscribe',
+  //               'data': {
+  //                 'auth': authData['auth'],
+  //                 'channel': 'private-conversation.${widget.conversationId}',
+  //               },
+  //             }),
+  //           );
+  //         } else if (decoded['event'] == 'new.message' &&
+  //             decoded['channel'] ==
+  //                 'private-conversation.${widget.conversationId}') {
+  //           final messageData = jsonDecode(decoded['data'])['message'];
+  //           final newMessage = ChatMessage(
+  //             text: messageData['body'],
+  //             senderName: messageData['sender']['name'],
+  //             isMe: messageData['sender']['id'] == _currentUserId,
+  //           );
+  //           if (mounted) {
+  //             setState(() => _messages.add(newMessage));
+  //             _scrollToBottom();
+  //           }
+  //         } else if (decoded['event'] == 'user.typing' &&
+  //             decoded['channel'] ==
+  //                 'presence-conversation.${widget.conversationId}') {
+  //           final typingUser = decoded['data']['user'];
+  //           if (typingUser['id'] != _currentUserId) {
+  //             if (mounted) {
+  //               setState(() => _isOpponentTyping = true);
+  //               _typingTimer?.cancel();
+  //               _typingTimer = Timer(const Duration(seconds: 2), () {
+  //                 if (mounted) setState(() => _isOpponentTyping = false);
+  //               });
+  //             }
+  //           }
+  //         }
+  //       },
+  //       onError: (error) => print('WebSocket Error: $error'),
+  //       onDone: () => print('WebSocket Channel Closed'),
+  //     );
+  //   } catch (e) {
+  //     print('Error menghubungkan ke WebSocket: $e');
+  //   }
+  // }
 
   void _handleTyping() {
     _typingTimer?.cancel();

@@ -18,12 +18,20 @@ class AppNotification {
     required this.isRead,
   });
 
+  /// Factory constructor untuk membuat instance dari JSON.
+  /// Kode ini sudah diperbaiki untuk menangani angka yang dikirim sebagai String.
   factory AppNotification.fromJson(Map<String, dynamic> json) {
     return AppNotification(
-      id: json['id'] ?? 0,
+      // Mengonversi 'id' dengan aman, memberikan nilai default 0 jika null atau gagal.
+      id: int.tryParse(json['id'].toString()) ?? 0,
+
       type: json['type'] ?? 'unknown',
-      message: json['message'] ?? 'Tidak ada pesan.',
+      message:
+          json['data']?['message'] ??
+          'Tidak ada pesan.', // Mengambil dari nested 'data'
+      // Parsing tanggal sudah cukup aman.
       createdAt: DateTime.tryParse(json['created_at'] ?? '') ?? DateTime.now(),
+
       isRead: json['read_at'] != null,
     );
   }
@@ -31,14 +39,12 @@ class AppNotification {
   // Helper untuk mendapatkan ikon berdasarkan tipe notifikasi
   IconData get icon {
     switch (type) {
-      case 'booking_accepted':
-        return Icons.check_circle_outline;
-      case 'booking_completed':
+      case 'App\\Notifications\\BookingCompleted': // Sesuaikan dengan nama kelas Notifikasi di Laravel
         return Icons.task_alt_outlined;
-      case 'payment_success':
-        return Icons.payment_outlined;
-      case 'topup_success':
+      case 'App\\Notifications\\TopUpSuccess': // Sesuaikan dengan nama kelas Notifikasi di Laravel
         return Icons.account_balance_wallet_outlined;
+      case 'App\\Notifications\\NewBookingRequest': // Sesuaikan dengan nama kelas Notifikasi di Laravel
+        return Icons.calendar_today_outlined;
       default:
         return Icons.notifications_outlined;
     }

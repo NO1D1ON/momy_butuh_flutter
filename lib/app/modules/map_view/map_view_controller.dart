@@ -19,10 +19,56 @@ class MapViewController extends GetxController {
     zoom: 17.0,
   ).obs;
 
+  // Variabel untuk menyimpan custom marker icons
+  BitmapDescriptor? userLocationIcon;
+  BitmapDescriptor? babysitterIcon;
+  BitmapDescriptor? activeBabysitterIcon;
+
   @override
   void onInit() {
     super.onInit();
+    _loadCustomMarkers();
     getCurrentLocationAndFetchBabysitters();
+  }
+
+  /// Load custom marker icons
+  Future<void> _loadCustomMarkers() async {
+    try {
+      // Custom icon untuk lokasi user (lingkaran biru)
+      userLocationIcon = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(size: Size(48, 48)),
+        'assets/icons/pin.png', // Ganti dengan path asset Anda
+      );
+
+      // Custom icon untuk babysitter (ikon orang/baby)
+      babysitterIcon = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(size: Size(48, 48)),
+        'assets/icons/smile.png', // Ganti dengan path asset Anda
+      );
+
+      // Custom icon untuk babysitter aktif (ikon orang/baby dengan status aktif)
+      activeBabysitterIcon = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(size: Size(48, 48)),
+        'assets/icons/smile.png', // Ganti dengan path asset Anda
+      );
+    } catch (e) {
+      print("Error loading custom markers: $e");
+      // Fallback ke default markers jika custom icons gagal dimuat
+      _setDefaultMarkers();
+    }
+  }
+
+  /// Set default marker colors sebagai fallback
+  void _setDefaultMarkers() {
+    userLocationIcon = BitmapDescriptor.defaultMarkerWithHue(
+      BitmapDescriptor.hueBlue,
+    );
+    babysitterIcon = BitmapDescriptor.defaultMarkerWithHue(
+      BitmapDescriptor.hueOrange,
+    );
+    activeBabysitterIcon = BitmapDescriptor.defaultMarkerWithHue(
+      BitmapDescriptor.hueGreen,
+    );
   }
 
   /// Fungsi utama yang diperbarui untuk mengambil dan memfilter jadwal.
@@ -33,6 +79,12 @@ class MapViewController extends GetxController {
 
       Position position = await _determinePosition();
       currentPosition.value = position;
+
+      // Update camera position
+      initialCameraPosition.value = CameraPosition(
+        target: LatLng(position.latitude, position.longitude),
+        zoom: 14.0,
+      );
 
       mapController?.animateCamera(
         CameraUpdate.newLatLngZoom(
@@ -71,18 +123,32 @@ class MapViewController extends GetxController {
         }
       }).toList();
 
-      // --- MODIFIKASI: Mengirim posisi saat ini untuk membuat marker pengguna ---
-      _createMarkers(activeBabysitters, position);
+      // Ambil semua babysitter (termasuk yang tidak aktif)
+      final allBabysitters = allNearbyAvailabilities.where((avail) {
+        return avail.latitude != null && avail.longitude != null;
+      }).toList();
+
+      // Buat markers dengan posisi pengguna
+      _createMarkers(allBabysitters, activeBabysitters, position);
 
       if (activeBabysitters.isEmpty) {
         Get.snackbar(
           "Info",
           "Tidak ada babysitter yang sedang aktif di sekitar Anda saat ini.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.orange,
+          colorText: Colors.white,
         );
       }
     } catch (e) {
       errorMessage.value = e.toString().replaceAll('Exception: ', '');
-      Get.snackbar("Error", errorMessage.value);
+      Get.snackbar(
+        "Error",
+        errorMessage.value,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
     } finally {
       isLoading(false);
     }
@@ -103,37 +169,70 @@ class MapViewController extends GetxController {
     );
   }
 
-  /// --- MODIFIKASI: Nama fungsi diubah agar lebih umum ---
-  /// Membuat marker untuk babysitter dan lokasi pengguna.
+  /// Membuat marker dengan jenis yang berbeda-beda
   void _createMarkers(
-    List<BabysitterAvailability> availabilities,
-    Position myPosition, // --- MODIFIKASI: Menerima posisi pengguna ---
+    List<BabysitterAvailability> allBabysitters,
+    List<BabysitterAvailability> activeBabysitters,
+    Position myPosition,
   ) {
     var tempMarkers = <Marker>{};
 
-    // --- TAMBAHAN: Membuat marker untuk lokasi pengguna ---
+    // Marker untuk lokasi pengguna dengan icon khusus
     tempMarkers.add(
       Marker(
         markerId: const MarkerId('my_location'),
         position: LatLng(myPosition.latitude, myPosition.longitude),
-        infoWindow: const InfoWindow(title: 'Lokasi Saya'),
-        // Menggunakan warna yang berbeda untuk membedakan
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
+        infoWindow: const InfoWindow(
+          title: '📍 Lokasi Saya',
+          snippet: 'Posisi Anda saat ini',
+        ),
+        icon:
+            userLocationIcon ??
+            BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
       ),
     );
 
+    // Set untuk menyimpan ID babysitter yang aktif
+    final activeBabysitterIds = activeBabysitters
+        .map((avail) => avail.babysitter.id)
+        .toSet();
+
     // Loop untuk membuat marker babysitter
-    for (var avail in availabilities) {
+    for (var avail in allBabysitters) {
       if (avail.latitude != null && avail.longitude != null) {
-        final snippetText =
-            "Rp ${NumberFormat('#,##0', 'id_ID').format(avail.ratePerHour)}/jam\nAktif: ${avail.startTime.substring(0, 5)} - ${avail.endTime.substring(0, 5)}";
+        final isActive = activeBabysitterIds.contains(avail.babysitter.id);
+
+        // Format harga dengan currency Indonesia
+        final formattedRate = NumberFormat.currency(
+          locale: 'id_ID',
+          symbol: 'Rp ',
+          decimalDigits: 0,
+        ).format(avail.ratePerHour);
+
+        final status = isActive ? "🟢 Sedang Aktif" : "🔴 Tidak Aktif";
+        final timeInfo =
+            "${avail.startTime.substring(0, 5)} - ${avail.endTime.substring(0, 5)}";
+
+        final snippetText = "$formattedRate/jam\n$status\nJadwal: $timeInfo";
+
+        // Pilih icon berdasarkan status
+        BitmapDescriptor markerIcon;
+        if (isActive) {
+          markerIcon =
+              activeBabysitterIcon ??
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen);
+        } else {
+          markerIcon =
+              babysitterIcon ??
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange);
+        }
 
         tempMarkers.add(
           Marker(
             markerId: MarkerId('avail-${avail.id}'),
             position: LatLng(avail.latitude!, avail.longitude!),
             infoWindow: InfoWindow(
-              title: avail.name,
+              title: "${isActive ? '👶' : '💤'} ${avail.name}",
               snippet: snippetText,
               onTap: () {
                 print(
@@ -142,13 +241,41 @@ class MapViewController extends GetxController {
                 Get.toNamed(Routes.BABYSITTER_DETAIL, arguments: avail);
               },
             ),
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-              BitmapDescriptor.hueAzure,
-            ),
+            icon: markerIcon,
+            // Tambahkan alpha untuk babysitter yang tidak aktif
+            alpha: isActive ? 1.0 : 0.7,
           ),
         );
       }
     }
+
     markers.value = tempMarkers;
+    print("Total markers created: ${tempMarkers.length}");
+  }
+
+  /// Method untuk refresh data
+  void refreshData() {
+    getCurrentLocationAndFetchBabysitters();
+  }
+
+  /// Method untuk zoom ke lokasi pengguna
+  void zoomToMyLocation() {
+    if (currentPosition.value != null) {
+      mapController?.animateCamera(
+        CameraUpdate.newLatLngZoom(
+          LatLng(
+            currentPosition.value!.latitude,
+            currentPosition.value!.longitude,
+          ),
+          16.0,
+        ),
+      );
+    }
+  }
+
+  @override
+  void onClose() {
+    mapController?.dispose();
+    super.onClose();
   }
 }

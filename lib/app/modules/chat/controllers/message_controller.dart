@@ -107,7 +107,7 @@ class ChatController extends GetxController {
       }
 
       // Langkah 3: Hubungkan ke WebSocket setelah semua data siap
-      _connectToWebSocket();
+      // _connectToWebSocket();
     } catch (e) {
       errorMessage.value = e.toString().replaceAll('Exception: ', '');
       print("Error di ChatController: $e");
@@ -182,9 +182,9 @@ class ChatController extends GetxController {
     }
   }
 
-  void _connectToWebSocket() {
-    // Implementasi koneksi WebSocket, otorisasi, dan listener
-  }
+  // void _connectToWebSocket() {
+  //   // Implementasi koneksi WebSocket, otorisasi, dan listener
+  // }
 
   void sendMessage() async {
     if (textController.text.trim().isEmpty) return;

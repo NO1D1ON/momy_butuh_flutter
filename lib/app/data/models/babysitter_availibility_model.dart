@@ -12,8 +12,6 @@ class BabysitterAvailability {
   final int age;
   final double rating;
   final String name;
-
-  // --- PERUBAHAN 1: Tambahkan properti latitude dan longitude ---
   final double? latitude;
   final double? longitude;
 
@@ -29,46 +27,44 @@ class BabysitterAvailability {
     this.photoUrl,
     required this.age,
     required this.rating,
-    // --- PERUBAHAN 2: Tambahkan ke konstruktor ---
     this.latitude,
     this.longitude,
   });
 
+  /// Factory constructor untuk membuat instance dari JSON.
+  /// Kode ini sudah diperbaiki untuk menangani berbagai format data dari API.
   factory BabysitterAvailability.fromJson(Map<String, dynamic> json) {
     try {
       return BabysitterAvailability(
-        id: json['id'] ?? 0,
+        // Mengonversi semua field numerik dengan aman.
+        id: int.tryParse(json['id'].toString()) ?? 0,
+        ratePerHour: int.tryParse(json['rate_per_hour'].toString()) ?? 0,
+        age: int.tryParse(json['age'].toString()) ?? 0,
+        rating: double.tryParse(json['rating'].toString()) ?? 0.0,
+
         availableDate: json['available_date'] ?? '',
         startTime: json['start_time'] ?? '',
         endTime: json['end_time'] ?? '',
-        ratePerHour: json['rate_per_hour'] ?? 0,
         locationPreference: json['location_preference'] ?? 'Area sekitar',
+
         babysitter: json['babysitter'] != null
             ? Babysitter.fromJson(json['babysitter'])
             : Babysitter.empty(),
+
         name: json['name'] ?? 'Nama tidak tersedia',
         photoUrl: json['photo_url'],
-        age: json['age'] ?? 0,
-        rating: _parseDouble(json['rating']),
-        // --- PERUBAHAN 3: Ambil dan parse latitude & longitude dari JSON ---
-        latitude: _parseDouble(json['latitude']),
-        longitude: _parseDouble(json['longitude']),
+
+        latitude: json['latitude'] != null
+            ? double.tryParse(json['latitude'].toString())
+            : null,
+        longitude: json['longitude'] != null
+            ? double.tryParse(json['longitude'].toString())
+            : null,
       );
     } catch (e) {
       print('Error parsing BabysitterAvailability: $e');
       print('JSON data: $json');
-      rethrow;
+      rethrow; // Tetap lemparkan error untuk debugging jika diperlukan
     }
-  }
-
-  // Helper method untuk parsing double yang aman
-  static double _parseDouble(dynamic value) {
-    if (value == null) return 0.0;
-    if (value is double) return value;
-    if (value is int) return value.toDouble();
-    if (value is String) {
-      return double.tryParse(value) ?? 0.0;
-    }
-    return 0.0;
   }
 }

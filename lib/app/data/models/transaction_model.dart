@@ -13,13 +13,24 @@ class Transaction {
     required this.date,
   });
 
+  /// Factory constructor untuk membuat instance dari JSON.
+  /// Kode ini sudah diperbaiki untuk menangani angka yang dikirim sebagai String.
   factory Transaction.fromJson(Map<String, dynamic> json) {
     return Transaction(
       type: json['type'] ?? 'N/A',
       description: json['description'] ?? 'Tanpa deskripsi',
-      amount: (json['amount'] as num?)?.toInt() ?? 0,
-      isCredit: json['is_credit'] ?? false,
-      date: DateTime.tryParse(json['date']) ?? DateTime.now(),
+
+      // Mengonversi 'amount' dengan aman, baik itu String, int, atau null.
+      amount: int.tryParse(json['amount'].toString()) ?? 0,
+
+      // 'is_credit' umumnya dikirim sebagai boolean (0 atau 1),
+      // namun pengecekan ini membuatnya lebih aman.
+      isCredit: json['is_credit'] == true || json['is_credit'] == 1,
+
+      // Mengonversi tanggal dengan aman.
+      date: json['date'] != null
+          ? DateTime.tryParse(json['date']) ?? DateTime.now()
+          : DateTime.now(),
     );
   }
 }

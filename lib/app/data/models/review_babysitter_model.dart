@@ -15,16 +15,22 @@ class Review {
     this.user,
   });
 
+  /// Factory constructor untuk membuat instance dari JSON.
+  /// Kode ini sudah diperbaiki untuk menangani angka yang dikirim sebagai String.
   factory Review.fromJson(Map<String, dynamic> json) {
     return Review(
-      id: json['id'],
+      // Mengonversi 'id' dengan aman, memberikan nilai default 0 jika null atau gagal.
+      id: int.tryParse(json['id'].toString()) ?? 0,
+
+      // Parsing untuk 'rating' sudah aman.
       rating: double.tryParse(json['rating'].toString()) ?? 0.0,
+
       comment: json['comment'] ?? '',
       user: json['user'] != null ? UserModel.fromJson(json['user']) : null,
     );
   }
 
-  // ✅ Tambahkan toJson untuk menghindari error
+  /// Mengubah objek Review menjadi Map, berguna untuk serialisasi.
   Map<String, dynamic> toJson() {
     return {
       'id': id,

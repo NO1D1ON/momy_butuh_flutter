@@ -34,27 +34,38 @@ class JobOffer {
   /**
    * Factory constructor untuk membuat instance JobOffer dari JSON
    * yang diterima dari API (saat menampilkan daftar atau detail).
+   * Kode ini sudah diperbaiki untuk menangani berbagai format data dari API.
    */
   factory JobOffer.fromJson(Map<String, dynamic> json) {
     return JobOffer(
-      id: json['id'],
+      // Mengonversi 'id' dengan aman, baik itu String, int, atau null.
+      id: int.tryParse(json['id'].toString()) ?? 0,
+
       title: json['title'] ?? 'Tanpa Judul',
       locationAddress: json['location_address'] ?? 'Lokasi tidak tersedia',
-      // Ambil nama dari data relasi 'user' yang kita sertakan di API
-      parentName: json['user'] != null
-          ? json['user']['name']
-          : 'Nama Pemesan Disembunyikan',
 
-      // --- PERBAIKAN UTAMA ADA DI SINI ---
-      // Parsing data numerik dengan aman menggunakan .tryParse
-      // Ini akan berhasil meskipun data dari server berupa String, int, atau double.
+      // Ambil nama dari data relasi 'user' yang kita sertakan di API
+      parentName: json['user']?['name'] ?? 'Nama Pemesan Disembunyikan',
+
       description: json['description'],
-      latitude: double.tryParse(json['latitude'].toString()),
-      longitude: double.tryParse(json['longitude'].toString()),
+
+      // Mengonversi 'latitude' dan 'longitude' dengan aman.
+      latitude: json['latitude'] != null
+          ? double.tryParse(json['latitude'].toString())
+          : null,
+      longitude: json['longitude'] != null
+          ? double.tryParse(json['longitude'].toString())
+          : null,
+
       jobDate: json['job_date'],
       startTime: json['start_time'],
       endTime: json['end_time'],
-      offeredPrice: int.tryParse(json['offered_price'].toString()),
+
+      // Mengonversi 'offered_price' dengan aman.
+      offeredPrice: json['offered_price'] != null
+          ? int.tryParse(json['offered_price'].toString())
+          : null,
+
       status: json['status'] ?? 'open',
     );
   }

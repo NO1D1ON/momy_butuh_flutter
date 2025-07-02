@@ -21,14 +21,25 @@ class UserProfile {
 
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     return UserProfile(
-      id: json['id'],
+      // Gunakan tryParse untuk mengonversi String ke int dengan aman
+      id: int.tryParse(json['id'].toString()) ?? 0,
+
       name: json['name'] ?? 'Nama Tidak Ditemukan',
       email: json['email'] ?? 'Email Tidak Ditemukan',
-      balance: (json['balance'] as num?)?.toInt() ?? 0,
+
+      // Gunakan tryParse untuk saldo juga
+      balance: int.tryParse(json['balance'].toString()) ?? 0,
+
       phoneNumber: json['phone_number'],
       address: json['address'],
-      latitude: (json['latitude'] as num?)?.toDouble(),
-      longitude: (json['longitude'] as num?)?.toDouble(),
+
+      // Gunakan tryParse untuk latitude dan longitude
+      latitude: json['latitude'] != null
+          ? double.tryParse(json['latitude'].toString())
+          : null,
+      longitude: json['longitude'] != null
+          ? double.tryParse(json['longitude'].toString())
+          : null,
     );
   }
 }

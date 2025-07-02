@@ -51,9 +51,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Future<void> _initializeChat() async {
     await _fetchMessageHistory();
-    if (mounted) {
-      _connectToWebSocket();
-    }
+    // if (mounted) {
+    //   _connectToWebSocket();
+    // }
   }
 
   // Mengambil riwayat pesan dari server
@@ -67,76 +67,76 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   // Menghubungkan ke server WebSocket (Reverb)
-  void _connectToWebSocket() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('auth_token');
-    if (token == null) return;
+  // void _connectToWebSocket() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final token = prefs.getString('auth_token');
+  //   if (token == null) return;
 
-    try {
-      // 1. Otorisasi ke channel privat
-      final authResponse = await _httpClient.post(
-        Uri.parse(
-          '${AppConstants.baseUrl.replaceFirst('/api', '')}/broadcasting/auth',
-        ),
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: jsonEncode({
-          'channel_name': 'private-conversation.${widget.conversationId}',
-        }),
-      );
+  //   try {
+  //     // 1. Otorisasi ke channel privat
+  //     final authResponse = await _httpClient.post(
+  //       Uri.parse(
+  //         '${AppConstants.baseUrl.replaceFirst('/api', '')}/broadcasting/auth',
+  //       ),
+  //       headers: {
+  //         'Authorization': 'Bearer $token',
+  //         'Content-Type': 'application/json',
+  //         'Accept': 'application/json',
+  //       },
+  //       body: jsonEncode({
+  //         'channel_name': 'private-conversation.${widget.conversationId}',
+  //       }),
+  //     );
 
-      if (authResponse.statusCode != 200) {
-        throw Exception('Gagal otorisasi broadcast: ${authResponse.body}');
-      }
-      final authData = jsonDecode(authResponse.body);
+  //     if (authResponse.statusCode != 200) {
+  //       throw Exception('Gagal otorisasi broadcast: ${authResponse.body}');
+  //     }
+  //     final authData = jsonDecode(authResponse.body);
 
-      // 2. Hubungkan ke WebSocket
-      final reverbAppKey = AppConstants.reverbAppKey;
-      final wsUrl =
-          'ws://${AppConstants.reverbHost}:${AppConstants.reverbPort}/app/$reverbAppKey';
-      _channel = WebSocketChannel.connect(Uri.parse(wsUrl));
+  //     // 2. Hubungkan ke WebSocket
+  //     final reverbAppKey = AppConstants.reverbAppKey;
+  //     final wsUrl =
+  //         'ws://${AppConstants.reverbHost}:${AppConstants.reverbPort}/app/$reverbAppKey';
+  //     _channel = WebSocketChannel.connect(Uri.parse(wsUrl));
 
-      // 3. Dengarkan stream
-      _channel!.stream.listen((data) {
-        final decoded = jsonDecode(data);
+  //     // 3. Dengarkan stream
+  //     _channel!.stream.listen((data) {
+  //       final decoded = jsonDecode(data);
 
-        // Setelah koneksi terbentuk, subscribe ke channel privat
-        if (decoded['event'] == 'pusher:connection_established') {
-          _channel!.sink.add(
-            jsonEncode({
-              'event': 'pusher:subscribe',
-              'data': {
-                'auth': authData['auth'],
-                'channel': 'private-conversation.${widget.conversationId}',
-              },
-            }),
-          );
-        }
-        // Jika ada event 'new.message' yang masuk
-        else if (decoded['event'] == 'new.message' &&
-            decoded['channel'] ==
-                'private-conversation.${widget.conversationId}') {
-          final messageData = decoded['data']['message'];
-          final newMessage = ChatMessage(
-            text: messageData['body'],
-            senderId: messageData['sender_id'],
-            isMe: messageData['sender_id'] == widget.currentUserId,
-          );
-          if (mounted) {
-            setState(
-              () => _messages.insert(0, newMessage),
-            ); // Tambah pesan baru di atas
-            _scrollToBottom();
-          }
-        }
-      });
-    } catch (e) {
-      print('Error menghubungkan ke WebSocket: $e');
-    }
-  }
+  //       // Setelah koneksi terbentuk, subscribe ke channel privat
+  //       if (decoded['event'] == 'pusher:connection_established') {
+  //         _channel!.sink.add(
+  //           jsonEncode({
+  //             'event': 'pusher:subscribe',
+  //             'data': {
+  //               'auth': authData['auth'],
+  //               'channel': 'private-conversation.${widget.conversationId}',
+  //             },
+  //           }),
+  //         );
+  //       }
+  //       // Jika ada event 'new.message' yang masuk
+  //       else if (decoded['event'] == 'new.message' &&
+  //           decoded['channel'] ==
+  //               'private-conversation.${widget.conversationId}') {
+  //         final messageData = decoded['data']['message'];
+  //         final newMessage = ChatMessage(
+  //           text: messageData['body'],
+  //           senderId: messageData['sender_id'],
+  //           isMe: messageData['sender_id'] == widget.currentUserId,
+  //         );
+  //         if (mounted) {
+  //           setState(
+  //             () => _messages.insert(0, newMessage),
+  //           ); // Tambah pesan baru di atas
+  //           _scrollToBottom();
+  //         }
+  //       }
+  //     });
+  //   } catch (e) {
+  //     print('Error menghubungkan ke WebSocket: $e');
+  //   }
+  // }
 
   // Mengirim pesan ke server
   void _sendMessage() async {

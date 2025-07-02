@@ -15,7 +15,20 @@ class BabysitterDetailView extends GetView<BabysitterDetailController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Detail Babysitter")),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Get.back(),
+        ),
+        centerTitle: false,
+        titleSpacing: 0,
+        title: const Text(
+          'Detail Babysitter',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: AppTheme.primaryColor,
+        elevation: 2,
+      ),
       body: Obx(() {
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator());

@@ -13,7 +13,6 @@ class Babysitter {
   final String? birthDate;
   final List<Review> reviews;
 
-  /// ✅ Tambahan
   final double? latitude;
   final double? longitude;
 
@@ -49,7 +48,8 @@ class Babysitter {
       latitude = null,
       longitude = null;
 
-  // Factory constructor dari JSON
+  /// Factory constructor untuk membuat instance dari JSON.
+  /// Kode ini sudah diperbaiki untuk menangani berbagai format data dari API.
   factory Babysitter.fromJson(Map<String, dynamic> json) {
     try {
       var reviewList = <Review>[];
@@ -69,16 +69,16 @@ class Babysitter {
       }
 
       return Babysitter(
-        id: _parseInt(json['id']),
+        id: int.tryParse(json['id'].toString()) ?? 0,
         name: json['name']?.toString() ?? 'Nama tidak tersedia',
         photoUrl: json['photo_url']?.toString(),
         bio: json['bio']?.toString() ?? 'Tidak ada bio.',
-        age: _parseInt(json['age']),
+        age: int.tryParse(json['age'].toString()) ?? 0,
         address: json['address']?.toString() ?? 'Lokasi tidak tersedia',
-        ratePerHour: _parseInt(json['rate_per_hour']),
-        rating: _parseDouble(json['rating']),
+        ratePerHour: int.tryParse(json['rate_per_hour'].toString()) ?? 0,
+        rating: double.tryParse(json['rating'].toString()) ?? 0.0,
         experienceYears: json['experience_years'] != null
-            ? _parseInt(json['experience_years'])
+            ? int.tryParse(json['experience_years'].toString())
             : null,
         birthDate: json['birth_date']?.toString(),
         reviews: reviewList,
@@ -96,27 +96,7 @@ class Babysitter {
     }
   }
 
-  static int _parseInt(dynamic value) {
-    if (value == null) return 0;
-    if (value is int) return value;
-    if (value is double) return value.toInt();
-    if (value is String) {
-      return int.tryParse(value) ?? 0;
-    }
-    return 0;
-  }
-
-  static double _parseDouble(dynamic value) {
-    if (value == null) return 0.0;
-    if (value is double) return value;
-    if (value is int) return value.toDouble();
-    if (value is String) {
-      return double.tryParse(value) ?? 0.0;
-    }
-    return 0.0;
-  }
-
-  // ✅ Getter tambahan
+  // Getter tambahan
   double? get lat => latitude;
   double? get lng => longitude;
 

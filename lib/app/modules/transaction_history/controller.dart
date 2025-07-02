@@ -18,7 +18,7 @@ class TransactionHistoryController extends GetxController {
       var transactions = await TransactionService.getTransactionHistory();
       transactionList.assignAll(transactions);
     } catch (e) {
-      // Get.snackbar("Error", e.toString());
+      Get.snackbar("Error", e.toString());
     } finally {
       isLoading(false);
     }

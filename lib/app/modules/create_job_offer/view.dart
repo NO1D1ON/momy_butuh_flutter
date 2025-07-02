@@ -10,7 +10,20 @@ class CreateJobOfferView extends GetView<CreateJobOfferController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Buat Penawaran Pekerjaan')),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Get.back(),
+        ),
+        centerTitle: false,
+        titleSpacing: 0,
+        title: const Text(
+          'Buat Penawaran Pekerjaan',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: AppTheme.primaryColor,
+        elevation: 2,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(

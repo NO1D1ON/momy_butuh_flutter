@@ -29,21 +29,31 @@ class Booking {
     this.review,
   });
 
+  /// Factory constructor untuk membuat instance dari JSON.
+  /// Kode ini sudah diperbaiki untuk menangani berbagai format data dari API.
   factory Booking.fromJson(Map<String, dynamic> json) {
     return Booking(
-      id: json['id'] ?? 0,
-      // Pastikan membaca dari kunci 'babysitter_name'
+      // Mengonversi 'id' dan 'parentId' dengan aman.
+      id: int.tryParse(json['id'].toString()) ?? 0,
+      parentId: int.tryParse(json['user_id'].toString()) ?? 0,
+
       babysitterName: json['babysitter_name'] ?? 'N/A',
-      bookingDate: json['booking_date'],
-      status: json['status'],
-      parentName: json['user'] != null ? json['user']['name'] : 'Orang Tua',
-      jobDate: DateTime.parse(json['booking_date']),
-      parentId: json['user_id'] ?? 0,
-      parentAddress: json['user'] != null
-          ? json['user']['address']
-          : 'Alamat tidak ada',
+      bookingDate: json['booking_date'] ?? '',
+      status: json['status'] ?? 'unknown',
+
+      // Mengambil data dari nested object 'user' dengan aman.
+      parentName: json['user']?['name'] ?? 'Orang Tua',
+      parentAddress: json['user']?['address'] ?? 'Alamat tidak ada',
+
+      // Mengonversi tanggal dengan aman.
+      jobDate: json['booking_date'] != null
+          ? DateTime.tryParse(json['booking_date']) ?? DateTime.now()
+          : DateTime.now(),
+
       startTime: json['start_time'],
       endTime: json['end_time'],
+
+      // Parsing review sudah aman.
       review: json['review'] != null ? Review.fromJson(json['review']) : null,
     );
   }

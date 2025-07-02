@@ -13,11 +13,17 @@ class Conversation {
     required this.lastMessageTime,
   });
 
-  // Factory constructor untuk membuat instance dari JSON
+  /// Factory constructor untuk membuat instance dari JSON.
+  /// Kode ini sudah diperbaiki untuk menangani angka yang dikirim sebagai String.
   factory Conversation.fromJson(Map<String, dynamic> json) {
     return Conversation(
-      conversationId: json['conversation_id'] ?? 0,
-      otherPartyId: json['other_party_id'] ?? 0,
+      // Mengonversi 'conversation_id' dengan aman.
+      conversationId: int.tryParse(json['conversation_id'].toString()) ?? 0,
+
+      // Mengonversi 'other_party_id' dengan aman.
+      otherPartyId: int.tryParse(json['other_party_id'].toString()) ?? 0,
+
+      // Parsing untuk String sudah aman dengan nilai default.
       otherPartyName: json['other_party_name'] ?? 'Unknown User',
       lastMessage: json['last_message'] ?? '',
       lastMessageTime: json['last_message_time'] ?? '',
